@@ -1082,6 +1082,304 @@ Pointcut:
 
         }
 
+15. 4_EXC_1_Medicine
+    ```Java
+    //controller
+    package com.examly.springapp.controller;
+
+      import java.util.List;
+      import java.util.Optional;
+      
+      
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.http.ResponseEntity;
+      import org.springframework.web.bind.annotation.GetMapping;
+      import org.springframework.web.bind.annotation.PathVariable;
+      import org.springframework.web.bind.annotation.PostMapping;
+      import org.springframework.web.bind.annotation.RequestBody;
+      import org.springframework.web.bind.annotation.RequestMapping;
+      import org.springframework.web.bind.annotation.RestController;
+      
+      // import com.examly.springapp.exception.MedicineNotFoundException;
+      import com.examly.springapp.model.Medicine;
+      import com.examly.springapp.service.MedicineService;
+      
+      @RestController
+      @RequestMapping("/api")
+      public class MedicineController {
+
+    @Autowired
+    private MedicineService medicineService;
+
+    @PostMapping("/medicine")
+    public ResponseEntity<Medicine> addMedicine(@RequestBody Medicine medicine){
+       try {
+        Medicine createMedicine=medicineService.addMedicine(medicine);
+        return ResponseEntity.status(201).body(createMedicine);
+       } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+       }
+        
+
+    }
+
+
+    // @GetMapping("medicines")
+    // public ResponseEntity<List<Medicine>> getAllMedicines(){
+    //    List<Medicine> allMedicines= medicineService.getMedicines();
+    //    if(allMedicines.isEmpty()){
+    //     throw new MedicineNotFoundException("no medicines found");
+    //    }else{
+
+    //        return ResponseEntity.ok(allMedicines);
+    //    }
+    // }
+
+    //for test case
+      
+      @GetMapping("/medicines")
+          public ResponseEntity<List<Medicine>> getAllMedicines(){
+      try {
+          List<Medicine> allMedicines= medicineService.getMedicines();
+          return ResponseEntity.status(200).body(allMedicines);
+      } catch (Exception e) {
+          return ResponseEntity.status(404).build();
+      }
+    
+
+    }
+
+    // @GetMapping("medicine/{medicineId}")
+    // public ResponseEntity<Medicine> getMedicineById(@PathVariable int medicineId){
+    //     return medicineService.getMedicineById(medicineId).
+    //     map(ResponseEntity::ok) //thisd is equivalent to ResponseEntity.ok(Medicine)
+    //     .orElseThrow(()->new MedicineNotFoundException("Medicine with ID"+medicineId+"not found."));
+    // }
+
+
+    //for testcase
+    
+    @GetMapping("/medicine/{medicineId}")
+     public ResponseEntity<Medicine> getMedicineById(@PathVariable int medicineId){
+       try {
+           
+           Optional<Medicine> getMedicneId= medicineService.getMedicineById(medicineId);
+           if(getMedicneId.isPresent()){
+            return ResponseEntity.ok(getMedicneId.get());
+           }else{
+            return ResponseEntity.notFound().build();
+           }
+       } catch (Exception e) {
+        // TODO: handle exception
+        return ResponseEntity.status(500).build();
+       }
+       
+        
+        
+     }
+
+
+
+      }
+
+    //ErroResponse.java
+    package com.examly.springapp.exception;
+      
+      public class ErrorResponse {
+      
+        private  int statuscode;
+        private  String message;
+        private  long timestamp;
+      public int getStatuscode() {
+          return statuscode;
+      }
+      public ErrorResponse(int statuscode, String message) {
+          this.statuscode = statuscode;
+          this.message = message;
+          this.timestamp=System.currentTimeMillis();
+      }
+      public void setStatuscode(int statuscode) {
+          this.statuscode = statuscode;
+      }
+      public String getMessage() {
+          return message;
+      }
+      public void setMessage(String message) {
+          this.message = message;
+      }
+      public long getTimestamp() {
+          return timestamp;
+      }
+      public void setTimestamp(long timestamp) {
+          this.timestamp = timestamp;
+      }
+      
+        
+      
+      }
+
+    //globalExceptionHandler
+          // package com.examly.springapp.exception;
+      
+      // import org.springframework.http.HttpStatus;
+      // import org.springframework.http.ResponseEntity;
+      // import org.springframework.web.bind.annotation.ControllerAdvice;
+      // import org.springframework.web.bind.annotation.ExceptionHandler;
+      
+      // // @controllerAdvice is the global exception handler for all controllers
+      // // Custom ErroResponse also shall be added if required
+      
+      // @ControllerAdvice
+      // public class GlobalExceptionHandler {
+      //     @ExceptionHandler(MedicineNotFoundException.class)
+      //     public ResponseEntity<ErrorResponse> handleMedicineNotFound(MedicineNotFoundException ex){
+      //         ErrorResponse errorResponse=new ErrorResponse(404,ex.getMessage());
+      //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+      //     }
+      
+      //     @ExceptionHandler(Exception.class)
+      //     public ResponseEntity<String> handleGenericException(Exception ex){
+      // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occured.");
+      //     }
+      
+      
+      
+      // }
+
+    //medicineNotFounfdException
+             // package com.examly.springapp.exception;
+
+         
+         // public class MedicineNotFoundException extends RuntimeException {
+         
+         //     public MedicineNotFoundException(String message){
+         //        super(message);
+         //     }
+         
+         // }
+
+       //Medicine
+       package com.examly.springapp.model;
+      
+      import javax.persistence.Entity;
+      import javax.persistence.GeneratedValue;
+      import javax.persistence.GenerationType;
+      import javax.persistence.Id;
+      
+      @Entity
+      public class Medicine {
+      
+          @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int medicineId;
+    String medicineName;
+    String medicineFor;
+    String medicineBrand;
+    String manufacturedIn;
+    Double medicinePrice;
+    String expiryDate;
+    public Medicine(int medicineId, String medicineName, String medicineFor, String medicineBrand,
+            String manufacturedIn, Double medicinePrice, String expiryDate) {
+        this.medicineId = medicineId;
+        this.medicineName = medicineName;
+        this.medicineFor = medicineFor;
+        this.medicineBrand = medicineBrand;
+        this.manufacturedIn = manufacturedIn;
+        this.medicinePrice = medicinePrice;
+        this.expiryDate = expiryDate;
+    }
+    public int getMedicineId() {
+        return medicineId;
+    }
+    public void setMedicineId(int medicineId) {
+        this.medicineId = medicineId;
+    }
+    public String getMedicineName() {
+        return medicineName;
+    }
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+    public String getMedicineFor() {
+        return medicineFor;
+    }
+    public void setMedicineFor(String medicineFor) {
+        this.medicineFor = medicineFor;
+    }
+    public String getMedicineBrand() {
+        return medicineBrand;
+    }
+    public void setMedicineBrand(String medicineBrand) {
+        this.medicineBrand = medicineBrand;
+    }
+    public String getManufacturedIn() {
+        return manufacturedIn;
+    }
+    public void setManufacturedIn(String manufacturedIn) {
+        this.manufacturedIn = manufacturedIn;
+    }
+    public Double getMedicinePrice() {
+        return medicinePrice;
+    }
+    public void setMedicinePrice(Double medicinePrice) {
+        this.medicinePrice = medicinePrice;
+    }
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }   
+
+      }
+    //service
+    package com.examly.springapp.service;
+
+      import java.util.List;
+      import java.util.Optional;
+      
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.stereotype.Service;
+      
+      import com.examly.springapp.model.Medicine;
+      import com.examly.springapp.repository.MedicineRepo;
+      
+      @Service
+      public class MedicineService {
+
+
+    @Autowired
+    private MedicineRepo medicinerepo;
+
+    public Medicine addMedicine(Medicine medicine){
+        return medicinerepo.save(medicine);
+    }
+
+    public List<Medicine> getMedicines(){
+        return medicinerepo.findAll();
+		
+	}
+
+    // /*
+    //  * Here i shall use without the optional also like this 
+    //  * */
+    //    public Medicine getMedicineById(int id){
+    //     return medicinerepo.findById(id).orElse(null);
+    // }
+
+     
+
+     
+    public Optional<Medicine> getMedicineById(int id){
+        return medicinerepo.findById(id); // since i use optional map shall be accessed in the contyroller class
+    }
+      }
+    
+
+
+
+
+
 
 
 
