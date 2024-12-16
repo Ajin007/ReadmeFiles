@@ -1517,3 +1517,24 @@ while using the @value anotation:
     // used with the trigger , see online for more information
 11. **How to check the relationship with the tables in the mysql database**
     SHOW CREATE TABLE account;
+
+
+## Spring Academcy:
+1. Link --> https://spring.academy/courses/building-a-rest-api-with-spring-boot/lessons/implementing-get
+2. what is TDD? ---> Test Driven approach, it follows the Pyramid shape of the development cycle.
+3. How to Test a JSON Data using TDD ?
+    ```Java
+    	SImple code
+    	package example.cashcard;
+
+	import org.junit.jupiter.api.Test;
+	import static org.assertj.core.api.Assertions.assertThat;
+	
+	public class CashCardJsonTest {
+
+    @Test
+    public void myFirstTest(){
+        assertThat(42).isEqualTo(42);
+    }
+    
+		b}  	
