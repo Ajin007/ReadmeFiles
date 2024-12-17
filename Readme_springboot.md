@@ -1537,4 +1537,8 @@ while using the @value anotation:
         assertThat(42).isEqualTo(42);
     }
     
-		b}  	
+		b}
+
+4. How to run the Java Documentation...?
+   		javadoc -d doc YourClass.java
+5. 
