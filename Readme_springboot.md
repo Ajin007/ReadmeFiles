@@ -1374,6 +1374,765 @@ Pointcut:
         return medicinerepo.findById(id); // since i use optional map shall be accessed in the contyroller class
     }
       }
+
+16. D5_CE1_PRODUCT
+    ``` Java
+    	//controller
+    	package com.example.springapp.controller;
+
+		import org.springframework.http.HttpStatus;
+		import org.springframework.http.ResponseEntity;
+		import org.springframework.web.bind.annotation.DeleteMapping;
+		import org.springframework.web.bind.annotation.PathVariable;
+		import org.springframework.web.bind.annotation.PostMapping;
+		import org.springframework.web.bind.annotation.PutMapping;
+		import org.springframework.web.bind.annotation.RequestBody;
+		import org.springframework.web.bind.annotation.RequestMapping;
+		import org.springframework.web.bind.annotation.RestController;
+		
+		import com.example.springapp.exception.ResourceNotFoundException;
+		import com.example.springapp.model.Product;
+		import com.example.springapp.service.ProductService;
+		
+		@RestController
+		@RequestMapping("/api/product")
+		public class ProductController {
+		
+		    private ProductService productService;
+		
+		    ProductController(ProductService productService){
+		this.productService=productService;
+		    }
+		
+		    @PostMapping("")
+		    public ResponseEntity<Product> addProduct(@RequestBody Product product){
+		       Product addproduct= productService.addProduct(product);
+       return ResponseEntity.status(HttpStatus.CREATED).body(addproduct);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId, @RequestBody Product product){
+
+        try {
+            Product updateProduct=productService.updateProduct(productId, product);
+            // System.out.println(updateProduct);
+            if (updateProduct!=null) {
+                
+                return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Integer productId){
+       Product existingProduct=productService.deleteProduct(productId);
+       return ResponseEntity.status(HttpStatus.OK).body(existingProduct);
+    }
+
+
+
+	// error response
+    	package com.example.springapp.exception;
+
+		public class ErrorResponse {
+		
+		   private int errorStatus;
+		   private String message;
+		   private long timeStamp;
+		public ErrorResponse(int errorStatus, String message) {
+		    this.errorStatus = errorStatus;
+		    this.message = message;
+		    this.timeStamp=System.currentTimeMillis();
+		}
+		public int getErrorStatus() {
+		    return errorStatus;
+		}
+		public void setErrorStatus(int errorStatus) {
+		    this.errorStatus = errorStatus;
+		}
+		public String getMessage() {
+		    return message;
+		}
+		public void setMessage(String message) {
+		    this.message = message;
+		}
+		public long getTimeStamp() {
+		    return timeStamp;
+		}
+		public void setTimeStamp(long timeStamp) {
+		    this.timeStamp = timeStamp;
+		}
+		   
+		
+		}
+	// global exception handling
+    	package com.example.springapp.exception;
+		
+		import org.springframework.http.HttpStatus;
+		import org.springframework.http.ResponseEntity;
+		import org.springframework.web.bind.annotation.ExceptionHandler;
+		import org.springframework.web.bind.annotation.RestControllerAdvice;
+		
+		import com.example.springapp.model.Product;
+		
+		@RestControllerAdvice
+		public class GlobalException {
+		
+		    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex){
+        
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()); // 404 error
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericException(Exception ex){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server Error"+ex.getMessage());
+    }
+
+	// resource not found
+    	package com.example.springapp.exception;
+		public class ResourceNotFoundException extends RuntimeException {
+
+    public ResourceNotFoundException(String message){
+        super(message);
+    }
+
+	//model
+    	package com.example.springapp.model;
+
+	import javax.persistence.Column;
+	import javax.persistence.Entity;
+	import javax.persistence.GeneratedValue;
+	import javax.persistence.GenerationType;
+	import javax.persistence.Id;
+	
+	@Entity
+	public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int productid;
+   
+    String productName;
+
+    public Product(){
+        
+    }
+    public int getProductid() {
+        return productid;
+    }
+    public Product(int productid, String productName, String productDescription) {
+        this.productid = productid;
+        this.productName = productName;
+        this.productDescription = productDescription;
+    }
+    public void setProductid(int productid) {
+        this.productid = productid;
+    }
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    public String getProductDescription() {
+        return productDescription;
+    }
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+    String productDescription;
+
+	}
+ 	// service
+ 	package com.example.springapp.service;
+
+	import java.util.Optional;
+	
+	import org.springframework.http.HttpStatus;
+	import org.springframework.stereotype.Service;
+	import org.springframework.transaction.annotation.Transactional;
+	import org.springframework.web.bind.annotation.PathVariable;
+	
+	import com.example.springapp.exception.ResourceNotFoundException;
+	import com.example.springapp.model.Product;
+	import com.example.springapp.repository.ProductRepo;
+	
+	import com.example.springapp.model.Product;
+	@Service
+	public class ProductService {
+
+    private ProductRepo productRepo;
+
+    
+    public ProductService(ProductRepo productRepo){
+        this.productRepo=productRepo;
+    }
+
+    // @Transactional
+    public Product addProduct(Product product){
+        return productRepo.save(product);
+    }
+
+    // @Transactional
+    public Product updateProduct(Integer productId,Product product){
+
+        // prevent null pointer exception using the optional 
+
+        Optional<Product> updateproductById=productRepo.findById(productId);
+        // System.out.println(updateproductById);
+        Product myProduct=updateproductById.get();
+        myProduct.setProductName(product.getProductName());
+        myProduct.setProductDescription(product.getProductDescription());
+        myProduct.setProductid(product.getProductid());
+        
+        return productRepo.save(myProduct);
+        }
+
+    @Transactional
+    public Product deleteProduct( Integer productId){
+
+       Optional<Product> existingProduct= productRepo.findById(productId); 
+       System.out.println(existingProduct);
+       Product getProduct=existingProduct.get();
+       productRepo.deleteById(productId);
+       return getProduct;
+    }
+
+    
+    
+
+
+17. SKG_DAY6_CE2_6th_one
+    ``` Java
+    	// controller
+    	package com.example.springapp.controller;
+
+		import java.util.List;
+		
+		import org.springframework.data.domain.Page;
+		import org.springframework.http.HttpStatus;
+		import org.springframework.http.ResponseEntity;
+		import org.springframework.web.bind.annotation.GetMapping;
+		import org.springframework.web.bind.annotation.PathVariable;
+		import org.springframework.web.bind.annotation.PostMapping;
+		import org.springframework.web.bind.annotation.RequestBody;
+		import org.springframework.web.bind.annotation.RequestMapping;
+		import org.springframework.web.bind.annotation.RequestParam;
+		import org.springframework.web.bind.annotation.ResponseBody;
+		import org.springframework.web.bind.annotation.RestController;
+		
+		import com.example.springapp.model.Student;
+		import com.example.springapp.service.StudentService;
+		
+		@RestController
+		@RequestMapping("/api/student")
+		public class StudentController {
+
+    private StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+
+    }
+
+    // post the data
+    @PostMapping("")
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+        Student createStudent = studentService.addStudent(student);
+        return new ResponseEntity<>(createStudent, HttpStatus.CREATED);
+
+    }
+
+
+    //get all the data
+    @GetMapping("")
+    public ResponseEntity<List<Student>> getAllStudents(){
+        return new ResponseEntity<>(studentService.getAllStudents(),HttpStatus.OK);
+    }
+
+    @GetMapping("/sort")
+    // (@RequestParam(defaultValue = "0") , if needed default value shall be not included.
+    public ResponseEntity<List<Student>> getAllStudentswithSort(@RequestParam Integer pageNo,@RequestParam Integer pageSize,@RequestParam String sortBy){
+
+        Page<Student> pageable=studentService.getAllansSortPage(pageNo, pageSize, sortBy);
+
+        if(pageable.hasContent()){
+            
+            return new ResponseEntity<>(pageable.getContent(),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+	// global exception
+    	package com.example.springapp.exception;
+
+		import org.springframework.http.HttpStatus;
+		import org.springframework.http.ResponseEntity;
+		import org.springframework.web.bind.annotation.ExceptionHandler;
+		import org.springframework.web.bind.annotation.ResponseStatus;
+		import org.springframework.web.bind.annotation.RestControllerAdvice;
+		
+		@RestControllerAdvice
+		public class GlobalExceptionHandler {
+
+    // for the 500 status
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<String> handleInternalServerError(Exception ex){
+
+        return new ResponseEntity<>("Something went wrong in the server: try after some time",HttpStatus.INTERNAL_SERVER_ERROR);
+
+    } 
+
+    @ExceptionHandler(ResponseNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleResourceNotFound(ResponseNotFoundException ex){
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+
+		}
+	// response not found
+    	package com.example.springapp.exception;
+
+		public class ResponseNotFoundException extends RuntimeException {
+		    public ResponseNotFoundException(String message){
+		        super(message);
+		    }
+		
+		}
+	// model
+    	package com.example.springapp.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Student {
+
+    public Student(int id, String name, int age, String city, String rollno) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.city = city;
+        this.rollno = rollno;
+    }
+
+    public Student(){
+        
+    }
+    @Id
+	   private int id;
+	   private String name;
+	   private int age;
+	   private String city;
+	   private String rollno;
+	public int getId() {
+	    return id;
+	}
+	public void setId(int id) {
+	    this.id = id;
+	}
+	public String getName() {
+	    return name;
+	}
+	public void setName(String name) {
+	    this.name = name;
+	}
+	public int getAge() {
+	    return age;
+	}
+	public void setAge(int age) {
+	    this.age = age;
+	}
+	public String getCity() {
+	    return city;
+	}
+	public void setCity(String city) {
+	    this.city = city;
+	}
+	public String getRollno() {
+	    return rollno;
+	}
+	public void setRollno(String rollno) {
+	    this.rollno = rollno;
+	}
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + id;
+	    result = prime * result + ((name == null) ? 0 : name.hashCode());
+	    result = prime * result + age;
+	    result = prime * result + ((city == null) ? 0 : city.hashCode());
+	    result = prime * result + ((rollno == null) ? 0 : rollno.hashCode());
+	    return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+	        return true;
+	    if (obj == null)
+	        return false;
+	    if (getClass() != obj.getClass())
+	        return false;
+	    Student other = (Student) obj;
+	    if (id != other.id)
+	        return false;
+	    if (name == null) {
+	        if (other.name != null)
+	            return false;
+	    } else if (!name.equals(other.name))
+	        return false;
+	    if (age != other.age)
+	        return false;
+	    if (city == null) {
+	        if (other.city != null)
+	            return false;
+	    } else if (!city.equals(other.city))
+	        return false;
+	    if (rollno == null) {
+	        if (other.rollno != null)
+	            return false;
+	    } else if (!rollno.equals(other.rollno))
+	        return false;
+	    return true;
+	}
+	
+	   
+	
+	}
+
+ 	// repo
+  	package com.example.springapp.repository;
+
+		import org.springframework.data.jpa.repository.JpaRepository;
+		import org.springframework.stereotype.Repository;
+		
+		import com.example.springapp.model.Student;
+		
+		@Repository
+		public interface StudentRepo extends JpaRepository<Student,Integer> {
+		
+		}
+
+  	// service
+   	package com.example.springapp.service;
+
+	import java.util.List;
+	
+	
+	import org.springframework.data.domain.Page;
+	import org.springframework.data.domain.PageRequest;
+	import org.springframework.data.domain.Pageable;
+	import org.springframework.data.domain.Sort;
+	import org.springframework.data.domain.Sort.Direction;
+	import org.springframework.stereotype.Service;
+	
+	import com.example.springapp.model.Student;
+	import com.example.springapp.repository.StudentRepo;
+	
+	
+	
+	
+	
+	@Service
+	public class StudentService {
+
+    private StudentRepo studentRepo;
+
+    StudentService(StudentRepo studentRepo){
+        this.studentRepo=studentRepo;
+    }
+
+    //Student Object Creation
+    public Student addStudent(Student student){
+        if(student==null){
+            throw new IllegalArgumentException("Student Object can not be null");
+        }
+        if(student.getName()==null || student.getName().isBlank()){
+            throw new IllegalArgumentException("The given name is empty");
+        }
+
+        return studentRepo.save(student);
+        
+
+    }
+
+    // get all students
+    public List<Student> getAllStudents(){
+        return studentRepo.findAll();
+    }
+
+    //sort the students
+
+    public Page<Student> getAllansSortPage(int pageNO,int pageSize,String sortBy){
+        PageRequest pageable=PageRequest.of(pageNO, pageSize,Sort.by(sortBy));
+        return studentRepo.findAll(pageable);
+    }
+
+			}
+
+18. SKG_DAY7_CE2
+    ``` java
+    // controller
+    	package com.example.springapp.controller;
+
+		import java.util.List;
+		
+		import org.springframework.http.HttpStatus;
+		import org.springframework.http.ResponseEntity;
+		import org.springframework.web.bind.annotation.GetMapping;
+		import org.springframework.web.bind.annotation.PathVariable;
+		import org.springframework.web.bind.annotation.PostMapping;
+		import org.springframework.web.bind.annotation.RequestBody;
+		import org.springframework.web.bind.annotation.RequestMapping;
+		import org.springframework.web.bind.annotation.RequestParam;
+		import org.springframework.web.bind.annotation.RestController;
+		
+		import com.example.springapp.model.Course;
+		import com.example.springapp.service.CourseService;
+		
+		@RestController
+		@RequestMapping("/api/course")
+		public class CourseController {
+		
+		    private CourseService courseService;
+		    public CourseController(CourseService courseService){
+		this.courseService=courseService;
+		    }
+		
+
+    //post method
+    @PostMapping("")
+    public ResponseEntity<Course> addCourse(@RequestBody Course course){
+        Course createdCourse=courseService.addCourse(course);
+        return new ResponseEntity<>(createdCourse,HttpStatus.CREATED);
+
+        
+    }
+
+    //@get all data
+    @GetMapping("")
+    public ResponseEntity<List<Course>> getAllCourse(){
+        List<Course> getAllCourses=courseService.getAllCourse();
+        return new ResponseEntity<>(getAllCourses,HttpStatus.OK);
+    }
+
+    //get all based on the hours
+    @GetMapping("/byHours")
+    //creditHours is the name of the parameter that we  are creating ,so in the API we need to pass the same as
+    // question to get the data from the API 
+    //
+    
+    public ResponseEntity<List<Course>> getAllCourseByHours(@RequestParam("creditHours") Integer hours){
+        try {
+            
+            List<Course> getAllCourseOnHours= courseService.getCourseBasedOnHours(hours);
+            if(getAllCourseOnHours.isEmpty()){
+                return new ResponseEntity<>(getAllCourseOnHours,HttpStatus.NOT_FOUND);
+
+            }else{
+
+                return new ResponseEntity<>(getAllCourseOnHours,HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // to get the specific course for the same by Name
+    @GetMapping("/{courseName}")
+    public ResponseEntity<List<Course>> getCourseByName(@PathVariable String courseName){
+        List<Course> getCourse=courseService.getCourseByNameService(courseName);
+        return new ResponseEntity<>(getCourse,HttpStatus.OK);
+
+    }
+
+
+	// modle
+    	package com.example.springapp.model;
+	
+	import javax.persistence.Entity;
+	import javax.persistence.Id;
+	
+	@Entity
+	
+	public class Course {
+
+    @Id
+    int courseId;
+    String courseName;
+    int creditHours;
+    String instructor;
+    String preRequisites;
+    int maxCapacity;
+    String enrolledStyudents;
+
+    public Course(){
+
+    }
+
+    public Course(int courseId, String courseName, int creditHours, String instructor, String preRequisites,
+            int maxCapacity, String enrolledStyudents) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.creditHours = creditHours;
+        this.instructor = instructor;
+        this.preRequisites = preRequisites;
+        this.maxCapacity = maxCapacity;
+        this.enrolledStyudents = enrolledStyudents;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public int getCreditHours() {
+        return creditHours;
+    }
+
+    public void setCreditHours(int creditHours) {
+        this.creditHours = creditHours;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getPreRequisites() {
+        return preRequisites;
+    }
+
+    public void setPreRequisites(String preRequisites) {
+        this.preRequisites = preRequisites;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public String getEnrolledStyudents() {
+        return enrolledStyudents;
+    }
+
+    public void setEnrolledStyudents(String enrolledStyudents) {
+        this.enrolledStyudents = enrolledStyudents;
+    }
+
+
+		}
+
+	//  repository
+    	package com.example.springapp.repository;
+
+		import java.util.List;
+		
+		import org.springframework.data.jpa.repository.JpaRepository;
+		import org.springframework.stereotype.Repository;
+		
+		import com.example.springapp.model.Course;
+		
+		
+		
+		@Repository
+		public interface CourseRepo extends JpaRepository<Course,Integer>{
+		
+		   //JPA will automatically create a query based on the method name getByCreditHours,
+		   // where creditHours should match the creditHours field in the Course entity class 
+		    List<Course> getByCreditHours(int hours);
+
+    //See for the below method the getter name is defined from the model entity , created from the Course class
+    // do only that getter you should use not any other.
+    List<Course> getByCourseName(String courseName);
+	}
+
+	// service
+    	package com.example.springapp.service;
+
+		import java.util.List;
+		
+		import org.springframework.stereotype.Service;
+		
+		import com.example.springapp.model.Course;
+		import com.example.springapp.repository.CourseRepo;
+		
+		@Service
+		public class CourseService {
+
+    private CourseRepo courseRepo;
+
+    public CourseService(CourseRepo courseRepo){
+        this.courseRepo=courseRepo;
+    }
+
+    // to post the data
+    public Course addCourse(Course course){
+      return  courseRepo.save(course);
+    }
+    // to get all data
+
+    public List<Course> getAllCourse(){
+        return courseRepo.findAll();
+    }
+
+
+    //we have use the custom method 
+    
+    public List<Course> getCourseBasedOnHours(Integer hours){
+       return courseRepo.getByCreditHours(hours);
+    }
+
+    // get the course based on the course name
+    public List<Course> getCourseByNameService(String courseName){
+        return courseRepo.getByCourseName(courseName);
+    }
+
+    
+
+
+
+
+	
+	    	
+
+
+
+
+
+
     
 
 
