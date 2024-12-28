@@ -23,3 +23,17 @@
       - they allow you to request spare Amazon EC2 computing capacity for up to 90% off of the On-Demand price. The catch here is that AWS can reclaim the instance at any time they need it, giving you a two-minute warning to finish up work and save state. You can always resume later if needed. So when choosing Spot Instances, make sure your workloads can tolerate being interrupted. A good example of those are batch workloads.
   - Dedicated Hosts:
       -  which are physical hosts dedicated for your use for EC2. These are usually for meeting certain compliance requirements and nobody else will share tenancy of that host.
+## Scaling plans(scale the EC2 based on the demand):
+  - Dynamic scaling responds to changing demand.
+  - Predictive scaling automatically schedules the right number of Amazon EC2 instances based on predicted demand.
+## Directing traffic with Elastic Load Balancing:
+  - A load balancer acts as a single point of contact for all incoming web traffic to your Auto Scaling group. This means that as you add or remove Amazon EC2 instances in response to the amount of incoming traffic, these requests route to the load balancer first. Then, the requests spread across multiple resources that will handle them. For example, if you have multiple Amazon EC2 instances, Elastic Load Balancing distributes the workload across the multiple instances so that no single instance has to carry the bulk of it.
+  - Although Elastic Load Balancing and Amazon EC2 Auto Scaling are separate services, they work together to help ensure that applications running in Amazon EC2 can provide high performance and availability.
+  - This load balancer runs in the regional level.
+## Messaging and Queue:
+- Amazon Simple Notification Service (Amazon SNS)
+    - Works on with publisher and subscriber model where the subscriber can subscribe all the components and wait
+    - Amazon SNS is a publish/subscribe service. Using Amazon SNS topics, a publisher publishes messages to subscribers. 
+- Amazon Simple Queue Service (Amazon SQS)
+    - Works based on the Queue process, eg(buffer: even if the receiver end is in troyuble it will manage and send the message from the queue once the receiver end issue solved)
+  
