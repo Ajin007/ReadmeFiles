@@ -2300,4 +2300,30 @@ while using the @value anotation:
 
 4. How to run the Java Documentation...?
    		javadoc -d doc YourClass.java
-5. 
+5. Testing basic understanding where to get the same ?
+   			https://spring.io/guides/gs/testing-web
+   1. why in the test case there is no public modifier used ?
+      			JUnit does not require test classes or test methods to be public. They can be package-private, as JUnit will still discover and execute them. This 			reduces the visibility of the tests to only the package they belong to, which is often sufficient.
+   2. what is the speciality of the spring TEST ?
+      		
+		A nice feature of the Spring Test support is that the application context is cached between tests. That way, if you have multiple methods in a test case or 		multiple test cases with the same configuration, they incur the cost of starting the application only once. You can control the cache by using the 			@DirtiesContext annotation.
+	3. when to do the sanity Test ?
+ 		Examples of When to Perform a Sanity Check
+		After a Bug Fix:
+		
+		A developer fixes a bug in the login functionality. A sanity check might involve testing the login page to ensure it works as expected without testing the 		entire application.
+		After Small Code Changes:
+		
+		A minor update is made to a feature. A sanity check ensures the updated part behaves correctly and doesn't cause obvious failures in related components.
+		Before Further Testing:
+		
+		Before starting detailed testing (e.g., regression or integration testing), sanity checks verify the system is stable enough for in-depth testing.
+	4. Sanity vs the Smoke Test
+    		Sanity Testing vs. Smoke Testing
+		Aspect			Sanity Testing						Smoke Testing
+		Purpose			Verifies specific functionality after changes.			Checks basic functionality of the entire system.
+		Scope			Narrow, focused on specific parts or fixes.			Broad, covers critical system functionality.
+		Performed When		After minor code changes or bug fixes.				After a new build or major release.
+		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
+	5. Which annotation is used for testing with out starting the server.
+    		
