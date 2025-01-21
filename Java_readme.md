@@ -8,7 +8,17 @@
 6. Running the java apllication using the **JRE**
 7. Understanding how **JVM** executes the bytecode.
 8. Performance improvment using the **JIT** compiler.
-9. 
+
+## API
+1. Collection API ----> Used with Array to search,add,update,remove,search,rearrange.
+2. Streams API ---> they effectively filter ,map and reduce large stream of datas.
+                     They achieve this using the lambdaexpressions.
+                     Lambda are part of the functional programming.
+3. IO API ----> path, FIles
+4. Concurrency API ---> ![image](https://github.com/user-attachments/assets/4239f010-2f81-4855-b112-0daefa63b905)
+5. Java Persistence API ---> JDBC enables database Connectivity, JPA for relational mapping.
+6. 
+
 ## Naming Conventions
 
 1. pascal naming convention : Classes ---> class is a container to have the methods
