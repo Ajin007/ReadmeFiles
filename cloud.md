@@ -36,4 +36,30 @@
     - Amazon SNS is a publish/subscribe service. Using Amazon SNS topics, a publisher publishes messages to subscribers. 
 - Amazon Simple Queue Service (Amazon SQS)
     - Works based on the Queue process, eg(buffer: even if the receiver end is in troyuble it will manage and send the message from the queue once the receiver end issue solved)
+ 
+## MCQ Based
+AMI ----> template for creating virtual machines
+Cloud front ----> CDN and caching
+How does AWS S3 achieve high availability?---> Through replication across Availability Zones
+Which algorithm is NOT typically used in AWS Load Balancing? --->  Random Distribution
+Snapshots in AWS are best described as:--->  Incremental backups of a storage volume
+What is the purpose of Reserved Instances in AWS EC2?--->To reduce cost for predictable workloads
+You observe that your web application is facing slow performance during peak traffic hours. Which AWS service can help improve application response times?---> AWS CloudFront
+What is a key benefit of AWS CloudFront's caching mechanism?--->  It reduces EC2 instance load.
+What is the significance of the "least connections" algorithm in AWS Load Balancing?---> Sends requests to the server with the fewest active connections
+What should you consider before choosing a Reserved Instance plan in EC2?--->. Expected application workload consistency
+
+If you want to restrict an IAM user to specific IP addresses, which feature should you use?--> Condition Keys
+
+Your team uses S3 to store sensitive files. How can you ensure data is encrypted in transit?
+2.  
+Use HTTPS for all S3 requests.
+If a Load Balancer is configured to use the "round-robin" algorithm, how does it route traffic?--->  Alternates requests to each server sequentially
+
+Your application requires consistent throughput for traffic spikes. Which load balancing algorithm should you use?--->Weighted Round-Robin
+
+If you need to block access to an EC2 instance for a specific IP, what should you use?--> security group rule
+How does AWS CloudFront enhance the security of content delivery?---> By using signed URLs and signed cookies for access control
+
+A developer wants to enable detailed monitoring for an EC2 instance. Which service should they use?----> A developer wants to enable detailed monitoring for an EC2 instance. Which service should they use?
   
