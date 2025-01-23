@@ -17,7 +17,16 @@
 3. IO API ----> path, FIles
 4. Concurrency API ---> ![image](https://github.com/user-attachments/assets/4239f010-2f81-4855-b112-0daefa63b905)
 5. Java Persistence API ---> JDBC enables database Connectivity, JPA for relational mapping.
-6. 
+
+
+## Implement Web services with Java
+![image](https://github.com/user-attachments/assets/e7341fad-6c8e-48ea-9acf-6dc1f9757ac3)
+## Enterprise Java Edition
+![image](https://github.com/user-attachments/assets/0c11711d-f9d0-4393-8c7b-9a967e738ce2)
+## Object Orientented Concepts
+1. who gave the ideaology to create the concept and they should tal to each other :
+![image](https://github.com/user-attachments/assets/8ff959a6-6bbd-43a7-9555-b75a862cebe5)
+
 
 ## Naming Conventions
 
