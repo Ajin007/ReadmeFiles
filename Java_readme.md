@@ -47,7 +47,10 @@
 @override if it happens in the run time means dynamic binding
 @overide happens in the compile time it is ----> static binding 
 * methods with the final keyword can not be overriden.
-*  
+
+## Polymorphism
+![image](https://github.com/user-attachments/assets/761ea862-bf5b-477a-bc83-fcf875ab59c6)
+
 
 ## Various types in the java
 
