@@ -9,6 +9,10 @@
 7. Understanding how **JVM** executes the bytecode.
 8. Performance improvment using the **JIT** compiler.
 
+## When and where to apply:
+![image](https://github.com/user-attachments/assets/63c886d6-4854-450e-a2ee-cbe4bc3b611f)
+
+
 ## API
 1. Collection API ----> Used with Array to search,add,update,remove,search,rearrange.
 2. Streams API ---> they effectively filter ,map and reduce large stream of datas.
@@ -1004,3 +1008,7 @@ By understanding the characteristics of each collection and their use cases, you
 * JMS ---> Java mailing service for achieving asunchrinization
 * Persistence.xml ---> for JPA configuration
 * web.xml ---> Deployment descriptor for servlet connectivity
+
+## Problems to work on before interview
+![image](https://github.com/user-attachments/assets/babd868c-6391-4891-add5-aa0bfe00d5c0)
+
