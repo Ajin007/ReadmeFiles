@@ -32,6 +32,9 @@ It does not execute the method, only refers to it.
 ![image](https://github.com/user-attachments/assets/c95a025d-ea50-4116-889d-9fcfb857d746)
 <img width="470" alt="image" src="https://github.com/user-attachments/assets/26462d58-6bb3-4676-9ada-42a1d2bc5de4" />
 ![image](https://github.com/user-attachments/assets/f2d59692-3663-4b0c-8c60-80af3b0893b9)
+![image](https://github.com/user-attachments/assets/59eb80f5-60dd-4746-b6ee-be7a2c0dc79a)
+![image](https://github.com/user-attachments/assets/d19d627a-19ab-4bd1-83cd-189e1fda9199)
+
 
 
 
