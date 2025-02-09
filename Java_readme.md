@@ -22,6 +22,35 @@
 4. Concurrency API ---> ![image](https://github.com/user-attachments/assets/4239f010-2f81-4855-b112-0daefa63b905)
 5. Java Persistence API ---> JDBC enables database Connectivity, JPA for relational mapping.
 
+## Where not to use the ForEach
+![image](https://github.com/user-attachments/assets/2d9a5a5b-1907-429f-97db-afb271d3ddb4)
+## Method refernce:
+ClassName::methodName
+The :: operator separates the class (or instance) from the method name.
+It does not execute the method, only refers to it.
+
+![image](https://github.com/user-attachments/assets/c95a025d-ea50-4116-889d-9fcfb857d746)
+<img width="470" alt="image" src="https://github.com/user-attachments/assets/26462d58-6bb3-4676-9ada-42a1d2bc5de4" />
+
+
+## Java.util.Function
+
+![image](https://github.com/user-attachments/assets/9f1831f6-f7bc-43ce-b443-f6d338d6c1ba)
+
+![image](https://github.com/user-attachments/assets/fe788597-748e-4def-b7d9-5cdad9f38eae)
+![image](https://github.com/user-attachments/assets/0e9ed08b-b65d-4fcc-9dbd-5a668922cb2a)
+![image](https://github.com/user-attachments/assets/b5adf993-eeaa-43d5-8ad7-41869ae7ee0e)
+
+![image](https://github.com/user-attachments/assets/c226062d-c223-4785-b2a5-4259963bb774)
+![image](https://github.com/user-attachments/assets/61ffbe07-132d-4033-9a59-73492476e978)
+
+
+
+
+
+
+
+
 
 ## Implement Web services with Java
 ![image](https://github.com/user-attachments/assets/e7341fad-6c8e-48ea-9acf-6dc1f9757ac3)
