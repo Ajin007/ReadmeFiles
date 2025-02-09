@@ -35,6 +35,97 @@ Future<User> findByFirstname(String firstname);
 
 @Async
 CompletableFuture<User> findOneByFirstname(String firstname); 
+
+## Pagination in the Spring boot:
+APIs taking Sort, Pageable and Limit expect non-null values to be handed into methods. If you do not want to apply any sorting or pagination, use Sort.unsorted(), Pageable.unpaged() and Limit.unlimited().
+
+1.  A Page knows about the total number of elements and pages available.
+2.  Sorting options are handled through the Pageable instance, too. If you need only sorting, add an org.springframework.data.domain
+3.  To find out how many pages you get for an entire query, you have to trigger an additional count query. By default, this query is derived from the query you actually trigger.
+## Projections in the Query JPA:
+Optimized Query Performance (Fetching Specific Fields)
+
+Instead of loading the entire entity, projections allow fetching only the necessary fields, reducing memory usage and improving query performance.
+Example: If you only need name and email of a User entity but not the entire object.
+Custom DTO Mapping (Data Transfer Objects)
+
+If you want to return a DTO (Data Transfer Object) instead of the entity, projections allow you to map fields directly into a DTO without additional conversion logic.
+Example: Returning a summary object (OrderSummaryDTO) instead of the full Order entity.
+Read-Only Views for UI Display
+
+When you need to display only specific details in a UI table without exposing unnecessary data.
+Joins with Multiple Tables
+
+When querying data from multiple related tables, projections can help fetch only the required fields instead of loading entire entities and causing performance overhead.
+Avoiding Lazy Loading Issues
+
+If an entity has many @OneToMany or @ManyToOne relationships, fetching only specific fields avoids triggering unnecessary lazy loading.
+
+public interface UserProjection {
+    String getName();
+    String getEmail();
+}
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    List<UserProjection> findByRole(String role);
+}
+
+// DTO based
+public class UserDTO {
+    private String name;
+    private String email;
+
+    public UserDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+@Query("SELECT new com.example.dto.UserDTO(u.name, u.email) FROM User u WHERE u.role = ?1")
+List<UserDTO> findByRole(String role);
+
+## Usage of the SPring JDBC:
+1. All Spring Data modules are inspired by the concepts of “repository”, “aggregate”, and “aggregate root” from Domain Driven Design. These are possibly even more important for Spring Data JDBC, because they are, to some extent, contrary to normal practice when working with relational databases.
+2. Logging done with:
+   	logging.level.org.springframework.jdbc=DEBUG
+3. Link:
+https://github.com/spring-projects/spring-data-examples/tree/main
+4. What is the use of Spring JPA, Spring JDBC, Spring r2DBC"
+   	//Spring data jpa
+   	✅ When to Use Spring Data JPA?
+
+You need object-relational mapping (ORM).
+You need to manage entity relationships (OneToMany, ManyToOne).
+You need caching, lazy/eager loading, or custom query methods.
+❌ Avoid if: Your application needs high-performance batch processing without an ORM overhead.
+
+
+		// Spring jdbc:
+  		@Autowired
+private JdbcTemplate jdbcTemplate;
+
+public List<User> findAllUsers() {
+    return jdbcTemplate.query("SELECT * FROM user", new BeanPropertyRowMapper<>(User.class));
+}
+
+
+✅ When to Use Spring JDBC?
+
+You don’t need ORM features like lazy loading.
+You want fast, lightweight SQL execution without Hibernate overhead.
+You need to handle batch processing or stored procedures efficiently.
+❌ Avoid if: You need object relationships (OneToMany, ManyToOne), as mapping manually can be complex.
+
+// Spring 2r2DBC
+✅ When to Use Spring R2DBC?
+
+Your application is fully reactive and needs non-blocking DB interactions.
+You are using WebFlux (Reactive Spring).
+You need to handle high-concurrency and large-scale streaming data.
+❌ Avoid if: Your application is blocking (traditional MVC) or requires complex ORM features.
+
+
 ## structure of the spring project
 
 1. src/main/java: Contains your Java source code
