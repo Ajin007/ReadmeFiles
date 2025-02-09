@@ -1,5 +1,11 @@
 # Spring understanding
 
+## Sping data JPA
+1. If you are using a reactive store you might choose ReactiveCrudRepository, or RxJava3CrudRepository depending on which reactive framework you are using.
+2. If you are using Kotlin you might pick CoroutineCrudRepository which utilizes Kotlin’s coroutines.
+3. ✔ Extend JpaRepository → Best for most cases.
+✔ Use @NoRepositoryBean if you need custom base repositories.
+
 ## structure of the spring project
 
 1. src/main/java: Contains your Java source code
