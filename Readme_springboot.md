@@ -19,7 +19,22 @@ Executing Queries – It enables creating queries, managing persistence context,
     excludeFilters = { @Filter(type = FilterType.REGEX, pattern = ".*CustomerRepository") }
 )
 
-8. 
+## Queries in the Spring boot repository
+1. Supported query method names
+	https://docs.spring.io/spring-data/relational/reference/3.3-SNAPSHOT/repositories/query-keywords-reference.html#appendix.query.method.predicate
+2. Supported query predicate:
+	https://docs.spring.io/spring-data/relational/reference/3.3-SNAPSHOT/repositories/query-keywords-reference.html#appendix.query.method.subject
+3. How to resoleve ambiquity while creating the Query ?
+   	
+	To resolve this ambiguity you can use _ inside your method name to manually define traversal points. So our method name would be as follows:
+	But maintaing the Camel case is the best option
+5. How to achieve the return concept for the asysnchronous methods ?
+   	With respect to the method given the Spring taskExecutor it works 
+   	@Async
+Future<User> findByFirstname(String firstname);               
+
+@Async
+CompletableFuture<User> findOneByFirstname(String firstname); 
 ## structure of the spring project
 
 1. src/main/java: Contains your Java source code
