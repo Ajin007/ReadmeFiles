@@ -5,7 +5,21 @@
 2. If you are using Kotlin you might pick CoroutineCrudRepository which utilizes Kotlin’s coroutines.
 3. ✔ Extend JpaRepository → Best for most cases.
 ✔ Use @NoRepositoryBean if you need custom base repositories.
+4. In MongoDb instead of the @Entity annotation we will be using the @Document anootation for the same.
+5. To enable both @Entity and @Document we shall use the Configuration and the annotations like @EnableJpaRepositories(basePackages = "com.acme.repositories.jpa")
+@EnableMongoRepositories(
+6. What is EntityManagerFactory in the Java Jpa?
+	Managing Database Connections – It establishes connections with the database and handles transactions.
+Caching & Performance Optimization – JPA uses a first-level cache, and EntityManagerFactory optimizes object retrieval.
+Executing Queries – It enables creating queries, managing persistence context, and performing database operations efficiently.
+7. Why EnableJDCRepository is important:
+@EnableJdbcRepositories(
+    basePackages = "com.acme.repositories",
+    includeFilters = { @Filter(type = FilterType.REGEX, pattern = ".*EmployeeRepository") },
+    excludeFilters = { @Filter(type = FilterType.REGEX, pattern = ".*CustomerRepository") }
+)
 
+8. 
 ## structure of the spring project
 
 1. src/main/java: Contains your Java source code
