@@ -8,6 +8,7 @@
 6. Running the java apllication using the **JRE**
 7. Understanding how **JVM** executes the bytecode.
 8. Performance improvment using the **JIT** compiler.
+9. See == will check the reference , but .equals() method only checks the original data "Important thing is you need to override the .equals() and hashcode() method for the Custom class"
 
 ## When and where to apply:
 ![image](https://github.com/user-attachments/assets/63c886d6-4854-450e-a2ee-cbe4bc3b611f)
