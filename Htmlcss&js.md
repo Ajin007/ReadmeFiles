@@ -2,6 +2,8 @@
 ## links
 - [History of the Html](https://www.w3.org/People/Raggett/book4/ch02.html)
 - [cheat sheet online](https://htmlcheatsheet.com/)
+- [to experiment the website](https://www.landingfolio.com/components/demo)
+- [Bootstrp- website](https://preview.uideck.com/items/fusion/?ref=landingfolio#pricing)
 
 ## Html Tags
 ## Objectives of the Html tag
@@ -29,6 +31,23 @@ Symbols 	  Entity
      ÷, <, >, ≤,≥    &divide, &lt, &gt, &le, &ge
      &                   &amp
 	♣ ♠ ♥            &spades, &clubs, &hearts
+ - Which element is used to represent an abbreviation or acronym in HTML?---------> <abbr>
+## Html Tag with ol and ul
+- Here in the below example, we shall see how to use the type with the list tag for using ordered list and the unordered list.
+``` html
+   <ol type="I"> → Uses uppercase Roman numerals (I, II, III).
+❌ <ol type="a"> → Uses lowercase letters (a, b, c).
+❌ <ul> → Creates an unordered list (• instead of numbering). 🚀
+<ol type="i">
+
+ <li>Item 1</li>
+
+ <li>Item 2</li>
+
+ <li>Item 3</li>
+
+</ol>
+```
 
 ## Adavantages of the Html file is
 - Easy to use
