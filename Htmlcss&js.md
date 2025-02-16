@@ -4,6 +4,7 @@
 - [cheat sheet online](https://htmlcheatsheet.com/)
 - [to experiment the website](https://www.landingfolio.com/components/demo)
 - [Bootstrp- website](https://preview.uideck.com/items/fusion/?ref=landingfolio#pricing)
+- [Gaming website](https://templatemo.com/live/templatemo_579_cyborg_gaming)
 
 ## Html Tags
 ## Objectives of the Html tag
