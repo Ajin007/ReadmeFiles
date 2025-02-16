@@ -1,4 +1,8 @@
 # Html CSS & JavaScript
+## links
+- [History of the Html](https://www.w3.org/People/Raggett/book4/ch02.html)
+- [cheat sheet online](https://htmlcheatsheet.com/)
+
 ## Html Tags
 ## Objectives of the Html tag
 1. create,save,view a HTML document.
