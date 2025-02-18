@@ -78,7 +78,12 @@ Symbols 	  Entity
 # css Questions with answer
 ## why box-sizing:border-box of the universal selector * is taken
 ![image](https://github.com/user-attachments/assets/1922649d-6d3e-4fe6-85cb-d51460751f72)
-## 
+## How to check the colors 
+![image](https://github.com/user-attachments/assets/99eb2096-c39e-4f6a-9e33-108055e4f695)
+## where to use align-items and where to use text-align in the projects:
+	- align-items used in the flexbox
+ 	- Purpose: The text-align property is used to align inline content (like text or inline elements) within a block-level element (like a div, p, header, etc.).
+
 
 
 
