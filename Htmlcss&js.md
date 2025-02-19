@@ -84,6 +84,13 @@ Symbols 	  Entity
 	- align-items used in the flexbox
  	- Purpose: The text-align property is used to align inline content (like text or inline elements) within a block-level element (like a div, p, header, etc.).
 
+## how can u select all class with the sepcific class using the css ?
+![image](https://github.com/user-attachments/assets/6e563231-e97e-439a-a035-a09bbb1613fa)
+## How to debug using the query command:
+getComputedStyle(document.querySelector("h1")).color
+
+
+
 
 
 
