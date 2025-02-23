@@ -139,6 +139,10 @@ $(document).ready(function(){
             font-family: Arial, sans-serif;
             text-align: center;
         }
+          /*
+              margin: auto will make the container come centre top...
+              margin: 50% auto will make the container centre of the page
+            */
 
         .container {
             width: 50%;
