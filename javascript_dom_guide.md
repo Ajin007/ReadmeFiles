@@ -1,5 +1,13 @@
 # JavaScript Concepts and DOM Manipulation
 
+## How to use the debugger
+welcomeButton.addEventListener("click", function () {
+    debugger; // Execution will stop here in DevTools
+    const name = nameInput.value.trim();
+    messageDisplay.textContent = `Hello, ${name}! Welcome!`;
+});
+
+
 ## 🚀 JavaScript Timer Functions (`setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`)
 
 JavaScript provides **timer functions** to **delay execution** or **repeat tasks** asynchronously. These functions are commonly used in **real-world projects** for **animations, auto-refreshing data, handling timeouts, and more.**
