@@ -1,13 +1,59 @@
 # JavaScript Concepts and DOM Manipulation
 
+## How to add new class from js without disturbing the existing class ?
+
+### 1. ❌ `element.addClass("className")`
+- **Incorrect** because there is **no such method** as `addClass()` in JavaScript.
+- This method exists in **jQuery**, but not in vanilla JavaScript.
+
+---
+
+### 2. ❌ `element.setAttribute("class", "className")`
+- **Partially correct**, but **not the best approach**.
+- This **overwrites** any existing classes instead of adding a new one.
+- Example:
+  ```js
+  element.setAttribute("class", "new-class");
+  ```
+- **Problem:** If the element already has other classes, they will be **removed**.
+
+---
+
+### 3. ❌ `element.style.className = "className"`
+- **Incorrect** because `style.className` **does not exist** in JavaScript.
+- `className` is a property of the element, not the `style` object.
+- Example (Incorrect usage):
+  ```js
+  element.style.className = "new-class"; // ❌ Error!
+  ```
+
+---
+
+### 4. ✅ `element.classList.add("className")`
+- **Correct** and **best approach** to add a CSS class **without removing existing classes**.
+- Example:
+  ```js
+  element.classList.add("new-class");
+  ```
+- **Advantages**:
+  - ✅ Adds a new class **without removing existing ones**.
+  - ✅ Supports **multiple classes**:
+    ```js
+    element.classList.add("class1", "class2");
+    ```
+  - ✅ Allows for other manipulations (`remove`, `toggle`, `contains`).
+
+---
+
+## **Final Answer:**
+✅ **`element.classList.add("className")`** (Best approach) 🎯
+
 ## innerhtml vs textContent
 # ✅ Correct Answers:
 - **`innerHTML`** – Changes the **HTML content** inside an element.
 - **`textContent`** – Changes only the **text content** inside an element (without interpreting HTML).
 
 ---
-
-## **Explanation of Each Option:**
 
 ### 1. ✅ `innerHTML` – Changes an element’s **HTML content** (including tags).
 ```js
