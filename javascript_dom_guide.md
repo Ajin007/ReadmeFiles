@@ -1,5 +1,51 @@
 # JavaScript Concepts and DOM Manipulation
 
+## innerhtml vs textContent
+# ✅ Correct Answers:
+- **`innerHTML`** – Changes the **HTML content** inside an element.
+- **`textContent`** – Changes only the **text content** inside an element (without interpreting HTML).
+
+---
+
+## **Explanation of Each Option:**
+
+### 1. ✅ `innerHTML` – Changes an element’s **HTML content** (including tags).
+```js
+document.getElementById("myElement").innerHTML = "<b>Hello, JavaScript!</b>";
+```
+- ✅ Supports **HTML formatting** (`<b>`, `<i>`, etc.).
+- ⚠️ **Security risk**: Avoid using `innerHTML` with user input to prevent **XSS attacks**.
+
+### 2. ✅ `textContent` – Changes **only text** inside an element (ignores HTML tags).
+```js
+document.getElementById("myElement").textContent = "<b>Hello, JavaScript!</b>";
+```
+- ✅ **Safer than `innerHTML`** (does not parse HTML).
+- ✅ **Better for security** (prevents XSS attacks).
+- ❌ Displays `<b>Hello, JavaScript!</b>` **as text**, not bold.
+
+---
+
+## ❌ Incorrect Answers:
+- **`value`** – Only works for **input fields, textareas, and form elements**.
+```js
+document.getElementById("myInput").value = "New Value"; 
+```
+  - ❌ Does **not work** for normal HTML elements like `<p>` or `<div>`.
+
+- **`src`** – Changes the **source of an image or media element**, not text content.
+```js
+document.getElementById("myImage").src = "new-image.jpg";
+```
+  - ❌ Works **only for `<img>`, `<iframe>`, `<audio>`, etc.**.
+
+---
+
+## **Final Answer:**
+✅ **`innerHTML`** (if HTML is needed).  
+✅ **`textContent`** (for plain text, safer and recommended). 🚀
+
+
 ## Important Questions
 - Which is the best practice to use whether document.querySelctre("p").innerhtml (or) document.querySelector("p").textContent?
     ```js
