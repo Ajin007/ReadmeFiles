@@ -1,5 +1,20 @@
 # JavaScript Concepts and DOM Manipulation
 
+## Important Questions
+- Which is the best practice to use whether document.querySelctre("p").innerhtml (or) document.querySelector("p").textContent?
+    ```js
+    document.querySelector("p").textContent = "Hello, JavaScript!";
+
+    Correct because querySelector("p") selects the first <p> element on the page.
+    .textContent updates the text inside the paragraph safely (without parsing HTML).
+
+
+    document.querySelector("p").innerHTML = "Hello, JavaScript!";
+
+    Also correct, but innerHTML is less safe because it can insert HTML, making it vulnerable to security risks like XSS (Cross-Site Scripting).
+    Better practice: Use textContent unless you need to inject HTML.
+        
+
 ## 📌 JavaScript Basics
 
 ### 1️⃣ Keywords
