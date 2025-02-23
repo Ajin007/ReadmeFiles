@@ -89,6 +89,9 @@ Symbols 	  Entity
 ## How to debug using the query command:
 getComputedStyle(document.querySelector("h1")).color
 
+## how to use absolute and relative in the position
+![image](https://github.com/user-attachments/assets/4a1cd6fa-fdfc-4c31-a966-aceb8cb4a933)
+
 
 
 
