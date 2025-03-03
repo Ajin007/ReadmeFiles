@@ -1,4 +1,13 @@
+
 # Html CSS & JavaScript
+## Important things to remember:
+![image](https://github.com/user-attachments/assets/623ddd1c-c151-44e0-99ed-e10d8906a9ec)
+
+![image](https://github.com/user-attachments/assets/b1081a3a-97b1-412e-8a0d-a06bf61d1b30)
+![image](https://github.com/user-attachments/assets/57f6488c-9507-4bbf-ae5f-b705bc204a3f)
+
+
+
 ## links
 - [History of the Html](https://www.w3.org/People/Raggett/book4/ch02.html)
 - [cheat sheet online](https://htmlcheatsheet.com/)
