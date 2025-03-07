@@ -1,4 +1,11 @@
 # JavaScript Concepts and DOM Manipulation
+## How to convert HtmlColections to the Array and y 
+![image](https://github.com/user-attachments/assets/624e1003-9fa7-4edc-9c74-5d3e2f3ab3e6)
+![image](https://github.com/user-attachments/assets/f63dd96f-b554-49ec-b9a6-6bc82c087575)
+
+
+
+
 
 ## How to use the debugger
 welcomeButton.addEventListener("click", function () {
