@@ -14,6 +14,19 @@ When loading external scripts that don’t need to run immediately.
    ![image](https://github.com/user-attachments/assets/3985a632-a29d-4669-ad35-3569b6b654e1)
 6. Best use of the background-size?
      ![image](https://github.com/user-attachments/assets/7e77ba28-4a72-4d63-9323-9a8e0d51cbda)
+7. Why width and the max-width is used combined ?
+  ![image](https://github.com/user-attachments/assets/4dc134ae-c43e-45b8-8c19-22daafb95c8c)
+8. where to use the transition and the transform and animation?
+![image](https://github.com/user-attachments/assets/2b54dfba-337b-4ed1-b816-4980590f3de1)
+9. what is the :host used for ?
+   Used in the shadow dom instead of the root , we will use :host() to achieve styling
+10. what is the use of blur in the dropdown background..
+11. What is the use of eval() and new function() in the js ?
+![image](https://github.com/user-attachments/assets/6f817559-5cf6-4786-bc4c-49fdc6b64599)
+
+    
+    
+
 
 
 
