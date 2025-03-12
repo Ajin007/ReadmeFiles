@@ -1,5 +1,7 @@
 
 # Html CSS & JavaScript
+
+
 ## Important things to remember:
 ![image](https://github.com/user-attachments/assets/623ddd1c-c151-44e0-99ed-e10d8906a9ec)
 
@@ -57,6 +59,16 @@ Symbols 	  Entity
      &                   &amp
 	♣ ♠ ♥            &spades, &clubs, &hearts
  - Which element is used to represent an abbreviation or acronym in HTML?---------> <abbr>
+
+ 5. what is the use of the various media types:
+![image](https://github.com/user-attachments/assets/a8835495-c0d2-462e-a31d-17cbc4f7577f)
+6. what isthe use of the sprite images?
+   combined icons ins aingle image
+7. Additional query concepts based on media query along with the min-width and the max-width:
+![image](https://github.com/user-attachments/assets/d20923ab-f4f3-428e-80c0-1f43e8a82439)
+8. 
+
+
 ## Html Tag with ol and ul
 - Here in the below example, we shall see how to use the type with the list tag for using ordered list and the unordered list.
 ``` html
