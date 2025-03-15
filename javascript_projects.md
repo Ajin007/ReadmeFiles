@@ -24,13 +24,18 @@ When loading external scripts that don’t need to run immediately.
 11. What is the use of eval() and new function() in the js ?
 ![image](https://github.com/user-attachments/assets/6f817559-5cf6-4786-bc4c-49fdc6b64599)
 
-    
-    
+## What is the use of splice and pop in the project :
 
 
+  `![image](https://github.com/user-attachments/assets/ec37261a-9baf-4d48-bbcb-6b2def5a690b)
 
+## What is the use of the shift and unshift in the coding ?
+  
+  ![image](https://github.com/user-attachments/assets/863ad422-48fc-4da7-a8d3-42927f9282c8)
 
+## Reduce usage in the code :
+  
+  ![image](https://github.com/user-attachments/assets/f7bf77e1-50ae-417a-9dee-313c200bd2bd)
+![image](https://github.com/user-attachments/assets/f69cefe1-b478-4ca8-8e46-31718e54572b)
 
-## Todolist Application:
-```
-`
+## 
