@@ -38,4 +38,6 @@ When loading external scripts that don’t need to run immediately.
   ![image](https://github.com/user-attachments/assets/f7bf77e1-50ae-417a-9dee-313c200bd2bd)
 ![image](https://github.com/user-attachments/assets/f69cefe1-b478-4ca8-8e46-31718e54572b)
 
-## 
+## Form Validation:
+![image](https://github.com/user-attachments/assets/74ee2d97-f5c6-468b-b606-103ec9be654d)
+
