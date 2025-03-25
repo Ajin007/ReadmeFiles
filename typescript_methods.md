@@ -350,3 +350,8 @@ interface Shape {
 Mastering these TypeScript features will help you build strong, efficient, and maintainable applications. These types and methods are commonly used in real-time projects to handle data manipulation, object handling, JSON parsing, and more.
 
 
+## Spread and Rest usage:
+![image](https://github.com/user-attachments/assets/b7f32f46-c1cf-49fa-be7a-bfb3ef760a50)
+
+
+
