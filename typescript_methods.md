@@ -509,6 +509,182 @@ const customer: Customer = {
 ---
 
 
+```Examples to try 
+
+const arrayInput:any[]=["1",2,{}];
+
+arrayInput.push("ajin");
+
+arrayInput.pop();
+
+console.log(arrayInput)
+
+arrayInput.forEach((value)=>console.log(value))
+for(const value of arrayInput){
+  console.log(value);
+}
+
+console.log(arrayInput.some((value)=>value==2));
+arrayInput.filter((value)=>console.log(value, typeof value))
+
+// common arrow function using the map,filter and the reduce
+
+const datafromRepo:String[]=["Ajin","poda","epdae iruja","solu"];
+const dataNUmberFormat:Number[]=[1,2,3,4,5,6];
+
+// type narrowing
+// i have used all the concepts over here 
+const answer=dataNUmberFormat.filter((value)=> typeof value === 'number' && value / 1 == value ).map((value)=>parseFloat(value.toFixed(2))).reduce((acc,initialValue)=>acc+initialValue,0);
+console.log(answer);
+
+for(const value of datafromRepo){
+  console.log(value);
+}
+
+const dataFiltered=datafromRepo.filter((value)=>console.log(value.split(" ")));
+console.log(dataFiltered);
+
+
+
+// const dataNumberFilter=dataNUmberFormat.filter((value)=>console.log(value.toFixed(2)));
+// console.log(dataNumberFilter);
+
+// const mapFilter=dataNUmberFormat.map((value)=>console.log(value.toFixed(2)));
+// console.log(mapFilter);
+// const reduceFilter=dataNUmberFormat.reduce((value)=>console.log(value.toFixed(2)));
+
+
+// String to array conversion
+// usage of the unknown 
+let str= "apple,grape,mango";
+console.log(str.split(","));
+
+let arrayType:unknown[]=["Ajin",1,{name:"poda",age:36}];
+
+console.log(arrayType);
+
+for(const value of arrayType){
+
+if(typeof value === "string"){
+  console.log(value.toUpperCase());
+}
+  
+}
+
+//Type alias
+
+type person={
+  name:string;
+  age:number;
+}
+
+const person1:person ={
+  
+  name:"Ajin",
+  age:16
+  
+}
+
+// union usage 
+type SumorNumber=number | string;
+ let value:SumorNumber;
+ value=1;
+ value="hi";
+ 
+// Interection types:
+type Car = {
+  make: string;
+  model: string;
+};
+
+type Electric = {
+  battery: string;
+  range: number;
+};
+
+type ElectricCar = Car & Electric;
+
+const tesla: ElectricCar = {
+  make: 'Tesla',
+  model: 'Model 3',
+  battery: 'Lithium-ion',
+  range: 350
+};
+
+
+//Another example
+type User = {
+  name: string;
+  email: string;
+};
+
+type Admin = {
+  role: string;
+};
+
+type AdminUser = User & Admin;
+
+const admin1: AdminUser = {
+  name: 'Alice',
+  email: 'alice@example.com',
+  role: 'Admin'
+};
+
+
+// Interface understanding:
+// interface Person{
+//   ageee:number;
+//   namenew:string;
+//   greet:()=>void;
+//   readonly father:string;
+//   address ?: string;
+//   greetings:(message:string)=>void;
+  
+//   // index signature -----> have the global effect of the properties over here
+//   [key:string]: number | string |(()=>void) |string[];
+//   hobbies:string[];
+// }
+
+
+// interface UniquePerson<T> extends Person{
+//   value:T;
+// }
+
+
+// class Employee implements Person {
+  
+// ageee: number;
+//   namenew: string;
+//   readonly father: string;
+//   address?: string;
+//   hobbies: string[];
+
+//   // Implementing the greet method
+//   greet(): void {
+//     console.log(`Hello, my name is ${this.namenew}`);
+//   }
+
+//   // Implementing the greetings method
+//   greetings(message: string): void {
+//     console.log(message);
+//   }
+
+//   // Implementing the index signature
+//   [key: string]: number;
+
+//   constructor(ageee: number, namenew: string, father: string, hobbies: string[]) {
+//     this.ageee = ageee;
+//     this.namenew = namenew;
+//     this.father = father;
+//     this.hobbies = hobbies;
+//   }
+  
+// }
+
+
+
+
+
 
 
 
