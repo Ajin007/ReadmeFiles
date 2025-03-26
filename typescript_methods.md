@@ -508,6 +508,266 @@ const customer: Customer = {
 
 ---
 
+# Type Narrowing in TypeScript
+
+Type narrowing in TypeScript refers to refining the type of a variable as more information becomes available in the code. TypeScript performs type narrowing automatically using different mechanisms like control flow analysis, type guards, and type assertions.
+
+### Mechanisms of Type Narrowing:
+1. **Control Flow Analysis**:
+   - TypeScript can automatically narrow types based on conditional checks (like `if` statements).
+
+2. **Type Guards**:
+   - Custom checks using `typeof`, `instanceof`, and user-defined functions.
+
+3. **Type Assertions**:
+   - Forcing TypeScript to treat a variable as a more specific type.
+
+---
+
+### Example: Using Type Narrowing
+
+#### Code Snippet:
+
+```typescript
+function printId(id: string | number) {
+    // Narrowing type using `typeof`
+    if (typeof id === "string") {
+        console.log(`The ID is a string: ${id.toUpperCase()}`);  // string specific operation
+    } else {
+        console.log(`The ID is a number: ${id.toFixed(2)}`);  // number specific operation
+    }
+}
+
+printId("abc123"); // Output: The ID is a string: ABC123
+printId(123);      // Output: The ID is a number: 123.00
+```
+
+#### Explanation:
+1. **Initial Type**: The function `printId` accepts an argument `id` which can be either a `string` or a `number`.
+2. **Type Narrowing**: Inside the `if` block, `typeof id === "string"` narrows the type to `string`. In the `else` block, TypeScript understands that `id` must be a `number`.
+3. **Type-Specific Operations**: We can safely call `toUpperCase()` on `string` and `toFixed()` on `number`, as TypeScript knows the type after narrowing.
+
+---
+
+### Type Guards Example
+
+Custom Type Guard helps you define more precise narrowing when you have complex types.
+
+```typescript
+type Admin = { role: "admin"; name: string };
+type User = { role: "user"; name: string };
+
+function isAdmin(account: Admin | User): account is Admin {
+    return account.role === "admin";  // Type guard logic
+}
+
+function printRole(account: Admin | User) {
+    if (isAdmin(account)) {
+        console.log(`Admin Name: ${account.name}`);  // Now we know it's Admin
+    } else {
+        console.log(`User Name: ${account.name}`);   // Now we know it's User
+    }
+}
+
+const userAccount: User = { role: "user", name: "John" };
+const adminAccount: Admin = { role: "admin", name: "Alice" };
+
+printRole(userAccount); // Output: User Name: John
+printRole(adminAccount); // Output: Admin Name: Alice
+```
+
+#### Explanation:
+- **Type Guard Function**: `isAdmin` checks whether the given account is of type `Admin`.
+- **Return Type**: The return type of `isAdmin(account: Admin | User): account is Admin` helps TypeScript understand that within the `if` block, the `account` variable is now specifically an `Admin`.
+
+---
+
+### 1. **`typeof` Type Narrowing**
+
+The `typeof` operator is used to narrow types when you know that the value can only be a primitive type (`string`, `number`, `boolean`, etc.).
+
+#### Example:
+```typescript
+function print(value: string | number) {
+    if (typeof value === "string") {
+        console.log(value.toUpperCase());  // string-specific operation
+    } else {
+        console.log(value.toFixed(2));     // number-specific operation
+    }
+}
+
+print("hello");  // Output: HELLO
+print(123.456);  // Output: 123.46
+```
+
+- **`typeof` checks**: Narrow types between `string`, `number`, `boolean`, etc.
+
+---
+
+### 2. **`instanceof` Type Narrowing**
+
+The `instanceof` operator is used for narrowing types involving objects that are instances of classes.
+
+#### Example:
+```typescript
+class Animal {
+    makeSound() {
+        console.log("Some generic sound");
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log("Woof");
+    }
+}
+
+function handleAnimal(animal: Animal) {
+    if (animal instanceof Dog) {
+        animal.bark();  // dog-specific operation
+    } else {
+        animal.makeSound();  // generic Animal operation
+    }
+}
+
+const dog = new Dog();
+const animal = new Animal();
+
+handleAnimal(dog);   // Output: Woof
+handleAnimal(animal); // Output: Some generic sound
+```
+
+- **`instanceof` checks**: Narrow the type to a specific class type (like `Dog` in this case) from a parent class (`Animal`).
+
+---
+
+### 3. **User-defined Type Guards**
+
+You can create your own custom type guards, which are functions that use TypeScript's type narrowing to define more specific types.
+
+#### Example:
+```typescript
+type Shape = { kind: "circle"; radius: number } | { kind: "rectangle"; width: number; height: number };
+
+function isCircle(shape: Shape): shape is { kind: "circle"; radius: number } {
+    return shape.kind === "circle";
+}
+
+function getArea(shape: Shape): number {
+    if (isCircle(shape)) {
+        return Math.PI * shape.radius * shape.radius;  // Circle-specific logic
+    } else {
+        return shape.width * shape.height;  // Rectangle-specific logic
+    }
+}
+
+const circle: Shape = { kind: "circle", radius: 5 };
+const rectangle: Shape = { kind: "rectangle", width: 10, height: 5 };
+
+console.log(getArea(circle));    // Output: 78.53981633974483 (Circle area)
+console.log(getArea(rectangle)); // Output: 50 (Rectangle area)
+```
+
+- **User-defined type guards**: The `shape is { kind: "circle"; radius: number }` predicate narrows the `Shape` type to only `circle` in the `if` block.
+
+---
+
+### 4. **`in` Operator for Property Checks**
+
+You can use the `in` operator to narrow types based on whether a certain property exists on the object. This is helpful in working with union types.
+
+#### Example:
+```typescript
+type Car = { type: "car"; wheels: number; doors: number };
+type Bike = { type: "bike"; wheels: number; handlebar: string };
+
+function isCar(vehicle: Car | Bike): vehicle is Car {
+    return "doors" in vehicle;  // Narrow type to Car based on property 'doors'
+}
+
+function printVehicle(vehicle: Car | Bike) {
+    if (isCar(vehicle)) {
+        console.log(`Car with ${vehicle.wheels} wheels and ${vehicle.doors} doors`);
+    } else {
+        console.log(`Bike with ${vehicle.wheels} wheels and a ${vehicle.handlebar} handlebar`);
+    }
+}
+
+const myCar: Car = { type: "car", wheels: 4, doors: 4 };
+const myBike: Bike = { type: "bike", wheels: 2, handlebar: "racing" };
+
+printVehicle(myCar);   // Output: Car with 4 wheels and 4 doors
+printVehicle(myBike);  // Output: Bike with 2 wheels and a racing handlebar
+```
+
+- **`in` operator**: It checks whether a property (`doors` in this case) exists in the object and narrows the type based on that.
+
+---
+
+### 5. **Type Assertions (using `as`)**
+
+While not strictly type narrowing, Type Assertions let you override TypeScript's inferred types when you know more about the type than it can infer. This can sometimes be used to "narrow" types when necessary.
+
+#### Example:
+```typescript
+interface Animal {
+    name: string;
+}
+
+interface Dog extends Animal {
+    breed: string;
+}
+
+const animal: Animal = { name: "Rex" };
+
+const dog = animal as Dog;  // Assertion narrows animal to Dog
+
+console.log(dog.breed); // TypeScript allows this, but will throw a runtime error
+```
+
+- **Type assertions**: Using `as` narrows the type to a specific type, but use it with caution since it doesn't perform any runtime checks.
+
+---
+
+### 6. **`never` Type and Exhaustive Checks**
+
+The `never` type is useful in narrowing types in exhaustive checks, especially when working with union types. It can help ensure all cases are handled.
+
+#### Example:
+```typescript
+type Shape = { kind: "circle"; radius: number } | { kind: "rectangle"; width: number; height: number };
+
+function getShapeDetails(shape: Shape) {
+    switch (shape.kind) {
+        case "circle":
+            return `Circle with radius: ${shape.radius}`;
+        case "rectangle":
+            return `Rectangle with width: ${shape.width} and height: ${shape.height}`;
+        default:
+            // Exhaustive check
+            throw new Error(`Unknown shape: ${shape}`);
+    }
+}
+
+const myShape: Shape = { kind: "circle", radius: 10 };
+console.log(getShapeDetails(myShape));  // Output: Circle with radius: 10
+```
+
+- **Exhaustive checks**: The `default` case helps catch any unhandled cases and prevents TypeScript from missing out on narrowing logic.
+
+---
+
+### Summary of Available Narrowing Techniques:
+- **`typeof`**: Use for primitive types like `string`, `number`, `boolean`.
+- **`instanceof`**: Use for narrowing types with classes or constructors.
+- **User-defined type guards**: Use for more complex type narrowing logic based on custom conditions.
+- **`in` operator**: Use to check for the existence of a property on an object.
+- **Type assertions (`as`)**: Forcefully narrow the type when you're sure of the variable's type.
+- **`never` type**: Use for exhaustive checks in union types.
+
+These tools will help you write more robust and type-safe code by ensuring that TypeScript correctly narrows types as needed.
+
+
 
 ```Examples to try 
 
