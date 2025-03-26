@@ -768,6 +768,217 @@ console.log(getShapeDetails(myShape));  // Output: Circle with radius: 10
 These tools will help you write more robust and type-safe code by ensuring that TypeScript correctly narrows types as needed.
 
 
+# TypeScript Interfaces and Their Usage
+
+## What is an Interface in TypeScript?
+
+An **interface** in TypeScript is a structure that defines the shape of an object, specifying the types of its properties and methods. Interfaces help ensure that objects adhere to a particular structure, providing type safety and improving code readability.
+
+Interfaces are useful when defining complex object types or ensuring that classes implement certain methods.
+
+---
+
+## Defining an Interface
+
+An interface defines a contract for the structure of an object. It can include properties and method signatures, but not their implementation.
+
+```typescript
+interface Person {
+    name: string;
+    age: number;
+    greet(): void;
+}
+```
+
+In the above example, `Person` interface defines an object structure with a `name`, `age`, and a `greet` method.
+
+---
+
+## Implementing an Interface
+
+Classes can implement an interface to enforce the structure defined in the interface.
+
+```typescript
+class Employee implements Person {
+    constructor(public name: string, public age: number) {}
+
+    greet() {
+        console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+    }
+}
+
+const emp = new Employee("John", 30);
+emp.greet();  // Output: Hello, my name is John and I am 30 years old.
+```
+
+---
+
+## Extending an Interface
+
+An interface can extend another interface to inherit its properties and methods, allowing for more reusable and flexible code.
+
+```typescript
+interface Worker extends Person {
+    jobTitle: string;
+}
+
+class Manager implements Worker {
+    constructor(public name: string, public age: number, public jobTitle: string) {}
+
+    greet() {
+        console.log(`Hello, I am ${this.name}, a ${this.jobTitle} at age ${this.age}`);
+    }
+}
+
+const manager = new Manager("Alice", 35, "Manager");
+manager.greet();  // Output: Hello, I am Alice, a Manager at age 35
+```
+
+---
+
+## Narrowing Types with `is`, `in`, and `as` Operators
+
+### 1. **`is` Operator (Type Guard)**
+
+The `is` keyword is used to create custom type guards. It helps TypeScript narrow types based on certain conditions. A user-defined type guard function returns a `boolean` and narrows down the type within a conditional block.
+
+```typescript
+interface Admin {
+    role: "admin";
+    name: string;
+}
+
+interface User {
+    role: "user";
+    name: string;
+}
+
+function isAdmin(account: Admin | User): account is Admin {
+    return account.role === "admin";  // Type guard function
+}
+
+function printRole(account: Admin | User) {
+    if (isAdmin(account)) {
+        console.log(`Admin Name: ${account.name}`);  // Now we know it's Admin
+    } else {
+        console.log(`User Name: ${account.name}`);   // Now we know it's User
+    }
+}
+
+const userAccount: User = { role: "user", name: "John" };
+const adminAccount: Admin = { role: "admin", name: "Alice" };
+
+printRole(userAccount);  // Output: User Name: John
+printRole(adminAccount); // Output: Admin Name: Alice
+```
+
+### 2. **`in` Operator**
+
+The `in` operator checks whether a specific property exists in an object. This is useful when narrowing union types by checking the presence of properties unique to specific types.
+
+```typescript
+type Car = { type: "car"; wheels: number; doors: number };
+type Bike = { type: "bike"; wheels: number; handlebar: string };
+
+function isCar(vehicle: Car | Bike): vehicle is Car {
+    return "doors" in vehicle;  // Narrow type to Car based on the presence of the 'doors' property
+}
+
+function printVehicle(vehicle: Car | Bike) {
+    if (isCar(vehicle)) {
+        console.log(`Car with ${vehicle.wheels} wheels and ${vehicle.doors} doors`);
+    } else {
+        console.log(`Bike with ${vehicle.wheels} wheels and a ${vehicle.handlebar} handlebar`);
+    }
+}
+
+const myCar: Car = { type: "car", wheels: 4, doors: 4 };
+const myBike: Bike = { type: "bike", wheels: 2, handlebar: "racing" };
+
+printVehicle(myCar);   // Output: Car with 4 wheels and 4 doors
+printVehicle(myBike);  // Output: Bike with 2 wheels and a racing handlebar
+```
+
+### 3. **`as` Operator (Type Assertion)**
+
+The `as` operator is used for type assertion, which tells TypeScript to treat a value as a more specific type. This is useful when you know the actual type of a value but TypeScript cannot infer it.
+
+```typescript
+interface Person {
+    name: string;
+    age: number;
+}
+
+const obj: any = { name: "John", age: 30 };
+
+// Type assertion using `as`
+const person = obj as Person;
+console.log(person.name);  // Output: John
+```
+
+---
+
+## Other Common Methodologies for Working with Interfaces
+
+### 1. **Optional Properties**
+
+You can make properties optional by adding a `?` after the property name.
+
+```typescript
+interface Car {
+    make: string;
+    model: string;
+    year?: number;  // Optional property
+}
+
+const myCar: Car = { make: "Toyota", model: "Corolla" };  // `year` is optional
+```
+
+### 2. **Read-Only Properties**
+
+To make a property read-only, use the `readonly` modifier. This means the property cannot be reassigned after initialization.
+
+```typescript
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+
+const point: Point = { x: 10, y: 20 };
+
+// point.x = 15;  // Error: Cannot assign to 'x' because it is a read-only property.
+```
+
+### 3. **Index Signatures**
+
+An index signature allows you to define objects where the keys are dynamic, but the values must follow a specific type.
+
+```typescript
+interface Dictionary {
+    [key: string]: number;
+}
+
+const dict: Dictionary = {
+    "apple": 5,
+    "banana": 3,
+    "orange": 8
+};
+```
+
+---
+
+## Conclusion
+
+Interfaces in TypeScript are powerful tools for defining object shapes and ensuring type safety across your codebase. By using the `is`, `in`, and `as` operators, you can narrow types, make your code more robust, and handle different scenarios dynamically. They are essential in both simple and complex applications.
+
+In summary, interfaces help:
+- Define the structure of objects and classes.
+- Ensure proper implementation by classes.
+- Extend other interfaces for reusable code.
+- Narrow types with various operators (`is`, `in`, and `as`).
+
+
+
 
 ```Examples to try 
 
