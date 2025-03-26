@@ -977,6 +977,119 @@ In summary, interfaces help:
 - Extend other interfaces for reusable code.
 - Narrow types with various operators (`is`, `in`, and `as`).
 
+  # 🚀 TypeScript `splice()` Method
+
+The `splice()` method is used to **add, remove, or replace** elements in an array **in place**.
+
+---
+
+## 📌 Syntax
+```ts
+array.splice(startIndex, deleteCount, item1?, item2?, ...);
+```
+### 🔹 Parameters
+- **`startIndex`** – The index where the operation begins.
+- **`deleteCount`** – The number of elements to remove.
+- **`item1, item2, ...`** – Optional: elements to insert at `startIndex`.
+
+- **Returns:** An array containing the removed elements.
+
+---
+
+## 🔥 Removing Elements (`deleteCount > 0`)
+```ts
+let numbers: number[] = [10, 20, 30, 40, 50];
+
+// Remove 2 elements from index 1
+let removed = numbers.splice(1, 2);
+
+console.log(numbers); // [10, 40, 50]
+console.log(removed); // [20, 30]
+```
+📌 **Explanation:** Removes `20` and `30` from index `1`.
+
+---
+
+## 🔥 Adding Elements (`deleteCount = 0`)
+```ts
+let fruits: string[] = ["Apple", "Banana", "Mango"];
+
+// Insert "Orange" at index 1
+fruits.splice(1, 0, "Orange");
+
+console.log(fruits); // ["Apple", "Orange", "Banana", "Mango"]
+```
+📌 **Explanation:** `"Orange"` is **inserted** at index `1`, and no elements are removed.
+
+---
+
+## 🔥 Replacing Elements (`deleteCount > 0` with new items)
+```ts
+let colors: string[] = ["Red", "Green", "Blue"];
+
+// Replace "Green" with "Yellow"
+colors.splice(1, 1, "Yellow");
+
+console.log(colors); // ["Red", "Yellow", "Blue"]
+```
+📌 **Explanation:** `"Green"` is **replaced** by `"Yellow"`.
+
+---
+
+## 🔥 Removing Last Element
+```ts
+let items: string[] = ["Pen", "Pencil", "Eraser"];
+
+// Remove last element
+items.splice(-1, 1);
+
+console.log(items); // ["Pen", "Pencil"]
+```
+📌 **Explanation:** `-1` refers to the last element in the array.
+
+---
+
+## 🔥 Removing a Task in a To-Do List Example
+```ts
+interface Task {
+    description: string;
+    completed: boolean;
+}
+
+let tasks: Task[] = [
+    { description: "Buy groceries", completed: false },
+    { description: "Do homework", completed: false },
+    { description: "Go for a walk", completed: true }
+];
+
+function removeTask(index: number): void {
+    tasks.splice(index, 1);
+    console.log("Updated Tasks:", tasks);
+}
+
+// Remove the second task ("Do homework")
+removeTask(1);
+
+/*
+Updated Tasks:
+[
+  { description: "Buy groceries", completed: false },
+  { description: "Go for a walk", completed: true }
+]
+*/
+```
+📌 **Explanation:** Removes the task at `index 1`.
+
+---
+
+## 🎯 **Key Takeaways**
+✅ **`splice()` modifies the original array**  
+✅ Can **remove, add, or replace** elements  
+✅ Supports **negative indexing** (`-1` for the last item)  
+
+Let me know if you need more details! 🚀
+
+
 
 
 
