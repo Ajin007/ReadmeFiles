@@ -966,6 +966,72 @@ const dict: Dictionary = {
 ```
 
 ---
+# Practical Usage of Decorators in TypeScript
+
+## **Use Case: Logging Object Creation in a Library Management System**
+
+### **Scenario:**
+In a **Library Management System**, we want to log whenever a **Book** or **Member** instance is created. Instead of adding console logs manually inside every class constructor, we use a **decorator** to automate this.
+
+---
+
+## **Implementation**
+```typescript
+// Logger Decorator: Logs class instance creation
+function Logger(logMessage: string) {
+    return function (constructor: Function) {
+        console.log(logMessage, `Class Created: ${constructor.name}`);
+    };
+}
+
+// Apply Logger Decorator to Book Class
+@Logger("Library System Log -")
+class Book {
+    constructor(public title: string, public isbn: string) {
+        console.log("Book instance created!");
+    }
+}
+
+// Apply Logger Decorator to Member Class
+@Logger("Library System Log -")
+class Member {
+    constructor(public name: string, public memberId: number) {
+        console.log("Member instance created!");
+    }
+}
+
+// Creating instances
+const book1 = new Book("TypeScript Mastery", "9876543210");
+const member1 = new Member("John Doe", 101);
+```
+
+---
+
+## **How it Works?**
+1. The **Logger** decorator is a function that takes a message (`logMessage`) and returns another function.
+2. The inner function receives the **class constructor** and logs a message when the class is instantiated.
+3. The `@Logger("Library System Log -")` decorator is applied to both `Book` and `Member` classes.
+4. When instances are created, logs are automatically generated.
+
+---
+
+## **Output**
+```
+Library System Log - Class Created: Book
+Book instance created!
+Library System Log - Class Created: Member
+Member instance created!
+```
+
+---
+
+## **Real-World Benefits**
+✅ **No need to manually log in each class**  
+✅ **Centralized logging for debugging**  
+✅ **Scalable: Apply to multiple classes effortlessly**  
+
+This approach ensures that any new class we create can be automatically logged without modifying the constructor manually. 🚀
+
 
 ## Conclusion
 
