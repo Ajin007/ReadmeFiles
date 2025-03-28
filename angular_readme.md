@@ -144,8 +144,19 @@
 ## Java Script full concepts with gif
 https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif
 
-## 
+## Data Binding:
+-- String interpolation (ts ---> html) => {{variableName}}
+-- property binding (ts => html) => [property(attribute)]= "variableName";
+-- event binding (html ==> ts) ==> (eventName) = "function"
+-- two way binding (banana in the box====(html to ts)) ===> [(propertyName)]="variableName"
+         -- Example of two way binding : ngModel
 
+## Direction
+-- Structural Directive
+   -- *ngIf (ng-template you will use using the # symbol),ngFor,ngSwitch
+-- Attribute Directive:
+   -- ngStyle (inline style and expression)
+   -- ngClass (we need to mention the css class)
 ## Encapsulation in the Angular 
 1. Types (link:->https://v14.angular.io/guide/view-encapsulation)
     ```typescript
