@@ -507,6 +507,165 @@ const customer: Customer = {
   - When you need to combine multiple types into one, typically when you're combining multiple sets of properties. This helps you create complex, reusable structures.
 
 ---
+# usage of the interface , class ,fucntion and the decorator
+      ```
+            interface Book {
+      
+          id:number;
+          bookname:string;
+      }
+      
+      const valueData:Book={id:1,bookname:"hello"};
+      
+      console.log("my first output",valueData,"hello");
+      
+      
+      class DataHolder{
+         id:number;
+         bookname:string;
+      
+         constructor(id:number,bookname:string){
+          this.id=id;
+          this.bookname=bookname;
+         }
+      
+      }
+      
+      let neClass: Book=new DataHolder(1,"hello");
+      
+      console.log("class creaeted object",neClass);
+      
+      
+      
+      // geenric concept 
+      
+      class DataHoldergeneric<T,U>{
+      
+          id:T;
+          bookname:U;
+      
+          constructor(id:T,bookname:U){
+              this.id=id;
+              this.bookname=bookname;
+          }
+      
+      }
+      interface Booknew<T,U>{
+          id:T;
+          bookname:U;
+      
+      }
+      
+      const genericValue:Booknew<any,any>=new DataHoldergeneric("hello",{name:"AJin"});
+      console.log(genericValue);
+      
+      
+      
+      // add a method in class..
+      
+      
+      class DataHoldergenericMethod<T,U>{
+      
+          id:T;
+          bookname:U;
+      
+          constructor(id:T,bookname:U){
+              this.id=id;
+              this.bookname=bookname;
+          }
+      
+      getDetails():Booknew<T,U>{
+          return {id:this.id,bookname:this.bookname}
+      }
+      
+        // Instance Method: Calls createObject() inside the class
+          generateObject(): Booknew<T, U> {
+              return createObject(this.id, this.bookname);
+          }
+      
+              // Static Method: Calls createObject() without needing an instance
+          static generateStaticObject<T, U>(id: T, bookname: U): Booknew<T, U> {
+              return createObject(id, bookname);
+          }
+      
+      }
+      
+      function createObject<T,U>(id:T,bookname:U):Booknew<T,U>{
+          return {id,bookname};
+      }
+      
+      // Using Instance Method
+      const bookInstance = new DataHoldergenericMethod<number, string>(1, "The Great Gatsby");
+      console.log("Instance Method Output:", bookInstance.generateObject());
+      
+      // Using Static Method (No need to create an instance)
+      const staticBook = DataHoldergenericMethod.generateStaticObject<number, string>(2, "To Kill a Mockingbird");
+      console.log("Static Method Output:", staticBook);
+      
+      
+      // Decorator to log Method calls 
+      // The LogMethod decorator is a method decorator in TypeScript that logs whenever a decorated method
+      //  is called, along with its arguments. 
+      // It modifies the method's behavior dynamically without changing the original function.
+      
+      // Decorator to log method calls
+      
+      
+      interface BooknewLog<T,U>{
+          id:T;
+          bookname:U;
+      
+      }
+      function LogMethod(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+          if (!descriptor || typeof descriptor.value !== "function") {
+              throw new Error(`@LogMethod can only be used on methods, but was used on: ${propertyKey}`);
+          }
+      
+          const originalMethod = descriptor.value;
+      
+          descriptor.value = function (...args: any[]) {
+              console.log(`Method "${propertyKey}" called with arguments:`, args);
+              return originalMethod.apply(this, args);
+          };
+      
+          return descriptor;
+      }
+      
+      
+      class DataHoldergenericMethodLog<T,U>{
+          id:T;
+          bookname:U;
+          constructor(id:T,bookname:U){
+              this.id=id;
+              this.bookname=bookname;
+          }
+      
+      getDetails():BooknewLog<T,U>{
+          return {id:this.id,bookname:this.bookname}
+      }
+      
+        // Instance Method: Calls createObject() inside the class
+        @LogMethod
+          generateObject():BooknewLog<T, U> {
+              return createObjectLog(this.id, this.bookname);
+          }
+      
+              // Static Method: Calls createObject() without needing an instance
+          static generateStaticObjectLog<T, U>(id: T, bookname: U):  BooknewLog<T, U> {
+              return createObjectLog(id, bookname);
+          }
+      
+      }
+      
+      function createObjectLog<T,U>(id:T,bookname:U): BooknewLog<T,U>{
+          return {id,bookname};
+      }
+      
+      // Using Instance Method
+      const bookInstanceLog = new DataHoldergenericMethodLog<number, string>(1, "The Great Gatsby");
+      console.log("Instance Method Output:",  DataHoldergenericMethodLog.generateStaticObjectLog("hi", "hello"));
+      console.log("Log method triggered",)
+
 
 # Type Narrowing in TypeScript
 
