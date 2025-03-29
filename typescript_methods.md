@@ -1202,6 +1202,117 @@ In summary, interfaces help:
 - Extend other interfaces for reusable code.
 - Narrow types with various operators (`is`, `in`, and `as`).
 
+# This is another example of the logger :
+(1) Logger Decorator for Class
+typescript
+Copy
+Edit
+function Logger(constructor: Function) {
+    console.log(`Class ${constructor.name} is initialized.`);
+}
+(2) Log Execution Time for Methods
+typescript
+Copy
+Edit
+function ExecutionTime(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+        console.time(`${methodName} execution time`);
+        const result = originalMethod.apply(this, args);
+        console.timeEnd(`${methodName} execution time`);
+        return result;
+    };
+}
+(3) Validate Task Name
+typescript
+Copy
+Edit
+function ValidateTask(target: any, propertyKey: string) {
+    let value: string;
+    const getter = () => value;
+    const setter = (newValue: string) => {
+        if (!newValue.trim()) throw new Error("Task name cannot be empty.");
+        value = newValue;
+    };
+    Object.defineProperty(target, propertyKey, { get: getter, set: setter });
+}
+(4) Monitor Access to Task Count
+typescript
+Copy
+Edit
+function Monitor(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalGetter = descriptor.get;
+    descriptor.get = function () {
+        console.log(`Accessing ${propertyKey}`);
+        return originalGetter?.apply(this);
+    };
+}
+Step 2: Implement Task Manager Using Decorators
+typescript
+Copy
+Edit
+@Logger
+class TaskManager {
+    private tasks: string[] = [];
+
+    @ValidateTask
+    taskName: string;
+
+    constructor(taskName: string) {
+        this.taskName = taskName;
+    }
+
+    @ExecutionTime
+    addTask(task: string) {
+        this.tasks.push(task);
+        console.log(`Task added: ${task}`);
+    }
+
+    @ExecutionTime
+    removeTask(task: string) {
+        this.tasks = this.tasks.filter(t => t !== task);
+        console.log(`Task removed: ${task}`);
+    }
+
+    @Monitor
+    get taskCount(): number {
+        return this.tasks.length;
+    }
+}
+
+// Using TaskManager
+const manager = new TaskManager("First Task");
+manager.addTask("Complete TypeScript project");
+manager.addTask("Learn React");
+console.log(`Total tasks: ${manager.taskCount}`);
+manager.removeTask("Learn React");
+console.log(`Final task count: ${manager.taskCount}`);
+5. Output & Execution
+yaml
+Copy
+Edit
+Class TaskManager is initialized.
+Task added: Complete TypeScript project
+Task added: Learn React
+Accessing taskCount
+Total tasks: 2
+Task removed: Learn React
+Accessing taskCount
+Final task count: 1
+6. Summary
+Decorator	Purpose	Example
+Class Decorator	Logs when a class is initialized	@Logger
+Method Decorator	Measures execution time	@ExecutionTime
+Property Decorator	Validates input values	@ValidateTask
+Accessor Decorator	Monitors property access	@Monitor
+Parameter Decorator	Logs method parameters	@LogParam
+7. Real-World Use Cases
+✅ Authentication Middleware - @RequireAuth
+✅ API Request Logging - @LogRequest
+✅ Database Transaction Handling - @Transactional
+✅ Performance Monitoring - @TrackPerformance
+✅ Dependency Injection - @InjectService
+
   # 🚀 TypeScript `splice()` Method
 
 The `splice()` method is used to **add, remove, or replace** elements in an array **in place**.
@@ -1489,6 +1600,9 @@ const admin1: AdminUser = {
 //   }
   
 // }
+
+
+
 
 
 
