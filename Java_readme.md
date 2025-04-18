@@ -13,6 +13,12 @@
 ## When and where to apply:
 ![image](https://github.com/user-attachments/assets/63c886d6-4854-450e-a2ee-cbe4bc3b611f)
 
+## Variables
+![image](https://github.com/user-attachments/assets/e83b1602-87cd-4722-95a2-e7944cf92b99)
+
+## Relational Operators
+![image](https://github.com/user-attachments/assets/c30d4948-aa45-446d-837a-40cada40b277)
+
 
 ## API
 1. Collection API ----> Used with Array to search,add,update,remove,search,rearrange.
