@@ -260,6 +260,73 @@ console.log(operate(3, 4, (x, y) => x + y));
 | Higher-Order Function | Functions as parameters | Functional programming |
 
 ---
+# 🧠 Object Class Methods in JavaScript & Java
+
+This document compares and explains the commonly used methods in the `Object` class in **JavaScript** and **Java**.
+
+---
+
+## 🌐 JavaScript: `Object` Methods
+
+### 🔧 Static Methods (`Object.method()`)
+
+| Method | Description |
+|--------|-------------|
+| `Object.keys(obj)` | Returns an array of keys from the object |
+| `Object.values(obj)` | Returns an array of values from the object |
+| `Object.entries(obj)` | Returns an array of `[key, value]` pairs |
+| `Object.assign(target, source)` | Copies properties from source to target |
+| `Object.create(proto)` | Creates a new object with the given prototype |
+| `Object.freeze(obj)` | Makes an object immutable |
+| `Object.seal(obj)` | Prevents adding/removing properties |
+| `Object.getOwnPropertyNames(obj)` | Lists all own property names |
+| `Object.hasOwn(obj, prop)` | Checks if a property exists (safe version) |
+| `Object.getPrototypeOf(obj)` | Returns the prototype of the object |
+| `Object.setPrototypeOf(obj, proto)` | Sets the prototype of the object |
+
+### 🧬 Instance Methods (`Object.prototype`)
+
+| Method | Description |
+|--------|-------------|
+| `toString()` | Returns a string representation of the object |
+| `hasOwnProperty(prop)` | Checks if the object has the given property directly |
+| `isPrototypeOf(obj2)` | Checks if object is in prototype chain of another |
+| `valueOf()` | Returns the primitive value of the object |
+| `toLocaleString()` | Returns a localized string representation |
+| `propertyIsEnumerable()` | Checks if property is enumerable |
+
+---
+
+## ☕ Java: `java.lang.Object` Methods
+
+Every class in Java implicitly inherits from `Object`.
+
+| Method | Description |
+|--------|-------------|
+| `toString()` | Returns a string representation of the object |
+| `equals(Object obj)` | Compares two objects for equality |
+| `hashCode()` | Returns a hash code for use in hashing |
+| `getClass()` | Returns the runtime class of the object |
+| `clone()` | Creates and returns a copy of the object (if cloneable) |
+| `finalize()` | Cleanup before object is garbage collected (deprecated) |
+| `wait()` | Causes the current thread to wait |
+| `notify()` | Wakes up a single thread waiting on this object |
+| `notifyAll()` | Wakes up all threads waiting on this object |
+
+---
+
+## ✅ Quick Comparison Table
+
+| Feature | JavaScript (`Object`) | Java (`Object`) |
+|--------|------------------------|------------------|
+| Root Class | `Object` | `java.lang.Object` |
+| Primary Use | Utilities, serialization | Inheritance base, threading |
+| toString() | Basic, often not informative | Often overridden for readability |
+| equals() | Not available (`===` used) | Overridden for deep comparison |
+| Threads | ❌ Not applicable | ✅ wait/notify supported |
+
+---
+
 
 ## Download as Markdown File
 Now, download the Markdown file to save the content locally.
