@@ -225,6 +225,100 @@
               
 
 ```
+## CRUD with promise and the sync function with two arrays
+```
+        //write your code here
+        
+        class BookMyShow{
+        
+            constructor(){
+        
+                this.shows=[];
+                this.bookings=[];
+            }
+            addShow(show){
+                return new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        this.shows=[...this.shows,show];
+                        console.log(`Show for ${show.title} added.`);
+                        resolve();
+            
+                    },1000)
+                })
+            }
+        
+            listShows(){
+                return new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        console.log(this.shows);
+                        resolve(this.shows)
+                    },1000)
+                })
+            }
+            bookShow(booking){
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        const showExists=this.shows.some((show)=>show.title === booking.title);
+                        if(showExists){
+        
+                            this.bookings=[...this.bookings,booking];
+                            console.log(`booking for ${booking.title} by ${booking.customer} added.`);
+                            resolve();
+                        }else{
+                            console.log(`Cannot book show: ${booking.title} does not exist.`);
+                        return reject(`Show titled "${booking.title}" not found.`);
+                        }
+        
+                    },1000)
+                })
+            }
+        
+            listBookings(){
+                return new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        resolve(this.bookings);
+                    },1000)
+                })
+            }
+        }
+        
+        
+        module.exports=BookMyShow;
+
+    // app.js
+            const book=require('./index');
+         const booking =new book();
+        
+         booking.addShow({title:'Movie A',type:"movie",price:10});
+         booking.listShows();
+         booking.bookShow({title:'Movie A',customer:'john doe',quantity:2})
+         booking.bookShow({title:'Movie B',customer:'john doe',quantity:2})
+        
+        
+         // to handle the aysnc and await of the aychronous data 
+        //  async function runApp() {
+        //     const app = new BookMyShow();
+        
+        //     await app.addShow({ title: "Inception", time: "7 PM", screen: 2 });
+        
+        //     try {
+        //         await app.bookShow({ title: "Interstellar", customer: "Ananya" }); // This will fail
+        //     } catch (error) {
+        //         console.error(`[ERROR]: Booking failed - ${error}`);
+        //     }
+        
+        //     try {
+        //         await app.bookShow({ title: "Inception", customer: "Ravi" }); // This will succeed
+        //     } catch (error) {
+        //         console.error(`[ERROR]: Booking failed - ${error}`);
+        //     }
+        
+        //     const bookings = await app.listBookings();
+        //     console.log("Current Bookings:", bookings);
+        // }
+
+          
+```
 ## Form validation, Mail Validation
 
   ```
