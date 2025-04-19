@@ -421,3 +421,58 @@
       
       console.log('Jobs have been added to the queue.');
       jobprocessor.startProcessing(); 
+  ```
+## To understadn the promise with the async and the settime :
+
+    ```
+          // Simulate a movie booking system using Promise + async/await
+      
+      // 1. Check seat availability (simulate 1-second delay)
+      function checkSeat(movie, seat) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  const availableSeats = ['A1', 'A2', 'A3'];
+                  if (availableSeats.includes(seat)) {
+                      console.log(`✅ Seat ${seat} for ${movie} is available.`);
+                      resolve(true);
+                  } else {
+                      reject(`❌ Seat ${seat} is already booked.`);
+                  }
+              }, 1000);
+          });
+      }
+      
+      // 2. Process payment (simulate 1.5-second delay)
+      function processPayment(amount) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  if (amount >= 100) {
+                      console.log(`✅ Payment of ₹${amount} successful.`);
+                      resolve("TXN12345");
+                  } else {
+                      reject("❌ Payment failed: Insufficient amount.");
+                  }
+              }, 1500);
+          });
+      }
+      
+      // 3. Confirm booking
+      function confirmBooking(movie, seat, txnId) {
+          console.log(`🎉 Booking confirmed for ${movie}, Seat ${seat}, TXN ID: ${txnId}`);
+      }
+      
+      // 🔄 Combine all steps using async/await
+      async function bookMovieSeat(movie, seat, amount) {
+          try {
+              await checkSeat(movie, seat);
+              const txnId = await processPayment(amount);
+              confirmBooking(movie, seat, txnId);
+          } catch (error) {
+              console.log("🚫 Booking failed:", error);
+          }
+      }
+      
+      // Run the simulation
+      bookMovieSeat("Avengers: Endgame", "A1", 120); // Valid booking
+      // bookMovieSeat("Avengers: Endgame", "B1", 120); // Seat not available
+      // bookMovieSeat("Avengers: Endgame", "A2", 50);  // Payment failed
