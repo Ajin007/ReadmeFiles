@@ -151,6 +151,67 @@
       module.exports=LibraryManager;
 ```
 
-##
+## Form validation, Mail Validation
 
+  ```
+          function formatCheck(email, callback){
+          const regex = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+          if (regex.test(email)) {
+              console.log('Format check passed');
+              callback(null, true)
+          }
+          else{
+              console.log('Format check failed');
+          callback('Email format is invalid', false);
+          }
+      }
+      function domainCheck(email, callback) {
+          const domain = email.split('@')[1];
+          if (domain) {
+              console.log('Domain check passed');
+              callback(null, true)
+          }
+          else{
+              console.log('Domain check failed');
+          callback('Email must include a domain', false)
+          }
+          
+      }
+      function tldCheck(email , callback){
+          const regex = /\.[a-zA-z]{2,}$/;
+          if (regex.test(email)) {
+              console.log('TLD check passed');
+              callback(null, true)
+          }
+          else{
+              console.log('TLD check failed');
+          callback('Email must include a valid top-level domain', false)
+          }
+      }
+      function validateEmail(email, callback){
+          const checks = [formatCheck, domainCheck, tldCheck];
+          let results = [];
+          let errorMessages = [];
+          function runcheck(index){
+              if (index === checks.length) {
+                  const isValid = results.every(result => result);
+                  console.log('Validation results:', results);
+                  callback(errorMessages.length?errorMessages:[], isValid)
+                  return;
+              }
+              checks[index](email,(error, result) => {
+                  if (error) {
+                      errorMessages.push(error)
+                  }
+                  results.push(result);
+                  runcheck(index+1)
+              })
+          }
+          runcheck(0);
+      }
+      
+      module.exports = {validateEmail}
 
+  ```
+  ## 
+      
