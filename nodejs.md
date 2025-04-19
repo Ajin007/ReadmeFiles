@@ -213,5 +213,198 @@
       module.exports = {validateEmail}
 
   ```
-  ## 
-      
+  ## JSON functional validators using the Objects concept:
+    ```
+              const fs=require('fs');
+          const jsonString=fs.readFileSync('data.json','utf-8')
+          const requiredKeys=['name','age'];
+          const keyTypes={name:'string',age:'number'}
+          
+          function syntaxCheck(jsonString,callback){
+              try{
+                  if(JSON.parse(jsonString)){
+                      console.log("Syntax Check Passed");
+                      callback(null,true);
+                  }
+              }
+              catch(error){
+                  console.log("Syntax Check Failed");
+                  callback("Invalid JSON syntax",false);
+              }
+          }
+          function structureCheck(jsonString,requiredKeys,callback){
+              try{
+                  const jsonObject=JSON.parse(jsonString);
+                  const missingkeys=requiredKeys.filter(key=>!(key in jsonObject));
+                  if(missingkeys.length===0){
+                      console.log("Structure Check Passed");
+                      callback(null,true);
+                  }else{
+                      console.log(`Structure Check Failed`);
+                      callback(`Missing keys: ${missingkeys.join(', ')}`,false);
+                  }
+              }
+          
+          catch(error){
+              console.log("Syntax Check Failed");
+          callback("Invalid JSON Syntax")
+          }
+          }
+          function typeCheck(jsonString,keyTypes,callback){
+              try{
+                  const jsonObject=JSON.parse(jsonString);
+                  const typeErrors=[];
+                  Object.entries(keyTypes).forEach(([key,value])=>{
+                      const actualType=typeof jsonObject[key];
+                      if(value!==actualType){
+                          typeErrors.push(`Key '${key}' should be of type ${value}`)
+                      }
+                  })
+                  if(typeErrors.length===0){
+                      console.log("Type Check Passed");
+                      callback(null,true);
+                  }else{
+                      console.log(`Type Check Failed`);
+                      callback(`${typeErrors}`,false);
+                  }
+              }
+              catch(error){
+                  console.log("Syntax Check Failed");
+                  callback("Invalid JSON Syntax");
+              }
+          }
+          function validateJSON(jsonString,requiredKeys,keyTypes,callback){
+              const checks=[
+                  (cb)=>syntaxCheck(jsonString,cb),
+                  (cb)=>structureCheck(jsonString,requiredKeys,cb),
+                  (cb)=>typeCheck(jsonString,keyTypes,cb),
+              ];
+              let results=[];
+              let errorMessages=[];
+              function runCheck(index){
+                  if(index===checks.length){
+                      const isValid=results.every(res=>res===true);
+                      callback(errorMessages,isValid);
+                      return;
+                  }
+                  checks[index]((error,result)=>{
+                      if(error)errorMessages.push(error);
+                      results.push(result);
+                      runCheck(index+1);
+                  })
+              }
+              runCheck(0);
+          }
+          validateJSON(jsonString,requiredKeys,keyTypes,(errors,isValid)=>{
+              if (isValid){
+                  console.log("JSON is valid");
+              }else{
+                  console.log("JSON is invalid");
+              }
+          })
+          module.exports={validateJSON}
+  ## Password validator for the same 
+
+  ```
+              function lengthCheck(passsword,callback){
+        
+            if(passsword.length>0){
+                console.log("Length Check passed");
+                callback(null,true);
+            }else{
+                console.log("Length Check Failed");
+                callback('Password is too short',false);
+            }
+        
+        }
+        
+        function numberCheck(password,callback){
+            const regex=/\d/;
+            if(regex.test(password)){
+                console.log("Number Check Passed");
+                callback(null,true)
+            }else{
+                console.log("Number Check Failed");
+                callback('Password must include at least one number', false)
+            }
+        }
+        
+        function specialCharCheck(password,callback){
+        
+            const regex=/[~!@#$%^&*]/;
+            if(regex.test(password)){
+                console.log("Special Character Check Passed");
+                callback(null,true)
+            }else{
+                console.log("Special Character Check Failed");
+                callback('Password must include at least one special character',false)
+            }
+        
+        }
+        
+        function upperCaseCheck(password,callback){
+            const regex=/[A-Z]/
+            if(regex.test(password)){
+                console.log("Uppercase Letter Check Passed");
+                callback(null,true)
+        
+            }else{
+                console.log("Uppercase Letter Check Failed");
+                callback('Password must include at least one uppercase letter',false)
+            }
+        }
+        
+        
+        function checkPasswordStrength(password,callback){
+            const checks=[
+                (cb)=>lengthCheck(password,cb),
+                (cb)=>numberCheck(password,cb),
+                (cb)=>specialCharCheck(password,cb),
+                (cb)=>upperCaseCheck(password,cb),
+            ]
+            const results=[];
+            const errorMessages=[];
+        
+            function runCheck(index){
+                if(index == checks.length){
+                    const isStrong=results.every(result=>result===true);
+                    callback(errorMessages,isStrong);
+                    return;
+        
+                }
+                checks[index]((error,result)=>{
+                    if(error){errorMessages.push(error);}
+                    results.push(result);
+                    runCheck(index+1);
+                })
+        
+            }
+            runCheck(0);
+        }
+        
+        module.exports=checkPasswordStrength;
+
+  ```
+      //app.js
+      const checkPasswordStrength = require('./index');
+        
+        const passwordsToTest = [
+            "Abcd123!",       // Strong password
+            "abcd123",        // Missing special character and uppercase
+            "12345678",       // No letters
+            "Pass@word",      // Valid
+            "",               // Empty password
+        ];
+        
+        passwordsToTest.forEach(password => {
+            console.log(`\nTesting password: "${password}"`);
+            checkPasswordStrength(password, (errors, isStrong) => {
+                if (isStrong) {
+                    console.log("✅ Password is strong");
+                } else {
+                    console.log("❌ Password is weak. Reasons:");
+                    console.log(errors);
+                }
+            });
+        });
+        
