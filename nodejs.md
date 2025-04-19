@@ -407,4 +407,17 @@
                 }
             });
         });
-        
+
+  ## How to use forEach to iterate the data 
+  ```
+          const jobprocessor=require('./jobProcessor');
+      
+      console.log("Job processing system started.");
+      
+      const jobs=[{id:1,task:"this is the first task"},
+      {id:2,task:"this is the second task"}];
+      
+      jobs.forEach(job=> jobprocessor.addJob(job));
+      
+      console.log('Jobs have been added to the queue.');
+      jobprocessor.startProcessing(); 
