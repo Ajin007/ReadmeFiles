@@ -98,6 +98,59 @@
     noteModule.deleteNote(2);
     noteModule.deleteNoteSplice(3);
 
-## 
+## CRUD two
+
+  ```
+          //write your code here
+      
+      class LibraryManager{
+          constructor(){
+              this.books=[];
+          }
+      
+          addBook(title,author){
+              let book ={
+                  title,
+                  author
+              }
+      
+              if(!this.books.some((book)=>book.title === title)){
+      
+                  this.books=[...this.books,book];
+                  console.log(`Book added: The ${book.title} by ${book.author}`);
+                  return {status:'success'};
+                  
+              }else {
+                  console.log(`Book already exists: The ${book.title}`);
+                  return {status:'error'};
+                  
+              }
+          }
+      
+          listBooks(){
+      
+              console.log(`Listing all books:\n
+              ${this.books}`)
+      
+              return this.books;
+      
+          }
+      
+          removeBook(title){
+              if(this.books.some((book)=>book.title === title)){
+                this.books=  this.books.filter((book)=>book.title !== title);
+                console.log(`Book removed:${title}`);
+                return {status:'success'}
+              }else{
+                  
+                  console.log(`Book not found:${title}`);
+                  return {status:'error'}
+              }
+          }
+      }
+      module.exports=LibraryManager;
+```
+
+##
 
 
