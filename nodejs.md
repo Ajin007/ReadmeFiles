@@ -319,6 +319,46 @@
 
           
 ```
+## Emitter usage in the code
+  ```
+      //write your code here
+    
+    const EventEmitter=require('events')
+    
+    class Orderprocessor extends EventEmitter{
+    
+        constructor(){
+            super();
+            this.orders=[];
+        }
+    
+        placeOrder(orderId){
+    
+            this.orders.push({id:orderId,status:'placed'});
+            this.emit('orderPlaced',orderId);
+        }
+    
+    
+        shipOrder(orderId){
+            const order=this.orders.find((order)=>order.id===orderId);
+            if(order){
+                order.status='shipped';
+                this.emit('orderShipped',orderId);
+            }
+        }
+    
+        deliverOrder(orderId){
+            const found=this.orders.find((order)=>order.id===orderId);
+            if(found){
+                found.status='delivered';
+                this.emit('orderDelivered',orderId);
+            }
+        }
+    }
+    
+    module.exports=Orderprocessor;
+```
+
 ## Form validation, Mail Validation
 
   ```
