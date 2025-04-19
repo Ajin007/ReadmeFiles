@@ -151,6 +151,80 @@
       module.exports=LibraryManager;
 ```
 
+## Crud with the Promise and the async function:
+
+  ```
+          //write your code here
+        
+        class TrainTicketBooking {
+            constructor(){
+                this.bookings=[];
+            }
+        
+            addBooking(booking){
+                return new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        this.bookings=[...this.bookings,booking];
+                        console.log(`Booking for ${booking.name} added.`);
+                        resolve();
+        
+                    },1000)
+                })
+            }
+        
+            getBooking(name){
+        
+                return new Promise((resolve)=>{
+        
+                    setTimeout(()=>{
+                        const found=this.bookings.find((booking)=>booking.name===name);
+                        resolve(found ? found:undefined);
+        
+        
+                    },1000)
+        
+                })
+            }
+            listBookings(){
+                return new Promise((resolve)=>{
+                    setTimeout(
+                        ()=>{
+        
+                            console.log(this.bookings);
+                            resolve(this.bookings);
+                        }
+                    )
+                })
+            }
+        }
+        
+        
+        module.exports=TrainTicketBooking;
+
+    // Another appp
+                    const booking=require('./index');
+              
+              const newBooking=new booking();
+              
+              // newBooking.addBooking({name:'Alice',destination:'Paris',date:'2024-06-15'});
+              // newBooking.addBooking({name:'Berlin',destination:'Berlin',date:'2024-06-16'});
+              // newBooking.listBookings();
+              
+              
+              
+              // to make them run in the sequential manner we will be using the below given way
+              async function testBookings(){
+                 await newBooking.addBooking({name:'Alice',destination:'Paris',date:'2024-06-15'});
+                 await newBooking.addBooking({name:'Berlin',destination:'Berlin',date:'2024-06-16'});
+                 await newBooking.listBookings();
+                  
+              }
+              
+              testBookings();
+                      
+              
+
+```
 ## Form validation, Mail Validation
 
   ```
