@@ -912,3 +912,74 @@
           logTransaction,
           logSystemInfo
       }
+```
+## Money splitter
+    ```
+      const fs = require('fs');
+      const path = require('path');
+      const util = require('util');
+      
+      const readFile = util.promisify(fs.readFile);
+      const writeFile = util.promisify(fs.writeFile);
+      
+      async function getExpenses(){
+          try {
+              const filePath = path.join(__dirname, 'data', 'expenses.json');
+              const data = await readFile(filePath, 'utf-8')
+              return JSON.parse(data);
+          } catch (error) {
+              throw error;
+              
+          }
+      }
+      async function calculateSplitExpenses(){
+          try {
+              const expenses = await getExpenses();
+              if(expenses.length == 0) return [];
+              const amount = expenses.reduce((sum,expense) => sum+expense.amount, 0)
+              const splitAmount = amount/(expenses.length);
+              const results = []
+              expenses.forEach(expense => {
+                  results.push({
+                      name: expense.name,
+                      amountPaid: expense.amount,
+                      amountOwed: splitAmount,
+                      balance:parseFloat((expense.amount-splitAmount).toFixed(2))
+      
+      
+                  })
+              })
+              return results;
+          
+      
+          } catch (error) {
+              throw error;
+              
+          }
+      }
+      async function saveResults(){
+          try {
+              const filePath = path.join(__dirname, 'data', 'results.json');
+              await writeFile(filePath, JSON.stringify(results,null,2), 'utf-8')
+      
+          } catch (error) {
+              throw error;
+              
+          }
+      
+      }
+      async function main(){
+          try {
+              const results = await calculateSplitExpenses();
+              console.log("Split Expenses: ",results);
+              console.log("Rsults saved successfully.");
+      
+          } catch (error) {
+              throw error;
+              
+          }
+      
+      }
+      main();
+      module.exports = {getExpenses, calculateSplitExpenses, saveResults}
+
