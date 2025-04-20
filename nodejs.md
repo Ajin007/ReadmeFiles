@@ -684,3 +684,78 @@
       bookMovieSeat("Avengers: Endgame", "A1", 120); // Valid booking
       // bookMovieSeat("Avengers: Endgame", "B1", 120); // Seat not available
       // bookMovieSeat("Avengers: Endgame", "A2", 50);  // Payment failed
+
+
+## Upload and download concept 
+    ```
+            //write your code here
+        const fs=require('fs');
+        const path=require('path');
+        const EventEmitter=require('events');
+        
+        class FileService extends EventEmitter{
+        
+            constructor(uploadDir){
+                super();
+                this.uploadDir=uploadDir;
+        
+                if(!fs.existsSync(uploadDir)){
+                    fs.mkdirSync(uploadDir,{recursive:true})
+                }
+        
+        
+            }
+        
+            uploadFile(fileName,fileContent){
+                const filePath=path.join(this.uploadDir,fileName);
+                fs.writeFileSync(filePath,fileContent);
+                this.emit('fileUploaded', fileName);
+                console.log(`File uploaded: ${fileName}`);
+        
+            }
+        
+            downloadFile(fileName){
+                const filepath=path.join(this.uploadDir,fileName);
+                if (!fs.existsSync(filepath)) {
+                    throw new Error(`File not found: ${fileName}`);
+                }
+                this.emit('fileDownloaded', fileName);
+                console.log(`File downloaded: ${fileName}`);
+                return fs.readFileSync(filepath, 'utf8');
+            }
+        
+        
+            streamFileContent(fileName, writableStream) {
+                const filePath = path.join(this.uploadDir, fileName);
+                if (!fs.existsSync(filePath)) {
+                    throw new Error(`File not found: ${fileName}`);
+                }
+        
+                const readable = fs.createReadStream(filePath);
+                readable.pipe(writableStream);
+        
+                this.emit('fileStreamed', fileName);
+                console.log(`Streaming file content: ${fileName}`);
+            }
+        
+            
+            deleteFile(fileName) {
+                const filePath = path.join(this.uploadDir, fileName);
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                    this.emit('fileDeleted', fileName);
+                    console.log(`File deleted: ${fileName}`);
+                }
+            }
+        
+            
+            listFiles() {
+                const files = fs.readdirSync(this.uploadDir);
+                this.emit('filesListed', files);
+                console.log('Listing files:', files);
+                return files;
+            }
+        
+        }
+        
+        module.exports = FileService;
