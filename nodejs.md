@@ -821,3 +821,94 @@
           console.log("File Content:", FileOperations.readFile());
           FileOperations.deleteFile();
       }
+```
+## Currency Conversion
+  ```
+        const fs=require('fs');
+      const os=require('os');
+      const path=require('path');
+      const util=require('util');
+      
+      // to promisify the callback function read  
+      const readFile= util.promisify(fs.readFile);
+      const appendFile=util.promisify(fs.appendFile);
+      
+      async function getCurrencyRates(){
+      
+          try {
+      const data=await readFile(path.join(__dirname,'data','rates.json'));
+      console.log(JSON.parse(data))
+      return JSON.parse(data);
+      
+          } catch (error) {
+      
+              console.error('Error reading currency rates:', error.message);
+              throw new Error('Failed to read currency rates.');
+              
+          }
+      
+          
+      
+      }
+      
+      async function convertCurrency(amount,fromCurrency,toCurrency){
+      
+          try {
+              const rates=await getCurrencyRates();
+              const fromRate=rates[fromCurrency];
+              const toRate=rates[toCurrency];
+              if(!fromRate || !toRate){
+                  throw new Error(`Unsupported currency conversion`);
+              }
+      
+              const converetdAmount=(amount/fromRate)*toRate;
+              return converetdAmount;
+      
+      
+              
+          } catch (error) {
+              console.error('Error converting currency:', error.message);
+              throw error;
+          }
+      }
+      
+      async function logTransaction(){
+      
+          const logpath=path.join(__dirname,'data','transactions.log');
+          const timestamp = new Date().toISOString();
+          const logEntry = `[${timestamp}] ${details}\n`;
+      
+          try {
+              await appendFile(logpath,logEntry,'utf-8')
+          } catch (error) {
+              console.error('Error logging transaction:', error.message);
+              throw new Error('Failed to log transaction.');
+              
+          }
+      
+      }
+      
+      function logSystemInfo(){
+          const userInfo = os.userInfo();
+          const uptime = os.uptime();
+          const platform = os.platform();
+          const arch = os.arch();
+          const totalMem = os.totalmem();
+          const freeMem = os.freemem();
+        
+          console.log('--- System Information ---');
+          console.log(`User: ${userInfo.username}`);
+          console.log(`Uptime: ${Math.floor(uptime)} seconds`);
+          console.log(`Platform: ${platform}`);
+          console.log(`Architecture: ${arch}`);
+          console.log(`Total Memory: ${(totalMem / (1024 ** 3)).toFixed(2)} GB`);
+          console.log(`Free Memory: ${(freeMem / (1024 ** 3)).toFixed(2)} GB`);
+          console.log('--------------------------');
+      }
+      
+      module.exports={
+          getCurrencyRates,
+          convertCurrency,
+          logTransaction,
+          logSystemInfo
+      }
