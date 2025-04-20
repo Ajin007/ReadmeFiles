@@ -759,3 +759,65 @@
         }
         
         module.exports = FileService;
+
+## how to use the files ,create update and delete 
+```
+        //write your code here
+      
+      const fs=require('fs');
+      const path=require('path');
+      
+      const filePath=path.join(__dirname,'test.txt');
+      
+      const FileOperations={
+          writeFile(fileName){
+      
+              try {
+                  
+                  fs.writeFileSync(filePath,fileName,'utf-8');
+                  console.log("File written successfully.");
+              } catch (error) {
+                  console.error("Error writing file:", err.message);
+                  
+              }
+      
+      
+          },
+      
+          readFile() {
+              try {
+                  if (!fs.existsSync(filePath)) {
+                      return "";
+                  }
+                  const data = fs.readFileSync(filePath, 'utf8');
+                  return data;
+              } catch (err) {
+                  console.error("Error reading file:", err.message);
+                  return "";
+              }
+          },
+      
+          deleteFile(){
+      
+              try {
+                  
+                  if(fs.existsSync(filePath)){
+                      fs.unlinkSync(filePath);
+                      console.log("File deleted successfully.");
+                  }
+              } catch (error) {
+                  console.error("Error deleting file:", error.message);
+              }
+      
+          }
+      }
+      
+      // Export the object for external use or testing
+      module.exports = FileOperations;
+      
+      // Sample usage for testing (you can comment this out during test cases)
+      if (require.main === module) {
+          FileOperations.writeFile("Hello from Node.js!");
+          console.log("File Content:", FileOperations.readFile());
+          FileOperations.deleteFile();
+      }
