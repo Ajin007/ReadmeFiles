@@ -203,4 +203,13 @@ node yourscript.js
 
 ---
 
+## Why pipe is used in the Streams ?
+    const fs = require('fs');
+    
+    const readable = fs.createReadStream('input.txt');
+    const writable = fs.createWriteStream('output.txt');
+    
+    readable.pipe(writable); // ✅ Direct piping
+
+
 Need help building a streaming compression tool with gzip or converting streams to promises? Just ask 😎
