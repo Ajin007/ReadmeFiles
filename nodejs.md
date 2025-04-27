@@ -982,4 +982,58 @@
       }
       main();
       module.exports = {getExpenses, calculateSplitExpenses, saveResults}
-
+## Middleware function usage and undersatnding
+  ```
+    const validation = (req, res, next) => {
+      const { title, director, releaseYear, genre } = req.body;
+    
+      // Check if any required field is missing
+      if (!title || !director || !releaseYear || !genre) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid movie data"
+        });
+      }
+    
+      // If validation passes, call next middleware
+      next();
+    };
+    
+    // Add a movie to the movies list
+    const addMovie = (req, res) => {
+      // Use the validated movie data from req.body
+      const { title, director, releaseYear, genre } = req.body;
+      const movie = {
+        title,
+        director,
+        releaseYear,
+        genre
+      };
+    
+      // Assuming movies is an array where the movies are stored
+      const pushedMovies = movies.push(movie);
+    
+      // Return the newly added movie
+      res.status(201).json({
+        success: true,
+        data: movie
+      });
+    };
+    
+    // Example Express route using the validation middleware and addMovie function
+    const express = require('express');
+    const app = express();
+    app.use(express.json());
+    
+    let movies = []; // Array to store movies
+    
+    // Define the route for adding a movie
+    app.post('/movies', validation, (req, res) => {
+      addMovie(req, res);
+    });
+    
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+    
