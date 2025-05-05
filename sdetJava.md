@@ -186,3 +186,145 @@ synchronized (sc) {
 | notify/wait    | Thread coordination (not usual for Scanner)      |
 
 ---
+
+# Java Locale Usage with Examples
+
+This document explains how to use `Locale` in Java for handling culture-specific formats in real-world applications. It covers number formatting, currency, date formatting, and language localization.
+
+---
+
+## ✅ 1. Number Formatting with Locale
+
+### India vs US
+
+```java
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class NumberLocaleDemo {
+    public static void main(String[] args) {
+        double amount = 1234567.89;
+
+        NumberFormat indiaFormat = NumberFormat.getInstance(new Locale("en", "IN"));
+        NumberFormat usFormat = NumberFormat.getInstance(Locale.US);
+
+        System.out.println("India Format: " + indiaFormat.format(amount)); // 12,34,567.89
+        System.out.println("US Format: " + usFormat.format(amount));       // 1,234,567.89
+    }
+}
+```
+
+---
+
+## ✅ 2. Currency Formatting with Locale
+
+### India vs Germany
+
+```java
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class CurrencyLocaleDemo {
+    public static void main(String[] args) {
+        double price = 29999.99;
+
+        NumberFormat inr = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+        NumberFormat eur = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+
+        System.out.println("Price in INR: " + inr.format(price)); // ₹29,999.99
+        System.out.println("Price in EUR: " + eur.format(price)); // 29.999,99 €
+    }
+}
+```
+
+---
+
+## ✅ 3. Date Formatting with Locale
+
+### US vs France
+
+```java
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+public class DateLocaleDemo {
+    public static void main(String[] args) {
+        Date today = new Date();
+
+        DateFormat usDate = DateFormat.getDateInstance(DateFormat.FULL, Locale.US);
+        DateFormat frDate = DateFormat.getDateInstance(DateFormat.FULL, Locale.FRANCE);
+
+        System.out.println("US Date: " + usDate.format(today));   // Monday, May 5, 2025
+        System.out.println("France Date: " + frDate.format(today)); // lundi 5 mai 2025
+    }
+}
+```
+
+---
+
+## ✅ 4. Message Translation using ResourceBundle
+
+### Step 1: Create Properties Files
+
+**messages_en.properties**
+```
+greeting=Hello!
+```
+
+**messages_fr.properties**
+```
+greeting=Bonjour!
+```
+
+### Step 2: Java Code
+
+```java
+import java.util.*;
+
+public class LocaleMessageDemo {
+    public static void main(String[] args) {
+        Locale en = new Locale("en");
+        Locale fr = new Locale("fr");
+
+        ResourceBundle bundleEN = ResourceBundle.getBundle("messages", en);
+        ResourceBundle bundleFR = ResourceBundle.getBundle("messages", fr);
+
+        System.out.println("EN: " + bundleEN.getString("greeting")); // Hello!
+        System.out.println("FR: " + bundleFR.getString("greeting")); // Bonjour!
+    }
+}
+```
+
+---
+
+## ✅ 5. Using Locale with Scanner
+
+```java
+import java.util.*;
+
+public class ScannerLocaleExample {
+    public static void main(String[] args) {
+        String input = "1234,56";
+        Scanner sc = new Scanner(input);
+        sc.useLocale(Locale.GERMANY); // uses comma as decimal separator
+        double value = sc.nextDouble();
+        System.out.println("Parsed: " + value);  // 1234.56
+        sc.close();
+    }
+}
+```
+
+---
+
+## 🧠 Summary Table
+
+| Feature           | Locale Customization                             |
+|-------------------|--------------------------------------------------|
+| Number Format     | Controls grouping separators                     |
+| Currency Format   | Sets currency symbol, decimal/grouping formats   |
+| Date Format       | Customizes date ordering and names               |
+| Language Support  | Switches text/messages via resource bundles      |
+| Scanner Parsing   | Parses input correctly based on locale rules     |
+
+---
