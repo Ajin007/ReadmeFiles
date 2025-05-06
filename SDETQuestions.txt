@@ -1,3 +1,4 @@
 1. When we will get the java.util.InputMismatchException? ---> when i use the nextInt() for the String input we will get this in the during the exception in the run Time.
 2. when nosuchElementError occur ----> After that, the input is exhausted, and nothing is left for sc.next() or sc.hasNext().
 3.when using the nextLine() and next()----->nextLine() + next() conflict	nextLine() consumes all input, leaving next() with nothing
+4. how to understand the printf ----> we shall us etrhe baeldung document for the same...
