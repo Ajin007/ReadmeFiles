@@ -1,4 +1,4 @@
-SDET JAVA DATATYPE VARIABL ------- 1
+********************************************************************************************************************************SDET JAVA DATATYPE VARIABL ------- 1
     // You are using Java
 import java.util.Scanner;
 
@@ -96,3 +96,54 @@ class TemperatureConverter{
        
     }
 }
+
+---------------------3 
+
+import java.util.Scanner;
+
+class TemperatureConverter{
+    
+    public static void main(String[] args){
+        
+        Scanner scanner=new Scanner(System.in);
+        
+      double celcius= scanner.nextDouble();
+      
+      double fahrenheit= (celcius * 9.0 / 5) + 32;
+       
+      System.out.printf("%.2f\n", fahrenheit);
+       
+      scanner.close();
+       
+    }
+}
+// import java.util.Scanner;
+// import java.lang.StringBuilder;
+// import java.util.Formatter;
+
+// class TemperatureConverter{
+    
+//     public static void main(String[] args){
+        
+//         StringBuilder builder=new StringBuilder();
+        
+//         Formatter formatter= new Formatter(builder);
+        
+        
+        
+//         Scanner scanner=new Scanner(System.in);
+        
+//       float celcius= scanner.nextFloat();
+       
+//       double fahrenheit= (celcius * 9.0 / 5) + 32;
+       
+//     //   System.out.printf("%.1f\n", fahrenheit);
+    
+//     formatter.format("%.1f\n", fahrenheit);
+    
+//     System.out.println(builder.toString());
+       
+//       scanner.close();
+       
+//     }
+// }
