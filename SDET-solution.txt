@@ -1,0 +1,98 @@
+SDET JAVA DATATYPE VARIABL ------- 1
+    // You are using Java
+import java.util.Scanner;
+
+class DataProcessing{
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        int positiveinteger = scanner.nextInt();
+        if(positiveinteger < 0){
+            System.out.println("Invalid input. Please enter a positive integer.");
+        } else {
+            // System.out.println(String.format("Byte: %d\nShort: %d\nLong: %d\nFloat: %.1f\nDouble: %.1f", (byte) positiveinteger, (short) positiveinteger, (long) positiveinteger, (float) positiveinteger, (double) positiveinteger));
+            // String.format(String, ...args)
+            System.out.println(String.format("Byte: %d",(byte)positiveinteger));
+            System.out.println(String.format("Short: %d",(short)positiveinteger));
+            System.out.println(String.format("Long: %d",(long)positiveinteger));
+            System.out.println(String.format("Float: %.1f",(float)positiveinteger));
+            System.out.println(String.format("Double %.1f",(double)positiveinteger));
+        }
+    }
+}
+
+
+// -----------------2
+// You are using Java
+import java.util.Scanner;
+
+class CurrencyConverter{
+
+    public static void main(String[] args){
+        
+        Scanner scanner= new Scanner(System.in);
+        
+        Integer amount=scanner.nextInt();
+        float exchangeRate=scanner.nextFloat();
+        
+        if(amount < 0 || exchangeRate < 0){
+             System.out.println("Invalid input. Please enter positive values for amount and exchange rate.");
+        }else {
+            
+        System.out.println(String.format("%.1f",amount*exchangeRate));
+        }
+        
+        
+    }
+}
+
+---------------------2
+
+// You are using Java
+// import java.util.Scanner;
+
+// class TemperatureConverter{
+    
+//     public static void main(String[] args){
+        
+//         Scanner scanner=new Scanner(System.in);
+        
+//       float celcius= scanner.nextFloat();
+       
+//       double fahrenheit= (celcius * 9.0 / 5) + 32;
+       
+//       System.out.printf("%.1f\n", fahrenheit);
+       
+//       scanner.close();
+       
+//     }
+// }
+import java.util.Scanner;
+import java.lang.StringBuilder;
+import java.util.Formatter;
+
+class TemperatureConverter{
+    
+    public static void main(String[] args){
+        
+        StringBuilder builder=new StringBuilder();
+        
+        Formatter formatter= new Formatter(builder);
+        
+        
+        
+        Scanner scanner=new Scanner(System.in);
+        
+       float celcius= scanner.nextFloat();
+       
+       double fahrenheit= (celcius * 9.0 / 5) + 32;
+       
+    //   System.out.printf("%.1f\n", fahrenheit);
+    
+    formatter.format("%.1f\n", fahrenheit);
+    
+    System.out.println(builder.toString());
+       
+       scanner.close();
+       
+    }
+}
