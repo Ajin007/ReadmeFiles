@@ -328,3 +328,26 @@ public class ScannerLocaleExample {
 | Scanner Parsing   | Parses input correctly based on locale rules     |
 
 ---
+### usage of the String.format() methods :
+
+``` Java
+    // Below given is the String
+    public static String format(Locale locale, String form, Object… args);
+    public static String format(String format, Object… args);
+
+    //Exceptions possible
+    NullPointerException:If the format is null.
+    IllegalFormatException:If the format specified is illegal or there are insufficient arguments
+
+    // Format Specifiers in the java
+    //Escape sequence in the java:
+        \t ----> inserts a tab
+        \b ---> inserts a backspace
+        \n ----> inserts a new line
+        \r ---> cariage return .()
+        \f ----> form feed
+        \' ---> inserts a single quote
+        \" ---> inserts a double quote
+        \\ ----> inserts a backslash
+        \ ---> backslah avoid the compile-time error
+
