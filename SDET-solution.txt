@@ -362,3 +362,99 @@ class Main {
         
     }
 }
+**********************************Conditional one ******************************************
+import java.util.Scanner;
+class ReverseInteger{
+    
+    public Integer reverseInteger(Integer inputData){
+        int reversed=0;
+        do{
+            
+            int digit=inputData % 10;
+            reversed=reversed*10+digit;
+            inputData=inputData/10;        }while(inputData > 0);
+        return reversed;
+    }
+}
+class Main{
+    public static void main(String[] args){
+        Scanner scanner= new Scanner(System.in);
+        ReverseInteger reverse=new ReverseInteger();
+        Integer inputData=scanner.nextInt();
+        if(inputData < 0){
+            System.out.println("Should be a non negative number");
+        }else{
+            
+        System.out.println(reverse.reverseInteger(inputData));
+        }
+    }
+}
+
+2))))))))))))))))))))))))))))
+import java.util.Scanner;
+
+class NaturalNumbers{
+    public Integer sumOfNaturalNumbers(Integer N){
+        int sum=0;
+        int counter=N;// working on with the Nth copy
+        while(counter>0){
+            sum += counter;
+            counter --;
+        }
+        return sum;
+        // short methods is N(N+1)/2-----> this is the formula for the same.
+    }
+}
+class Main{
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        Integer data=scanner.nextInt();
+        NaturalNumbers naturalNumber=new NaturalNumbers();
+        if(data < 0){
+       System.out.println("N must be a positive integer.");
+        }else {
+       System.out.println( naturalNumber.sumOfNaturalNumbers(data));
+        }
+    }
+}
+
+3)))))))))))))))))))))))))))))))))))))))))))))
+import java.util.Scanner;
+
+class WeatherForecast{
+    
+    public void displayForecast(Integer celcius,String weather){
+        if(weather.equalsIgnoreCase("sunny")){
+            if(celcius >  30){
+                
+            System.out.println("Hot and Sunny");
+            }
+        else if(celcius >=20 ){
+            System.out.println("Warm and Sunny");}
+            
+        else if(celcius < 20 ){
+            System.out.println("Cool and Sunny");
+        }
+        }
+        else if (weather.equalsIgnoreCase("cloudy")){
+            System.out.println("Cloudy with chances of rain");
+            
+        }else if (weather.equalsIgnoreCase("rainy")){
+            
+            System.out.println("Rainy with thunderstorms");
+        }
+            }
+}
+class Main{
+    
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        Integer celcius=Integer.parseInt(scanner.nextLine());
+       String weather= scanner.nextLine().trim();
+        WeatherForecast weatherforecast=new WeatherForecast();
+        if(celcius > 0 && !weather.isEmpty()){
+        weatherforecast.displayForecast(celcius,weather);
+        }
+        scanner.close();
+    }
+}
