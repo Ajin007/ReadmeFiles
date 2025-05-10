@@ -147,3 +147,218 @@ class TemperatureConverter{
        
 //     }
 // }
+
+
+
+*************************************************************Scanner class Problems*********************************************
+
+1)))))))))))))))))))
+import java.util.Scanner;
+
+
+class Main {
+    
+    public static void main(String[] args){
+        
+        Scanner scanner= new Scanner(System.in);
+        
+    float side=scanner.nextFloat();
+        
+        float perimeter = 4 * side;
+        
+        System.out.println(perimeter);
+        
+        
+         
+    }
+}
+
+
+2))))))))))))))))))))))
+import java.util.Scanner;
+
+
+class Main {
+    
+    public static void main(String[] args){
+        
+        Scanner scanner=new Scanner(System.in);
+        
+        String name=scanner.nextLine();
+        String email=scanner.nextLine();
+        String username=scanner.nextLine();
+        String password=scanner.nextLine();
+        
+        if(name.isEmpty() || email.isEmpty() || username.isEmpty() | password.isEmpty()){
+            System.out.println("Invalid input. Please make sure all fields are non-empty.");
+        }else{
+            
+        System.out.println("User Registration Successful!");
+        System.out.println(String.format("Name: %s\nEmail: %s\nUsername: %s\nPassword: %s\n",name,email,username,password));
+        }
+        
+        
+    }
+    
+}
+
+
+3)))))))))))))))))))))))))))))
+
+
+import java.util.Scanner;
+
+
+// class PersonalTracker {
+    
+//     public static void main(String[] args){
+        
+//         Scanner scanner=new Scanner(System.in);
+//         String name=scanner.nextLine();
+        
+//         Integer age=scanner.nextInt();
+//         scanner.nextLine();
+//         // char gender=scanner.nextLine().charAt(0);
+//         String gender=scanner.nextLine();
+//         String occupation=scanner.nextLine();
+        
+//         System.out.println(String.format("Name: %s\nAge: %d\nGender: %s\nOccupation: %s\n",name,age,gender,occupation));
+        
+        
+        
+//     }
+// }
+
+
+class PersonalInfoTracker{
+    private String name;
+    private int age;
+    private String gender;
+    private String occupation;
+    private boolean isValid=true;
+    
+    public String displayName(Scanner scanner){
+        
+        return  this.name=scanner.nextLine();
+        
+    }
+    
+    //user age should be a positive integer
+    public Integer displayAge(Scanner scanner){
+        
+        while(true){
+            
+        
+            try{
+                //this is another way of parsing the data 
+                int age=Integer.parseInt(scanner.nextLine());
+                    
+                if(age <= 0){
+                    this.isValid=false;
+                    return age;
+                    
+                    
+                }else {
+                     this.age=age;
+                     return age;
+                    
+                }
+                
+            }catch(NumberFormatException e){
+                
+                System.out.println("Invalid Input. Please enter a valid input for age.");
+            }
+        }
+    }
+    
+    public boolean isValid(){
+        return this.isValid;
+    }
+    
+    public String displayGender(Scanner scanner){
+        
+        while(true){
+            
+            String input=scanner.nextLine();
+            
+            // if(input.length() != 1 ){
+            //     System.out.println("Invalid input");
+            // }
+            
+            
+            if(input.equals("M") || input.equals("F")){
+                
+            switch (input){
+                
+                case "F":
+                    this.gender = "Female";
+                    return gender;
+                case "M":
+                    this.gender="Male";
+                    return gender;
+             
+                
+            }
+            }else{
+                this.isValid=false;
+                return gender;
+            }
+        }
+        
+    }
+    
+    public String displayOccupation(Scanner scanner){
+        String input=scanner.nextLine();
+        if(input == null || input.isEmpty()){
+            
+            this.isValid=false;
+            return occupation;
+            
+        }else {
+             this.occupation=input;
+        }
+            
+        return occupation;
+        
+    }
+    
+    public void displayAll(){
+
+       
+        
+        System.out.println("Name: "+name);
+        System.out.println("Age: "+age);
+        System.out.println("Gender: "+gender);
+        System.out.println("Occupation: "+occupation);
+        
+    }
+    
+  
+    
+    
+}
+
+class Main {
+    
+    public static void main(String[] args){
+        
+        Scanner scanner= new Scanner(System.in);
+        
+        PersonalInfoTracker personal=new PersonalInfoTracker();
+        
+        personal.displayName(scanner);
+        personal.displayAge(scanner);
+        personal.displayGender(scanner);
+        personal.displayOccupation(scanner);
+        if(!personal.isValid()){
+            System.out.println("Invalid input");
+        }else{
+            
+        personal.displayAll();
+        }
+        
+        
+        scanner.close();
+        
+    }
+}
