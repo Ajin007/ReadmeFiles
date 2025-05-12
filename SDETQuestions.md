@@ -6,4 +6,5 @@
 6. where to check the string.format() values -------> https://www.w3schools.com/java/ref_string_format.asp
 7. What is the use of the Array.copyOf() and System.arraycopy() , which is the best ----> https://www.baeldung.com/java-system-arraycopy-arrays-copyof-performance
 8. Common array methods we use for.
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/ac5fc92e-e80f-4375-b270-23857464a2f1)
+
