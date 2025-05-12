@@ -5,3 +5,5 @@
 5. why to study the string.format(), printf and the formatter object used in the streams.
 6. where to check the string.format() values -------> https://www.w3schools.com/java/ref_string_format.asp
 7. What is the use of the Array.copyOf() and System.arraycopy() , which is the best ----> https://www.baeldung.com/java-system-arraycopy-arrays-copyof-performance
+8. Common array methods we use for.
+![Uploading image.png…]()
