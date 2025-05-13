@@ -458,3 +458,123 @@ class Main{
         scanner.close();
     }
 }
+
+*********************************************************************************************Scanner*************************************************************
+
+1)))))))))))))))))))))))
+import java.util.Scanner;
+class Main{
+    public static int sumOfArray(int[] arrayOfData){
+        int finalSum=0;
+        for(int i=0;i<arrayOfData.length;i++){
+            finalSum = finalSum+arrayOfData[i];
+        }
+        return finalSum;
+    }
+public static void main(String[] args){
+    Scanner scanner= new Scanner(System.in);
+    Integer arraySize=Integer.parseInt(scanner.nextLine());
+    int[] array=new int[arraySize];
+    for(int i=0;i<arraySize;i++){
+    array[i]=scanner.nextInt();
+    }
+    int finalAnswer=sumOfArray(array);
+    System.out.println("The sum of the array elements is: "+finalAnswer);
+}    
+}
+
+
+2))))))))))))))))))))))))))))))))))
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Concationation{
+    
+    // method-1 
+    public static void concatenateArrays(int[] dataSizeone,int[] dataSizetwo){
+
+//System.arrayCopy() is the best way of copying the arrayCopy
+//Arrays.copyOf() is another method, but deep inside this too using the System.arrayCopy();
+
+//Allocate new array with the combined length
+int[] finalValue=new int[dataSizeone.length+dataSizetwo.length];
+
+// another way of creating a new array
+//finalValue=Arrays.copyOf(targetArray,final index value of the target value+sourcearray.length)
+// this shall be achieved by using the StringBuilder class in the java
+
+for(int i=0;i<dataSizeone.length;i++){
+    finalValue[i]=dataSizeone[i];
+}
+
+for(int i=0;i<dataSizetwo.length;i++){
+    finalValue[i+dataSizeone.length]=dataSizetwo[i];
+}
+// System.out.println(Arrays.toString(finalValue));
+
+for(int i=0;i<finalValue.length;i++){
+    System.out.print(finalValue[i]);
+    if(i < finalValue.length - 1){
+        System.out.print(" ");
+    }
+}
+}
+ 
+     
+    //method-2
+     public static void main(String[] args){
+         Scanner scanner=new Scanner(System.in);
+         int sizeOfArrayOne=Integer.parseInt(scanner.nextLine());
+         int[] dataArrayOne=new int[sizeOfArrayOne];
+         for(int i=0;i<sizeOfArrayOne;i++){
+dataArrayOne[i]=scanner.nextInt();
+}
+scanner.nextLine();
+         int sizeOfSecondArray=Integer.parseInt(scanner.nextLine());
+        int[] dataSecondArray=new int[sizeOfSecondArray];
+        for(int j=0;j<sizeOfSecondArray;j++){
+     dataSecondArray[j]=scanner.nextInt();
+ }  
+         concatenateArrays(dataArrayOne,dataSecondArray);
+         
+         
+     }
+    
+    
+}
+
+
+
+3))))))))))))))))))))))))))))))))))))))))))))))))))))
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        Scanner scanner = new Scanner(System.in);
+        int rows=scanner.nextInt();
+        int cols=scanner.nextInt();
+        
+        //initialize a Array
+        int[][] array=new int[rows][cols];
+        
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+               array [i][j]=scanner.nextInt();
+            }
+        }
+        
+        int sum =0;
+         for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+               sum += array[i][j];
+            }
+        }
+        
+        // since arrays.toString does not support the 2D, we are using arrays.deepToString()
+        // System.out.print(Arrays.deepToString(array));
+        System.out.print(sum);
+    }
+}
