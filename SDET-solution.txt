@@ -707,4 +707,140 @@ class Main{
     }
 }
 
+************************************************************String BUilder, Anagram*************************
+
+1))))))))))))))))))))))))-----> ANagram
+Steps to Check if Two Strings are Anagrams:
+Length Check: If the two strings don't have the same length, they can't be anagrams.
+
+Sorting: Sort both strings and compare them. If they are anagrams, they will be identical after sorting.
+
+Frequency Count: Alternatively, we could count the frequency of each character in both strings and compare those counts.
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        // here for the anagatram we did only two checks we also shall do another frequency heck asw ell
+        
+        Scanner scanner=new Scanner(System.in);
+        String S1=scanner.nextLine();
+    
+        String S2=scanner.nextLine();
+        
+        if(S1.length() != S2.length()){
+            System.out.println("Not Anagrams");
+            return;
+        }
+        
+        char[] array1= S1.toCharArray();
+        char[] array2= S2.toCharArray();
+        
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+        
+        // to check if the sorted arrays are equal
+        if(Arrays.equals(array1,array2)){
+            System.out.println("Anagrams");
+            
+        }else{
+            
+            System.out.println("Not Anagrams");
+        }
+        
+        
+        // convert the string to the char Arrays 
+        
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        // System.out.println(Arrays.toString(charString));
+    }
+}
+
+2))))))))))))))))))))))))))---> 
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Main{
+    
+    // character class used to convert the toUpeerclass and the toLowerclass
+    
+    public static void main(String[] args){
+        Scanner scanner= new Scanner(System.in);
+        String dataString=scanner.nextLine();
+        
+        // convert string to Character
+        char[] charArray=dataString.toCharArray();
+        for(int i =0;i<charArray.length;i++){
+        //  if(i % 2 == 0){
+        //     charArray[i]=Character.toLowerCase(charArray[i]);
+        //  }else{
+        //     charArray[i]=Character.toUpperCase(charArray[i]);
+            
+        // }
+        
+        if(i % 2 == 0){
+            if(charArray[i] >='A' && charArray[i] <='Z'){
+                charArray[i]=(char)(charArray[i] +32);  // convert to the lower case
+            }else if(charArray[i] >='a' && charArray[i] <='z'){
+                charArray[i]=(char)(charArray[i] -32);  // convert to the lower case
+                
+            }
+            
+        }
+        
+        }
+        
+       //output modified string
+       System.out.println(new String(charArray));
+        
+    }
+}
+
+3)))))))))))))))))))) ---> 
+
+import java.util.Scanner;
+import java.lang.StringBuilder;
+
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        Scanner scanner=new Scanner(System.in);
+        String reverseInput=scanner.nextLine();
+        String[] stringArray=reverseInput.split(" ");;
+        for(int i=stringArray.length-1;i>=0;i--){
+            System.out.print(stringArray[i]);
+            System.out.print(" ");
+            
+        }
+        // same using the StringBuilder
+        // StringBuilder reversedSeentence=new StringBuilder();
+        
+        // for(int i=stringArray.length-1;i>=0;i--){
+            
+        //     reversedSeentence.append(stringArray[i]);
+        //     if(i> 0){
+        //         reversedSeentence.append(" ");
+        //     }
+        // }
+        
+        // System.out.println(reversedSeentence.toString());
+    }
+}
+
 
