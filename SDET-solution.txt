@@ -843,4 +843,177 @@ class Main{
     }
 }
 
+*********************************************OOPS COncepts********************************
+1))))))))))))))))))))))))))))))
+import java.util.Scanner;
+import java.util.Arrays;
 
+class Students{
+    
+    private final String studentName;
+    private int[] marks;
+    
+   public Students(String studentName,int[] marks){
+        
+        this.studentName=studentName;
+        this.marks=marks;
+        
+    }
+    
+    public String getName(){
+        return studentName;
+    } 
+    
+    
+    public int[] getMarks(){
+        return marks;
+    }
+    
+    public void setMarks(int[] marks){
+        this.marks=marks;
+    }
+    
+    // since final keyword used , we are not going to set the setter fro the same
+    public double calulateStudentGrade(){
+        
+        int sum=0;
+        for(int mark:marks){
+            sum += mark;
+        }
+        
+        return (double)sum/marks.length;
+    }
+    
+}
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        Scanner scanner= new Scanner(System.in);
+        
+        String studentDataInput=scanner.nextLine();
+        String[] parts=studentDataInput.split(" ");
+        // System.out.println(Arrays.toString(parts));
+        String studentName=parts[0];
+        
+        int[] marks=new int[parts.length-1];
+        
+        for(int i=0;i<marks.length;i++){
+            
+            marks[i]=Integer.parseInt(parts[i+1]);
+            
+        }
+        
+        Students student=new Students(studentName,marks);
+        
+        
+        // System.out.println(Arrays.toString(marks));
+        
+        System.out.println(String.format("Student: %s, Average Grade: %.1f",student.getName(),student.calulateStudentGrade()));
+        
+        // for(int i=0;i<studentDataInput.length;i++){
+            
+        // }
+    }
+}
+
+2)))))))))))))))))))))))))
+import java.util.Scanner;
+import java.util.Arrays;
+
+class BankAccount{
+    private String name;
+    private int balance;
+    private int deposit;
+    private int withdraw;
+    public BankAccount(String name,int balance,int deposit,int withdraw){
+        this.name=name;
+        this.balance=balance;
+        this.deposit=deposit;
+        this.withdraw=withdraw;
+    }
+    public String getName(){ 
+        return name;
+    }
+    public int getBalance(){
+        return balance;
+    }
+    public int getDeposit(){
+        return deposit;
+    }
+    public int getWithdraw(){
+        return withdraw;
+    }
+    public double finalBalance(){
+        int sum=0;
+        if(balance <= 10000 && deposit <= 5000 && withdraw <= 5000 ){
+            
+        sum =balance+deposit-withdraw;
+        }
+        return (double)sum;
+    }
+}
+
+class Main{
+    
+    public static void main(String[] args){
+        
+        Scanner scanner=new Scanner(System.in);
+        String initial=scanner.nextLine();
+        String initialDeposit=scanner.nextLine();
+        String initialWithdraw=scanner.nextLine();
+        String[] initialArray=initial.split(" ");
+        String[] initialDepositArray=initialDeposit.split(" ");
+        String[] initialWithdrawArray=initialWithdraw.split(" ");
+        String name=initialArray[0];
+        int intBalance=Integer.parseInt(initialArray[1]);
+        int deposit=Integer.parseInt(initialDepositArray[1]);
+        int withdraw=Integer.parseInt(initialWithdrawArray[1]);
+        
+        BankAccount bankReference=new BankAccount(name,intBalance,deposit,withdraw);
+        
+        System.out.println(String.format("Account Holder: %s, Final Balance: %.1f",bankReference.getName(),bankReference.finalBalance()));
+    }
+}
+
+3))))))))))))))))))))))))))))))))))))))
+import java.util.Scanner;
+
+
+class DayOfWeek{
+    private int day;
+    
+    public DayOfWeek(int day){
+        this.day=day;
+    }
+    
+    public String Days(){
+        switch(day){
+            case 2: return "Monday";
+            case 3: return "Tuesday";
+            case 4: return "Wednesday";
+            case 5: return "Thursday";
+            case 6: return "Friday";
+            case 7: return "Saturday";
+            case 1: return "Sunday";
+            default: return "this is not a valid date";
+            
+        }
+    }
+    
+}
+
+class Main{
+    //direct possible is using import java.time.DayOfWeek;
+    
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        int day=scanner.nextInt();
+        if(day > 0 && day <= 7){
+        DayOfWeek dayName=new DayOfWeek(day);
+        System.out.println(String.format("Day is %s",dayName.Days()));
+            
+        }
+    }
+}
