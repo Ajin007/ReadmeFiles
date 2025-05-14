@@ -578,3 +578,133 @@ class Main{
         System.out.print(sum);
     }
 }
+
+
+**********************************************Arrsy,buuble sort, linear search algorithm *********************
+
+1)))))))))))))))))))))))))))))))))))))))))----> sort for the integer
+import java.util.Scanner;
+import java.util.Arrays;
+
+class SortArray{
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+            int arraySize=Integer.parseInt(scanner.nextLine());
+            int[] arrayData= new int[arraySize];
+            for(int i=0;i<arraySize;i++){
+               arrayData[i]=scanner.nextInt();
+            }
+            // bubble sort algorithm
+            for(int i=0;i<arraySize-1;i++){
+                for(int j=0;j<arraySize-i-1;j++){
+                    if(arrayData[j]>arrayData[j+1]){
+                        //swapping done here
+                        int tmp=arrayData[j];
+                        arrayData[j]=arrayData[j+1];
+                        arrayData[j+1]=tmp;
+                    }
+                }
+            }
+            
+            //to print like the exact ouput
+            for(int i=0;i<arrayData.length;i++){
+                System.out.print(arrayData[i]);
+                System.out.print(" ");
+            
+            }
+            
+            // System.out.println(Arrays.toString(arrayData));
+           
+    }
+}
+
+
+2))))))))))))))))))))))) ---> sort for the string
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+class Main{
+    
+    public static void main(String[] args){
+        Scanner scanner= new Scanner(System.in);
+        int size=Integer.parseInt(scanner.nextLine());
+        String[] fruits=new String[size];
+        for(int i=0; i<size;i++){
+            fruits[i]= scanner.nextLine();
+        }
+        // bubble sort
+        // buuble sort in the strings is done by the compareTo method , which will give the 
+        for(int i=0;i<fruits.length-1;i++){
+            for(int j=0;j<fruits.length -i -1;j++){
+                if((fruits[j].compareTo(fruits[j+1])) > 0){
+                    String tmp=fruits[j];
+                    fruits[j]=fruits[j+1];
+                    fruits[j+1]=tmp;
+                }
+            }
+        }
+        // this is using the inbuilt method of array
+        // Arrays.sort(fruits);
+        
+        // this is using the inbuild method of the collections
+        // List<String> listData=Arrays.asList(fruits);
+        // Collections.sort(listData);
+        
+        for(int i=0;i<fruits.length;i++){
+            System.out.println(fruits[i]);
+        }
+    //   for(String str:listData){
+    //       System.out.println(str);
+    //   }
+        
+        // System.out.println(Arrays.toString(fruits));
+        
+    }
+}
+
+3)))))))))))))))))))))) ->>>>>> linear search algorithm
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Main{
+    
+    // for this method we shall also use the sorted binary search
+    //which is available in the  Arrays class.
+    
+    public static void main(String[] args){
+        
+        Scanner scanner =new Scanner(System.in);
+        String dynamicData=scanner.nextLine();
+        char searchData=scanner.nextLine().charAt(0);
+        
+        char[] charArray=new char[dynamicData.length()];
+        
+        //boolean usage to get the false statement
+        boolean found=false;
+        
+        for(int i=0;i<charArray.length;i++){
+            charArray[i]=dynamicData.charAt(i);
+        }
+        
+        for(int i =0;i<charArray.length;i++){
+            if(charArray[i] == searchData){
+                System.out.println("Found at index "+ i);
+                found =true;
+                break;
+            }
+        }
+        
+        if(!found){
+            System.out.println("Not found");
+        }
+        
+        // System.out.println(Arrays.toString(charArray));
+        
+        
+        
+    }
+}
+
+
