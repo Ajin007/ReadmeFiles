@@ -1017,3 +1017,122 @@ class Main{
         }
     }
 }
+********************************OOPS Concepts*****************************
+1))))))))))))))))))........................
+
+
+
+class School{
+    public void learn(){
+        System.out.println("Learning is happening in school!");
+    }
+    
+    public void provideResources(){
+        System.out.println("School provides resources for learning.");
+    }
+    
+    
+}
+
+class Student extends School {
+    
+    
+    public void attendClasses(){
+        System.out.println("Student is attending classes.");
+        
+    }
+    
+    public void completeAssignments(){
+        System.out.println("Student is completing assignments.");
+        
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        Student student=new Student();
+        
+        student.learn();
+        student.provideResources();
+        student.attendClasses();
+        student.completeAssignments();
+        
+        
+        
+    }
+}
+
+2))))))))))))))))))))))))))))))
+
+import java.util.Scanner;
+import java.util.Arrays;
+class GrandFather{
+    private String name;
+    public GrandFather(String name){
+        this.name=name;
+    }
+    public String getName(){
+        return name;
+    }
+    
+    public void sayHello(){
+        System.out.println("Hello from GrandFather "+
+        name+"!");
+    }
+}
+
+class Father extends GrandFather{
+    private String name;
+    private int age;
+    public Father(String name,int age){
+        super(name);
+        this.name="John";
+        this.age=age;
+    }
+    public void introduce(){
+        System.out.println("I am "+name+", son of "+super.getName()+", aged"+age);
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        String name="William";
+        int age=45;
+        Father father=new Father(name,age);
+        father.sayHello();
+        father.introduce();
+        
+    }
+}
+
+3)))))))))))))))))))))))))))))))))...................
+class Car{
+    public void startEngine(){System.out.println("Car engine started!");};
+    public void stopEngine(){System.out.println("Car engine stopped!");};
+    
+}
+
+class Swift extends Car{
+    public void openSunroof(){System.out.println("Swift sunroof opened!");};
+    
+}
+
+class Honda extends Car{
+    public void activateCruiseControl(){System.out.println("Honda cruise control activated!");};
+    
+}
+
+class Main {
+    
+    public static void main (String[] args){
+        
+    Swift swift=new Swift();
+    Honda honda=new Honda();
+    swift.startEngine();
+    swift.openSunroof();
+    honda.startEngine();
+    honda.activateCruiseControl();
+    swift.stopEngine();
+    honda.stopEngine();
+    }
+}
