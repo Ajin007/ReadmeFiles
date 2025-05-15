@@ -1136,3 +1136,118 @@ class Main {
     honda.stopEngine();
     }
 }
+*********************************Exception handlinggf ***********************************
+1))))))))))))))))))))))))
+import java.util.Scanner;
+
+
+class InvalidAmountException extends Exception{
+    public InvalidAmountException(String message){
+        super(message);
+    }
+}
+
+class Main{
+    
+    public static void neagtiveValue(double amount) throws InvalidAmountException{
+        if(amount<500){
+            throw new InvalidAmountException("Error:please enter a valid amount");
+        }else if (amount > 100000){
+            throw new InvalidAmountException("Error:Amount limit exceeded enter less than 100000");
+            
+        }else {
+            System.out.println(String.format("%.1f %s",amount,"deposited successfully in your bank account"));
+        }
+            
+    }
+    
+    
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        try{
+        int depositAmount=scanner.nextInt();
+        neagtiveValue(depositAmount);
+        
+        }catch(InvalidAmountException e){
+            System.out.println(e.getMessage());
+            
+        }catch(NumberFormatException e){
+            System.out.println(e.getMessage());
+            
+        }
+        
+    }
+}
+
+
+
+
+2))))))))))))))))))))))))))))
+// You are using Java
+import java.util.Scanner;
+
+class InvalidAgeForDrivingLicenseException extends Exception {
+ 
+ public InvalidAgeForDrivingLicenseException(String message){
+     super(message);
+ }
+
+}
+
+
+class InvalidMarkForDrivingLicenseException extends Exception {
+
+public InvalidMarkForDrivingLicenseException(String message){
+    super(message);
+}
+}
+
+class RegisterForDrivingLicenseDemo {
+    
+    public static void display(String name,int age,int marks) throws InvalidMarkForDrivingLicenseException,InvalidAgeForDrivingLicenseException{
+        if(age<0){
+            throw new InvalidAgeForDrivingLicenseException("InvalidAgeForDrivingLicenseException: Invalid age");
+            
+        }
+        if(age<=18){
+            throw new InvalidAgeForDrivingLicenseException("InvalidAgeForDrivingLicenseException: Age should be more than 18 years old");
+        }
+        
+        if(marks < 0 || marks > 100){
+            throw new InvalidMarkForDrivingLicenseException("InvalidMarkForDrivingLicenseException: Invalid mark");
+            
+        }
+        if(marks<= 80 ){
+            throw new InvalidMarkForDrivingLicenseException("InvalidMarkForDrivingLicenseException: Mark should be more than 80");
+            
+        }
+        if(marks > 80 && age >= 18 && name != null && !name.isEmpty()){
+            
+            System.out.println("Approved");
+        }
+        
+        
+    }
+	public static void main(String[] args) {
+	    Scanner scanner =new Scanner(System.in);
+	    
+	    try{
+	String name=scanner.nextLine();
+	int age=Integer.parseInt(scanner.nextLine());
+	int marks=Integer.parseInt(scanner.nextLine());
+	
+	display(name,age,marks);
+	        
+	    }catch(Exception e){
+	        System.out.println(e.getMessage());
+	        
+	    }finally{
+	        scanner.close();
+	    }
+    
+
+
+
+	}
+}
+
