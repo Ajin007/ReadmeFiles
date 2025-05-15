@@ -19,6 +19,126 @@ class DataProcessing{
         }
     }
 }
+*********************************ArrayList And Collections**************************
+1)))))))))))))))))))))
+import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.Iterator;
+
+class Main {
+    
+    public static void main(String[] args){
+        
+        // set have remove method to achieve the same but iterator is consoidered to be the best
+        // considering the concurrency , while using iterator use while 
+        
+        Scanner scanner=new Scanner(System.in);
+        
+        String capitals=scanner.nextLine();
+        int deleteCapitalCount=scanner.nextInt();
+        // scanner.nextLine();
+        // System.out.println(deleteCapitalCount);
+        String[] capitalsArray=capitals.split(" ");
+        // System.out.println(Arrays.toString(capitalsArray));
+        
+        Set<String> setValues=new HashSet<String>(Arrays.asList(capitalsArray));
+        
+        // System.out.println(setValues);
+        for (String capitaals:setValues){
+        System.out.println(capitaals);
+            
+        }
+        System.out.println("Elements in the set after deletion:");
+        Iterator<String> it=setValues.iterator();
+        int count=0;
+        while(it.hasNext() && count <deleteCapitalCount ){
+            it.next();
+            it.remove();
+            count ++;
+        }
+        
+        // System.out.println(setValues);
+         for (String capitaals:setValues){
+        System.out.println(capitaals);
+            
+        }
+        
+      
+        
+        
+        
+    }
+}
+
+2))))))))))))))))))))))))))
+
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        String data=scanner.nextLine();
+        String[] dataArray=data.split(" ");
+        Set<Integer> setData=new HashSet<>();
+        if(dataArray.length > 1){
+        for(String s:dataArray){
+            setData.add(Integer.parseInt(s));
+        }
+        int dataToRemove= Integer.parseInt(scanner.nextLine());
+        int truthChecker= Integer.parseInt(scanner.nextLine());
+        //  Iterator<Integer> it=setData.Iterator();
+         System.out.println("Current elements in the HashSet: "+setData);
+         setData.remove(dataToRemove);
+         System.out.println("Elements in the HashSet after removal: "+setData);
+         System.out.println(setData.contains(truthChecker));
+        }
+        else {
+            
+            int dataOne=Integer.parseInt(dataArray[0]);
+            int dataTwo=Integer.parseInt(scanner.nextLine().trim());
+            setData.add(dataOne);
+            setData.add(dataTwo);
+         System.out.println("Current elements in the HashSet: "+setData);
+          int dataToRemoveTwo= Integer.parseInt(scanner.nextLine());
+        int truthCheckerTwo= Integer.parseInt(scanner.nextLine());
+         setData.remove(dataToRemoveTwo);
+         System.out.println("Elements in the HashSet after removal: "+setData);
+         System.out.println(setData.contains(truthCheckerTwo));
+        }
+    }
+}
+
+
+3))))))))))))))))))))))))))))))
+
+import java.util.*;
+
+class Main {
+    
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        int data=Integer.parseInt(scanner.nextLine());
+        
+        List<Integer> increasingList=new ArrayList<>();
+        
+        for(int i =0;i<data;i++){
+            int num=scanner.nextInt();
+            
+            if(increasingList.isEmpty() || num > increasingList.get(increasingList.size()-1)){
+                increasingList.add(num);
+            }
+        }
+        
+        System.out.println(increasingList);
+        
+    }
+}
 
 
 // -----------------2
@@ -1251,3 +1371,124 @@ class RegisterForDrivingLicenseDemo {
 	}
 }
 
+
+************************************************ArrayList and Set and HashSet************************************
+1))))))))))))))))))))))))))))
+
+import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.Iterator;
+
+class Main {
+    
+    public static void main(String[] args){
+        
+        // set have remove method to achieve the same but iterator is consoidered to be the best
+        // considering the concurrency , while using iterator use while 
+        
+        Scanner scanner=new Scanner(System.in);
+        
+        String capitals=scanner.nextLine();
+        int deleteCapitalCount=scanner.nextInt();
+        // scanner.nextLine();
+        // System.out.println(deleteCapitalCount);
+        String[] capitalsArray=capitals.split(" ");
+        // System.out.println(Arrays.toString(capitalsArray));
+        
+        Set<String> setValues=new HashSet<String>(Arrays.asList(capitalsArray));
+        
+        // System.out.println(setValues);
+        for (String capitaals:setValues){
+        System.out.println(capitaals);
+            
+        }
+        System.out.println("Elements in the set after deletion:");
+        Iterator<String> it=setValues.iterator();
+        int count=0;
+        while(it.hasNext() && count <deleteCapitalCount ){
+            it.next();
+            it.remove();
+            count ++;
+        }
+        
+        // System.out.println(setValues);
+         for (String capitaals:setValues){
+        System.out.println(capitaals);
+            
+        }
+        
+      
+        
+        
+        
+    }
+}
+
+
+2)))))))))))))))))))))))))))))))
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        String data=scanner.nextLine();
+        String[] dataArray=data.split(" ");
+        Set<Integer> setData=new HashSet<>();
+        if(dataArray.length > 1){
+        for(String s:dataArray){
+            setData.add(Integer.parseInt(s));
+        }
+        int dataToRemove= Integer.parseInt(scanner.nextLine());
+        int truthChecker= Integer.parseInt(scanner.nextLine());
+        //  Iterator<Integer> it=setData.Iterator();
+         System.out.println("Current elements in the HashSet: "+setData);
+         setData.remove(dataToRemove);
+         System.out.println("Elements in the HashSet after removal: "+setData);
+         System.out.println(setData.contains(truthChecker));
+        }
+        else {
+            
+            int dataOne=Integer.parseInt(dataArray[0]);
+            int dataTwo=Integer.parseInt(scanner.nextLine().trim());
+            setData.add(dataOne);
+            setData.add(dataTwo);
+         System.out.println("Current elements in the HashSet: "+setData);
+          int dataToRemoveTwo= Integer.parseInt(scanner.nextLine());
+        int truthCheckerTwo= Integer.parseInt(scanner.nextLine());
+         setData.remove(dataToRemoveTwo);
+         System.out.println("Elements in the HashSet after removal: "+setData);
+         System.out.println(setData.contains(truthCheckerTwo));
+        }
+    }
+}
+
+3)))))))))))))))))))))))))))))))))
+
+import java.util.*;
+
+class Main {
+    
+    public static void main(String[] args){
+        Scanner scanner=new Scanner(System.in);
+        int data=Integer.parseInt(scanner.nextLine());
+        
+        List<Integer> increasingList=new ArrayList<>();
+        
+        for(int i =0;i<data;i++){
+            int num=scanner.nextInt();
+            
+            if(increasingList.isEmpty() || num > increasingList.get(increasingList.size()-1)){
+                increasingList.add(num);
+            }
+        }
+        
+        System.out.println(increasingList);
+        
+    }
+}
