@@ -69,6 +69,22 @@ SELECT MAX(Salary) AS Max_Salary FROM Employee_Salaries;
 
 Window functions operate on a set of rows related to the current row. They are used to perform calculations across a specified range of rows, and unlike aggregate functions, they do not collapse the result set.
 
+## what is Result set ?
+       A result set in the context of databases refers to the collection of rows (and columns) returned by a query after it has been executed.
+
+       In simpler terms:
+       
+       When you run a SQL query (such as SELECT * FROM Employees), the database processes that query and retrieves data from the database tables.
+       
+       The data retrieved is then returned as a result set, which is essentially a table or a set of rows and columns that match the query conditions.
+       Result Set is the output of a SQL query.
+
+       It can consist of zero or more rows, depending on the query.
+       
+       Each row in the result set corresponds to a record from the table(s).
+       
+       It can be processed using various SQL commands like ORDER BY, GROUP BY, or window functions.
+
 Common window functions include:
 
 - **ROW_NUMBER()**: Assigns a unique number to each row based on a given order.
