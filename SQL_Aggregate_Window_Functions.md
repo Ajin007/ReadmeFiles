@@ -1,4 +1,169 @@
 
+# Aggregate and Window Functions in SQL
+
+## 1. Aggregate Functions
+
+Aggregate functions are used to perform calculations on a set of values and return a single value. Common aggregate functions include:
+
+- **COUNT()**: Returns the number of rows in a set.
+- **SUM()**: Returns the sum of a numeric column.
+- **AVG()**: Returns the average value of a numeric column.
+- **MIN()**: Returns the smallest value in a set.
+- **MAX()**: Returns the largest value in a set.
+
+### Example Table: `Employee_Salaries`
+
+| Employee_ID | Name     | Department  | Salary |
+|-------------|----------|-------------|--------|
+| 101         | John     | HR          | 50000  |
+| 102         | Jane     | IT          | 60000  |
+| 103         | Jack     | HR          | 55000  |
+| 104         | Jill     | IT          | 65000  |
+| 105         | James    | IT          | 70000  |
+| 106         | Jaden    | HR          | 52000  |
+
+#### **Aggregate Functions Example**
+
+1. **Sum of Salaries**:
+```sql
+SELECT SUM(Salary) AS Total_Salary FROM Employee_Salaries;
+```
+**Output**:
+| Total_Salary |
+|--------------|
+| 402000       |
+
+2. **Average Salary**:
+```sql
+SELECT AVG(Salary) AS Average_Salary FROM Employee_Salaries;
+```
+**Output**:
+| Average_Salary |
+|----------------|
+| 60000          |
+
+3. **Count of Employees in IT Department**:
+```sql
+SELECT Department, COUNT(*) AS Employee_Count 
+FROM Employee_Salaries
+WHERE Department = 'IT'
+GROUP BY Department;
+```
+**Output**:
+| Department | Employee_Count |
+|------------|----------------|
+| IT         | 3              |
+
+4. **Maximum Salary**:
+```sql
+SELECT MAX(Salary) AS Max_Salary FROM Employee_Salaries;
+```
+**Output**:
+| Max_Salary |
+|------------|
+| 70000      |
+
+---
+
+## 2. Window Functions
+
+Window functions operate on a set of rows related to the current row. They are used to perform calculations across a specified range of rows, and unlike aggregate functions, they do not collapse the result set.
+
+Common window functions include:
+
+- **ROW_NUMBER()**: Assigns a unique number to each row based on a given order.
+- **RANK()**: Assigns a rank to each row within a result set, with gaps in ranks for ties.
+- **DENSE_RANK()**: Similar to `RANK()` but without gaps for ties.
+- **NTILE()**: Divides rows into a specified number of buckets.
+- **SUM()**, **AVG()**, **MIN()**, **MAX()**: Can be used as window functions to perform calculations over a window of rows.
+
+#### Example with Window Functions
+
+1. **Row Number**:
+```sql
+SELECT Employee_ID, Name, Department, Salary,
+       ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNum
+FROM Employee_Salaries;
+```
+**Output**:
+| Employee_ID | Name     | Department  | Salary | RowNum |
+|-------------|----------|-------------|--------|--------|
+| 105         | James    | IT          | 70000  | 1      |
+| 104         | Jill     | IT          | 65000  | 2      |
+| 102         | Jane     | IT          | 60000  | 3      |
+| 103         | Jack     | HR          | 55000  | 4      |
+| 106         | Jaden    | HR          | 52000  | 5      |
+| 101         | John     | HR          | 50000  | 6      |
+
+2. **Rank Based on Salary**:
+```sql
+SELECT Employee_ID, Name, Department, Salary,
+       RANK() OVER (ORDER BY Salary DESC) AS Salary_Rank
+FROM Employee_Salaries;
+```
+**Output**:
+| Employee_ID | Name     | Department  | Salary | Salary_Rank |
+|-------------|----------|-------------|--------|-------------|
+| 105         | James    | IT          | 70000  | 1           |
+| 104         | Jill     | IT          | 65000  | 2           |
+| 102         | Jane     | IT          | 60000  | 3           |
+| 103         | Jack     | HR          | 55000  | 4           |
+| 106         | Jaden    | HR          | 52000  | 5           |
+| 101         | John     | HR          | 50000  | 6           |
+
+3. **Total Salary per Department (Window Function)**:
+```sql
+SELECT Employee_ID, Name, Department, Salary,
+       SUM(Salary) OVER (PARTITION BY Department) AS Dept_Total_Salary
+FROM Employee_Salaries;
+```
+**Output**:
+| Employee_ID | Name     | Department  | Salary | Dept_Total_Salary |
+|-------------|----------|-------------|--------|-------------------|
+| 101         | John     | HR          | 50000  | 259000            |
+| 103         | Jack     | HR          | 55000  | 259000            |
+| 106         | Jaden    | HR          | 52000  | 259000            |
+| 102         | Jane     | IT          | 60000  | 195000            |
+| 104         | Jill     | IT          | 65000  | 195000            |
+| 105         | James    | IT          | 70000  | 195000            |
+
+4. **Average Salary per Department**:
+```sql
+SELECT Employee_ID, Name, Department, Salary,
+       AVG(Salary) OVER (PARTITION BY Department) AS Dept_Avg_Salary
+FROM Employee_Salaries;
+```
+**Output**:
+| Employee_ID | Name     | Department  | Salary | Dept_Avg_Salary |
+|-------------|----------|-------------|--------|-----------------|
+| 101         | John     | HR          | 50000  | 51833.33        |
+| 103         | Jack     | HR          | 55000  | 51833.33        |
+| 106         | Jaden    | HR          | 52000  | 51833.33        |
+| 102         | Jane     | IT          | 60000  | 65000           |
+| 104         | Jill     | IT          | 65000  | 65000           |
+| 105         | James    | IT          | 70000  | 65000           |
+
+---
+
+## 3. Summary of Key Differences Between Aggregate and Window Functions
+
+| **Aggregate Functions**                       | **Window Functions**                     |
+|-----------------------------------------------|------------------------------------------|
+| Collapse the result set to a single row       | Operate on a set of rows without collapsing the result set |
+| Must use `GROUP BY` for grouping data         | Can calculate over a window of rows without needing `GROUP BY` |
+| Return a single value for each group (if `GROUP BY` is used) | Return a value for each row within the window |
+| Example: `SUM(Salary)`, `COUNT(*)`, `AVG(Salary)` | Example: `ROW_NUMBER()`, `RANK()`, `SUM(Salary) OVER` |
+
+---
+
+## Conclusion
+
+- **Aggregate functions** are used for calculations like sums, averages, and counts over groups of data.
+- **Window functions** allow you to perform calculations across a set of rows while keeping the result set intact, providing more granular analysis and insights.
+
+Feel free to copy the code and try it out to understand how each function works!
+
+
 # SQL Aggregate and Window Functions
 
 ## Table Setup
@@ -314,3 +479,6 @@ FROM faculty;
 By combining both **Aggregate Functions** and **Window Functions**, SQL allows you to perform advanced data analysis and generate meaningful insights across your data. Understanding and utilizing these concepts effectively will enable you to handle complex queries and reports.
 
 Let me know if you'd like further explanations or have specific questions!
+
+
+Feel free to copy the code and try it out to understand how each function works!
