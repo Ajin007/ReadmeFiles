@@ -69,6 +69,18 @@ SELECT MAX(Salary) AS Max_Salary FROM Employee_Salaries;
 
 Window functions operate on a set of rows related to the current row. They are used to perform calculations across a specified range of rows, and unlike aggregate functions, they do not collapse the result set.
 
+## Difference between the stored procedure and the window function
+              | **Feature**               | **Function**                                                                                            | **Stored Procedure**                                                          |
+       | ------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+       | **Purpose**               | Perform calculations and return a single value                                                          | Execute multiple SQL statements, possibly modifying data                      |
+       | **Return Type**           | Returns a single value or a table                                                                       | May or may not return a result set, depending on implementation               |
+       | **Usage**                 | Typically used in SELECT, WHERE, or ORDER BY clauses                                                    | Can execute as a standalone command or called from application code           |
+       | **Window Function Usage** | Window functions are built-in functions for partitioning and calculating over rows in SELECT statements | Stored procedures can call window functions but don't directly implement them |
+       | **State of Data**         | Does not modify data, only computes a result                                                            | Can modify data (insert, update, delete), call other procedures               |
+       | **Reusability**           | Reusable within any query context like SELECT                                                           | Reusable across queries, often for complex logic or repetitive tasks          |
+       | **Performance**           | Generally optimized for calculations within queries                                                     | Might have more overhead due to procedural logic and multiple steps           |
+
+
 ## what is Result set ?
        A result set in the context of databases refers to the collection of rows (and columns) returned by a query after it has been executed.
 
