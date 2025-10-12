@@ -288,3 +288,79 @@ Hive supports multiple query execution engines, each with its own advantages and
 - **Tez**: Faster Hive queries for medium datasets.  
 - **Spark**: Interactive queries, low-latency analytics, and machine learning workloads.
 
+## Questions:
+1. what is the use of the metastore ? ----> 
+                    ###=Definition:
+                  The Hive Metastore is a central repository that stores metadata about Hive tables, partitions, databases, columns, data types, and the location of data     in HDFS.
+        
+        Key Points:
+        
+        Hive does not store the actual data; it stores metadata.
+        
+        Typically backed by a relational database like MySQL, PostgreSQL, or Derby.
+        
+        Enables Hive to know where data is stored and how it is structured.
+        
+        Acts as a bridge between Hive CLI/clients and HDFS data
+
+2. What is Hive server ?
+        Definition:
+          The HiveServer (usually HiveServer2) is a service that allows clients to execute Hive queries over a network.
+          
+          Key Points:
+          
+          Provides a JDBC/ODBC interface for applications to interact with Hive.
+          
+          Handles authentication, session management, query execution, and result fetching.
+          
+          Supports multi-user access, unlike the original Hive CLI.
+          
+          HiveServer2 uses the Metastore to get metadata about tables and schemas.
+
+3. How to create a ACID propertybasd table ?
+
+            CREATE TABLE acid_table (
+            id INT,
+            name STRING
+        )
+        CLUSTERED BY (id) INTO 4 BUCKETS
+        STORED AS ORC
+        TBLPROPERTIES ('transactional'='true');
+        Explanation:
+        ACID Table
+        
+        TBLPROPERTIES ('transactional'='true') makes the table transactional.
+        
+        ACID (Atomicity, Consistency, Isolation, Durability) allows:
+        
+        INSERT
+        
+        UPDATE
+        
+        DELETE
+        
+        MERGE
+        
+        Bucketing
+        
+        CLUSTERED BY (id) INTO 4 BUCKETS
+        
+        Hive splits the data into 4 physical files (buckets) based on the hash of the id column.
+        
+        Why use bucketing?
+        
+        Required for ACID operations.
+        
+        Improves query performance, especially joins.
+        
+        Helps evenly distribute data across files.
+        
+        ORC Format
+        
+        STORED AS ORC
+        
+        ORC files are optimized columnar storage format.
+        
+        Required for ACID tables because ORC supports row-level updates.
+        
+            
