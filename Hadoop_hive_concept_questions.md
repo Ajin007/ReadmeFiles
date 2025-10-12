@@ -198,3 +198,93 @@ DELETE FROM employees WHERE emp_id = 1;
 - **Read**: When querying the salary of employees.
 - **Update**: When an employee's salary is updated.
 - **Delete**: When an employee leaves the company and their record needs to be removed.
+
+# Hive Query Execution Engines: MR, Tez, and Spark
+
+Hive supports multiple query execution engines, each with its own advantages and trade-offs.  
+
+---
+
+## 1. MapReduce (MR)
+
+**Description:**  
+- Original execution engine for Hive.  
+- Uses Hadoop MapReduce framework to process queries in a batch-oriented way.
+
+**Advantages:**  
+- Stable and mature.  
+- Fault-tolerant (handles task failures automatically).  
+- Works in any Hadoop cluster.
+
+**Disadvantages:**  
+- Slower due to high startup overhead.  
+- Not interactive; long query execution times.  
+- Batch-oriented; each query creates multiple MapReduce jobs.
+
+**Use Case:**  
+- Large, offline batch processing where query speed is not critical.
+
+---
+
+## 2. Apache Tez
+
+**Description:**  
+- DAG (Directed Acyclic Graph) execution engine for Hadoop.  
+- Combines multiple MapReduce stages into a single DAG of tasks.
+
+**Advantages:**  
+- Faster than MapReduce; reduces job startup overhead.  
+- Efficient resource usage (fewer containers, less disk I/O).  
+- Supports interactive queries better than MR.
+
+**Disadvantages:**  
+- Requires Tez installation and configuration.  
+- Slightly more complex to debug than MR.
+
+**Use Case:**  
+- Medium to large datasets needing faster query execution.  
+- Interactive Hive queries.
+
+---
+
+## 3. Apache Spark
+
+**Description:**  
+- Memory-centric distributed computation engine.  
+- Hive queries can be executed using Spark as the backend.
+
+**Advantages:**  
+- Very fast due to in-memory computation.  
+- Supports complex analytics (ML, graph, streaming).  
+- Suitable for interactive & low-latency queries.
+
+**Disadvantages:**  
+- Memory-intensive; requires sufficient cluster RAM.  
+- Complex setup and configuration.  
+- Not ideal for small clusters with low resources.
+
+**Use Case:**  
+- Real-time or interactive analytics.  
+- Large-scale data transformation and machine learning.
+
+---
+
+## Comparison Table
+
+| Feature                     | MapReduce (MR)         | Tez                        | Spark                     |
+|-------------------------------|----------------------|----------------------------|--------------------------|
+| Speed                         | Slow                 | Faster than MR             | Fastest (in-memory)      |
+| Latency                       | High                 | Medium                     | Low                      |
+| Fault Tolerance               | Excellent            | Good                       | Good                     |
+| Resource Efficiency           | Low                  | Medium                     | High (RAM-intensive)     |
+| Best for                      | Batch processing     | Interactive Hive queries   | Analytics, ML, streaming |
+| Complexity                    | Low                  | Medium                     | High                     |
+
+---
+
+## Summary
+
+- **MR**: Stable, batch jobs.  
+- **Tez**: Faster Hive queries for medium datasets.  
+- **Spark**: Interactive queries, low-latency analytics, and machine learning workloads.
+
