@@ -306,3 +306,338 @@ Which component handles Excel input for multiple test data?
 - c) ExtentReport Class
 - d) TestListener  
 **✅ Answer:** b)
+
+
+Mini Test App Snippets (to plug into any sandbox)
+2.1 Shadow DOM host (simplified)
+<app-drawer>
+  #shadow-root
+    <header><span class="title">Orders Drawer</span></header>
+    <section>...</section>
+</app-drawer>
+
+2.2 Angular-style table
+<table role="grid" class="mat-table">
+  <thead><tr><th>Order ID</th><th>Status</th><th>Total</th></tr></thead>
+  <tbody>
+    <tr><td>O-1001</td><td>Shipped</td><td>₹ 5,600</td></tr>
+    <tr><td>O-1002</td><td>Processing</td><td>₹ 2,300</td></tr>
+  </tbody>
+</table>
+
+2.3 iframe wrapper
+<iframe id="content-frame" src="/embedded.html"></iframe>
+
+2.4 React virtualized list (conceptual)
+<div class="react-virtualized">
+  <div role="row">Item 1</div>
+  <div role="row">Item 2</div>
+</div>
+
+3) Hard, Code-Based MCQs (tough level) — with options & answers
+MCQ-1 (Shadow DOM)
+
+You must click a button inside Shadow DOM:
+
+<order-panel>
+  #shadow-root
+    <div class="toolbar">
+      <button id="approve">Approve</button>
+    </div>
+</order-panel>
+
+
+Which Java code correctly clicks Approve?
+
+a) driver.findElement(By.cssSelector("order-panel #approve")).click();
+b)
+
+WebElement host = driver.findElement(By.cssSelector("order-panel"));
+host.getShadowRoot().findElement(By.cssSelector("#approve")).click();
+
+
+c)
+
+WebElement host = driver.findElement(By.cssSelector("order-panel"));
+host.findElement(By.cssSelector("#approve")).click();
+
+
+d)
+
+((JavascriptExecutor)driver).executeScript("document.querySelector('#approve').click()");
+
+
+Answer: b)
+Why: Selenium 4 requires getShadowRoot() on the host to pierce shadow boundary.
+
+MCQ-2 (Backward traversal)
+
+HTML:
+
+<div class="field">
+  <label>PIN Code</label>
+  <div><input id="pin"><button class="act">Validate</button></div>
+</div>
+
+
+Pick an XPath that finds the Validate button by starting from the label text:
+
+a) //label[.='PIN Code']/../button
+b) //label[.='PIN Code']/ancestor::div[contains(@class,'field')][1]//button[@class='act']
+c) //button[preceding-sibling::label='PIN Code']
+d) //label[text()='PIN Code']/following::button[1]
+
+Answer: b)
+Why: Go up to nearest .field, then down to the button reliably.
+
+MCQ-3 (Angular infinite scroll + React)
+
+You must ensure “Invoice #500” is visible in a virtualized list (React) that only renders visible rows. Which is most robust?
+
+a)
+
+driver.findElement(By.xpath("//*[text()='Invoice #500']")).isDisplayed();
+
+
+b)
+
+for(int i=0;i<30;i++){
+  if(!driver.findElements(By.xpath("//*[text()='Invoice #500']")).isEmpty()) break;
+  ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,700)");
+  Thread.sleep(250);
+}
+
+
+c)
+
+new Actions(driver).scrollByAmount(0, 10000).perform();
+
+
+d)
+
+((JavascriptExecutor)driver).executeScript("document.body.scrollTop=document.body.scrollHeight");
+
+
+Answer: b)
+Why: Progressive scroll with presence check suits virtualized lists.
+
+MCQ-4 (iframe + locator strategy)
+
+You must type into #email that is inside an iframe #auth-iframe. What is correct?
+
+a)
+
+driver.switchTo().frame("auth-iframe");
+driver.findElement(By.id("email")).sendKeys("e@x.com");
+driver.switchTo().defaultContent();
+
+
+b)
+
+driver.findElement(By.id("auth-iframe")).sendKeys("e@x.com");
+
+
+c)
+
+driver.switchTo().frame(driver.findElement(By.id("auth-iframe")));
+driver.findElement(By.cssSelector("#email")).sendKeys("e@x.com");
+driver.switchTo().parentFrame();
+
+
+d) Both a and c
+
+Answer: d)
+
+MCQ-5 (Tables: dynamic column by header)
+
+HTML headers change order. Which code reads the cell in row 3 under header “Amount”?
+
+a)
+
+int idx = driver.findElements(By.cssSelector("thead th"))
+  .indexOf("Amount") + 1;
+
+
+b)
+
+List<WebElement> ths = driver.findElements(By.cssSelector("thead th"));
+int idx=-1; for(int i=0;i<ths.size();i++) if(ths.get(i).getText().trim().equals("Amount")) { idx=i+1; break; }
+String val = driver.findElement(By.xpath("(//tbody/tr)[3]/td["+idx+"]")).getText();
+
+
+c)
+
+String val = driver.findElement(By.xpath("//td[.='Amount'][3]")).getText();
+
+
+d)
+
+String val = driver.findElement(By.cssSelector("tbody tr:nth-child(3) td[data-col='Amount']")).getText();
+
+
+Answer: b)
+
+MCQ-6 (POI modeling — numeric vs string)
+
+You must read a cell that may be numeric or string. Which is safest?
+
+a)
+
+cell.getStringCellValue();
+
+
+b)
+
+String v = new DataFormatter().formatCellValue(cell);
+
+
+c)
+
+String v = String.valueOf(cell.getNumericCellValue());
+
+
+d)
+
+String v = cell.toString();
+
+
+Answer: b)
+
+MCQ-7 (Log4j2 per-thread logs)
+
+Best way to emit per-thread file logs without separate configs?
+
+a) Use %d in pattern
+b) Use ThreadContext.put("threadName", ...) and reference ${ctx:threadName} in appender fileName
+c) Use a single RollingFile for all threads
+d) Use System.setProperty("thread")
+
+Answer: b)
+
+MCQ-8 (Shadow DOM + nested)
+
+Host inside host:
+
+<shell-root>
+ #shadow-root
+  <panel-drawer>
+   #shadow-root
+    <button class="ok">OK</button>
+  </panel-drawer>
+</shell-root>
+
+
+Which code clicks OK?
+
+a)
+
+driver.findElement(By.cssSelector("shell-root panel-drawer .ok")).click();
+
+
+b)
+
+SearchContext s1 = driver.findElement(By.cssSelector("shell-root")).getShadowRoot();
+SearchContext s2 = s1.findElement(By.cssSelector("panel-drawer")).getShadowRoot();
+s2.findElement(By.cssSelector("button.ok")).click();
+
+
+c)
+
+((JavascriptExecutor)driver).executeScript("document.querySelector('button.ok').click()");
+
+
+d)
+
+driver.switchTo().frame("panel-drawer").findElement(By.cssSelector(".ok")).click();
+
+
+Answer: b)
+
+MCQ-9 (DOM backward axis / sibling precise)
+
+Choose the most stable XPath to hit the edit icon next to the User ID value:
+
+<div class="row">
+  <span class="label">User ID</span>
+  <span class="value">U-0099</span>
+  <button class="edit">✎</button>
+</div>
+
+
+a) //button[@class='edit']
+b) //span[text()='User ID']/following-sibling::button[@class='edit']
+c) //span[text()='User ID']/parent::div//button[@class='edit']
+d) //*[@class='row']//button
+
+Answer: c)
+Why: Ties the button to its labeled row; resilient if additional spans appear.
+
+MCQ-10 (React portal + scrolling)
+
+Tooltip content rendered into body via React portal after hover:
+
+<div class="cell" data-id="A1">Amount</div>
+<!-- later -->
+<div class="portal tooltip">Net Amount: ₹ 7500</div>
+
+
+To assert tooltip text:
+
+a)
+
+new Actions(driver).moveToElement(driver.findElement(By.cssSelector(".cell[data-id='A1']"))).perform();
+new WebDriverWait(driver, Duration.ofSeconds(5))
+  .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".portal.tooltip")));
+String tip = driver.findElement(By.cssSelector(".portal.tooltip")).getText();
+
+
+b) driver.findElement(By.cssSelector(".portal.tooltip")).getText();
+c) driver.findElement(By.cssSelector(".cell[data-id='A1']")).getText();
+d) Use alert.getText()
+
+Answer: a)
+
+MCQ-11 (All locator strategies — trick)
+
+You must click only this button:
+
+<button class="cta primary" data-id="save">Save</button>
+
+
+Pick the most specific locator:
+
+a) By.cssSelector("button.cta.primary[data-id='save']")
+b) By.className("cta primary")
+c) By.xpath("//button[text()='Save']")
+d) By.tagName("button")
+
+Answer: a)
+
+MCQ-12 (Scrolling large Angular grid)
+
+Which approach is best to reliably fetch the last row text in a large, virtualized Angular grid?
+
+a)
+
+((JavascriptExecutor)driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+driver.findElement(By.cssSelector("table tr:last-child")).getText();
+
+
+b)
+
+for(int i=0;i<40;i++){
+ ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,800)");
+ if(!driver.findElements(By.cssSelector("table[role='grid'] .end-flag")).isEmpty()) break;
+}
+String last = driver.findElement(By.cssSelector("table[role='grid'] tbody tr:last-child")).getText();
+
+
+c) new Actions(driver).scrollByAmount(0, 999999).perform();
+d) driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+
+Answer: b)
+Why: Incremental scroll with a sentinel (e.g., hidden “end-flag”) is reliable for virtualized content.
+
+Answer Key (MCQs 1–12)
+
+b 2) b 3) b 4) d 5) b 6) b 7) b 8) b 9) c 10) a 11) a 12) b
