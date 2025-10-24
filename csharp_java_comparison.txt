@@ -270,3 +270,149 @@ System.out.println(clazz.getName());
 Both C# and Java are powerful languages that share many similarities but have different ecosystems. C# is often used in Windows-based development and .NET applications, while Java excels in cross-platform applications, particularly on Android and large-scale enterprise solutions.
 
 For someone with a Java background, transitioning to C# will feel intuitive because both languages share similar paradigms and structures.
+
+
+
+C# Access Modifiers:
+
+1. public:
+- Description: The public access modifier allows the member to be accessed from anywhere, both within the class and outside of it.
+- Example:
+public class Person
+{
+    public string name;
+    public void Display()
+    {
+        Console.WriteLine("Name: " + name);
+    }
+}
+
+2. private:
+- Description: The private access modifier restricts the member's visibility to within the class. It cannot be accessed outside the class.
+- Example:
+public class Person
+{
+    private string name;
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+}
+
+3. protected:
+- Description: The protected modifier allows access to the member within the class and derived classes (subclasses).
+- Example:
+public class Person
+{
+    protected string name;
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+}
+
+4. internal:
+- Description: The internal modifier makes the member accessible only within the same assembly (project or DLL). It cannot be accessed outside the assembly.
+- Example:
+public class Person
+{
+    internal string name;
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+}
+
+5. protected internal:
+- Description: The protected internal modifier allows access to the member from the same assembly or from derived classes, regardless of the assembly.
+- Example:
+public class Person
+{
+    protected internal string name;
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+}
+
+6. private protected (C# 7.2 and later):
+- Description: The private protected modifier allows access to the member within the same class, derived classes, and within the same assembly.
+- Example:
+public class Person
+{
+    private protected string name;
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+}
+
+-------------------------------------------
+Java Access Modifiers:
+
+1. public:
+- Description: In Java, the public access modifier allows access from anywhere, including different packages.
+- Example:
+public class Person
+{
+    public String name;
+    public void display()
+    {
+        System.out.println("Name: " + name);
+    }
+}
+
+2. private:
+- Description: In Java, the private access modifier restricts access to the member within the same class.
+- Example:
+public class Person
+{
+    private String name;
+    public void setName(String newName)
+    {
+        name = newName;
+    }
+}
+
+3. protected:
+- Description: In Java, the protected modifier allows access within the class and derived classes (subclasses).
+- Example:
+public class Person
+{
+    protected String name;
+    public void setName(String newName)
+    {
+        name = newName;
+    }
+}
+
+4. package-private (default, no modifier):
+- Description: In Java, when no modifier is provided, the member is accessible only within the same package. This is similar to `internal` in C#.
+- Example:
+class Person
+{
+    String name;
+    public void setName(String newName)
+    {
+        name = newName;
+    }
+}
+
+5. protected internal (Not available in Java):
+- Description: In C#, this modifier allows access within the same assembly or from derived classes, regardless of the assembly. There is no direct equivalent in Java.
+
+6. private protected (Not available in Java):
+- Description: In C#, this modifier allows access within the same class, derived classes, and within the same assembly. There is no direct equivalent in Java.
+
+-------------------------------------------
+Summary Comparison:
+
+| Modifier             | C#                             | Java                          |
+|----------------------|---------------------------------|-------------------------------|
+| **public**           | Accessible from anywhere        | Accessible from anywhere      |
+| **private**          | Accessible within the same class | Accessible within the same class |
+| **protected**        | Accessible within class & subclasses | Accessible within class & subclasses |
+| **internal**         | Accessible within the same assembly | Package-private (no modifier) |
+| **protected internal** | Accessible within the same assembly or derived classes | Not available in Java         |
+| **private protected** | Accessible within the same class, derived classes, and assembly | Not available in Java         |
+
