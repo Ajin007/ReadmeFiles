@@ -1,0 +1,101 @@
+1. what is DCE stands for in networking?
+
+Role: The DCE provides the clock signal to synchronize the data transfer between two serial devices. 
+Function: It handles signal conversion, making data from the DTE compatible with the transmission medium. 
+Examples: Historically, a modem was a common example of a DCE. In modern networks, the role can be played by devices like a CSU/DSU (Channel Service Unit/Data Service Unit). 
+DTE vs. DCE: The other end of the connection is the DTE, which is the device generating the data, such as a router or a computer. The DCE and DTE are connected by a serial cable, and in a typical setup, the DCE provides the clocking signal that the DTE uses for synchronization. 
+
+2. what is CIDR ?
+
+Purpose: Replaced the old classful IP addressing system to address IPv4 address exhaustion and simplify routing tables. 
+ How it works: Allows for the aggregation of multiple networks into a single, larger "supernet" for routing purposes, reducing the amount of information routers need to store. 
+ Notation: Uses a slash followed by a number to indicate the number of bits used for the network portion of an IP address (e.g., \(192.0.2.0/24\)).  Application: Primarily used by Internet Service Providers (ISPs) when advertising routes to other networks on the internet. 
+
+3. what is VLSM ?
+
+CIDR provides the larger blocks of IP addresses that are then subnetted using VLSM. 
+VLSM is the mechanism that makes the best use of the IP address space that has been allocated via CIDR. 
+CIDR is about route summarization for the outside world (e.g., ISP to ISP), while VLSM is about efficient internal network design. 
+
+4. what is WIC-1T and WIC-2T ?
+
+Cisco serial WAN Interface Cards (WICs) that connect Cisco routers to a wide area network (WAN).
+
+Key similarities
+Purpose: Both are designed to add serial WAN connectivity to Cisco modular routers. 
+Flexibility: Both can support different serial interface types (e.g., V.35, RS-232, X.21) by using different transition cables. 
+Application: They are used for creating leased line connections, backup links, and connecting to legacy network devices. 
+
+5. In WIC what is the difference between the 0/0/0 and 0/3/0 ?
+6. What is the difference between the IpAddress and the default Gateway?
+
+IPv4 address
+Function: Identifies a specific device on a local network, similar to a house number. 
+Type: A 32-bit number used for communication both within the local network and between networks. 
+Uniqueness: Must be unique for every device on a given network. 
+Default gateway
+Function: A router's IPv4 address that devices use to send traffic outside of their local network, like sending mail to a different city.
+Type: It is a specific IPv4 address, but its function is to act as a gateway, not just an identifier.
+Uniqueness: There is typically only one default gateway for a local network. 
+
+7. what is eigrp?
+
+Example:
+If three routers (R1, R2, R3) are connected in a network:
+
+Each router shares its directly connected networks with others using EIGRP.
+
+When a link goes down, only affected routers exchange updates.
+
+The protocol recalculates routes using the DUAL algorithm to maintain efficient, loop-free paths.
+
+EIGRP (Enhanced Interior Gateway Routing Protocol) is a dynamic routing protocol developed by Cisco Systems. It’s used by routers to share information about networks within the same autonomous system, helping them automatically determine the best path for data packets.
+
+EIGRP calculates the best route based on multiple factors:
+
+Bandwidth
+
+Delay
+
+Load
+
+Reliability
+
+(Default metric = Bandwidth + Delay)
+
+8. what is the use of "show ip interface brief"
+9. what is Ospf ?
+
+OSPF is open standard and works well in multi-vendor environments, whereas EIGRP is a Cisco proprietary protocol.
+
+OSPF has more scalability options for larger networks due to hierarchical routing with areas, while EIGRP is better for smaller to medium-sized networks.
+
+Router(config)# router ospf 1
+Router(config-router)# network 192.168.1.0 0.0.0.255 area 0
+Router(config-router)# network 192.168.2.0 0.0.0.255 area 1
+Router(config-router)# passive-interface default
+Router(config-router)# no passive-interface gigabitEthernet 0/1
+
+10. What is pAgP(Port Aggregation Protocol)...?
+Port Aggregation Protocol (pAgP) is a Cisco proprietary protocol used to automatically bundle multiple physical Ethernet links into one logical link, known as an EtherChannel. It helps in providing redundancy, load balancing, and increased bandwidth between two network devices, such as switches. pAgP allows for the automatic configuration of the aggregated links, ensuring that all links in the bundle are active and functioning properly. There are two modes of pAgP: Desirable and Auto. In Desirable mode, the switch actively tries to form an EtherChannel, while in Auto mode, it only responds to the request from the other side.
+
+11. What is redundancy 	in the network ?
+If one link fails, the others keep working - no connection loss.
+
+12. What is etherChannel ?
+EtherChannel can be configured manually or automatically using protocols like LACP (Link Aggregation Control Protocol) or pAgP (Port Aggregation Protocol). It is commonly used between switches, routers, and servers to maximize throughput and reliability in high-traffic network environments.
+
+13. How to active the interface fa0/1-3 in terminal?
+interface range fa0/1-3
+no shutdown
+
+14. what is switchport mode trunk ?
+configures the selected interfaces to trunk mode, allowing multiple VLAN to be carried.
+
+15. How to create a etherChannel ?
+channel-group 1 mode desirable
+
+16. 
+
+
+
