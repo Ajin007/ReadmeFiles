@@ -567,8 +567,13 @@ The translation process that transforms one version of JavaScript to another ver
 27. **ng-Content**
 This one helps to get the Html values from the parent directly to apply in the child component using the <ng-content /ng-content> tags
 
+28. **why --no-standalone to be used in the angular 16 ?
+ng new my-modular-app --no-standalone
+This ensure the modular approach is still followed in the project for the same, which achieves 100 percent industry based project.
+
 28. why ng-form is used for ?
 ngModel is typically used in template-driven forms.
 In reactive forms, Angular uses FormControl and FormGroup instead, which provides more control and flexibility for managing form state and validation.
 
 29. Behavioural
+
