@@ -4,7 +4,34 @@
 1. gradle --version
 2. gradle tasks --all ----> all the tasks that can be used will be reflected after this comment.
 3. Example --- > gradle build, gradle bootRun
-   
+
+## what is API Contract:
+The software industry has adopted several patterns for capturing agreed upon API behavior in documentation and code. These agreements are often called "contracts". Two examples include Consumer Driven Contracts and Provider Driven Contracts. We'll provide resources for these patterns, but won't discuss them in detail in this course. Instead, we'll discuss a lightweight concept called API contracts.
+~~~
+Request
+  URI: /cashcards/{id}
+  HTTP Verb: GET
+  Body: None
+
+Response:
+  HTTP Status:
+    200 OK if the user is authorized and the Cash Card was successfully retrieved
+    401 UNAUTHORIZED if the user is unauthenticated or unauthorized
+    404 NOT FOUND if the user is authenticated and authorized but the Cash Card cannot be found
+  Response Body Type: JSON
+  Example Response Body:
+    {
+      "id": 99,
+      "amount": 123.45
+    }
+
+   ~~~
+## what is Test Driven Approach:
+<img width="982" height="750" alt="image" src="https://github.com/user-attachments/assets/a6576a7d-b536-4e4d-87f9-0b59dfe69479" />
+## How the Test Driven Approach to be written :
+<img width="1087" height="439" alt="image" src="https://github.com/user-attachments/assets/386cdc50-db23-43cf-b291-69936a2cbd37" />
+
+
 ## Sping data JPA
 1. If you are using a reactive store you might choose ReactiveCrudRepository, or RxJava3CrudRepository depending on which reactive framework you are using.
 2. If you are using Kotlin you might pick CoroutineCrudRepository which utilizes Kotlin’s coroutines.
@@ -2458,4 +2485,5 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
