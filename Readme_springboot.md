@@ -1,5 +1,10 @@
 # Spring understanding
 
+## Gradle basics:
+1. gradle --version
+2. gradle tasks --all ----> all the tasks that can be used will be reflected after this comment.
+3. Example --- > gradle build, gradle bootRun
+   
 ## Sping data JPA
 1. If you are using a reactive store you might choose ReactiveCrudRepository, or RxJava3CrudRepository depending on which reactive framework you are using.
 2. If you are using Kotlin you might pick CoroutineCrudRepository which utilizes Kotlin’s coroutines.
@@ -2453,3 +2458,4 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
