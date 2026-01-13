@@ -31,6 +31,24 @@ Response:
 ## How the Test Driven Approach to be written :
 <img width="1087" height="439" alt="image" src="https://github.com/user-attachments/assets/386cdc50-db23-43cf-b291-69936a2cbd37" />
 
+## why to create the class with the record as a prefix ?
+~~~
+public record Person(String name, int age) {}  // A simple record to store name and age
+
+public class Main {
+    public static void main(String[] args) {
+        Person person = new Person("Alice", 30);  // Create a new person
+        System.out.println(person.name());         // Access the name
+        System.out.println(person);                // The toString() method is automatically generated
+    }
+}
+
+~~~
+In Summary
+
+Advantages: Less code, immutability, automatic methods for comparison and string representation.(Actually no need for getter ,constructor, all are final, no overide required for equals , no override required for the hashcode).
+
+Disadvantages: No modification after creation, no inheritance, limited to simple data storage use cases.
 
 ## Sping data JPA
 1. If you are using a reactive store you might choose ReactiveCrudRepository, or RxJava3CrudRepository depending on which reactive framework you are using.
@@ -2485,5 +2503,6 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
