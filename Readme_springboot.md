@@ -1,4 +1,7 @@
 # Spring understanding
+
+## Tester framework used in the spring is :
+JacksoinTester<Class name> reference_name;
 ## what is the Text Block in the Java - 13:
 ~~~
 String name = "Alice";
@@ -2518,6 +2521,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
