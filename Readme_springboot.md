@@ -1,4 +1,6 @@
 # Spring understanding
+## where the bean is stored in the Spring ?
+It is stored in the spring IOC ontainer.
 ## what is REST ?
 Let’s start with a concise definition of REST: Representational State Transfer. In a RESTful system, data objects are called Resource Representations. The purpose of a RESTful API (Application Programming Interface) is to manage the state of these Resources.
 
@@ -2524,6 +2526,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
