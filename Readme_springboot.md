@@ -1,4 +1,19 @@
 # Spring understanding
+## what is the Text Block in the Java - 13:
+~~~
+String name = "Alice";
+// Not directly allowed:
+// String text = """Hello, {name}!""";
+
+// Correct way using String.format():
+String formattedText = String.format("""
+    Hello, %s!
+    """, name);
+
+~~~
+String = """
+
+		"""
 
 ## Gradle basics:
 1. gradle --version
@@ -2503,6 +2518,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
