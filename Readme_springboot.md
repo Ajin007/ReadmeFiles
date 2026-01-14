@@ -1,5 +1,8 @@
 # Spring understanding
+## what is REST ?
+Let’s start with a concise definition of REST: Representational State Transfer. In a RESTful system, data objects are called Resource Representations. The purpose of a RESTful API (Application Programming Interface) is to manage the state of these Resources.
 
+Said another way, you can think of “state” being “value” and “Resource Representation” being an “object” or "thing". Therefore, REST is just a way to manage the values of things. Those things might be accessed via an API, and are often stored in a persistent data store, such as a database.
 ## Tester framework used in the spring is :
 JacksoinTester<Class name> reference_name;
 ## what is the Text Block in the Java - 13:
@@ -2521,6 +2524,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
