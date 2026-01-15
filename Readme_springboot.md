@@ -1,4 +1,16 @@
 # Spring understanding
+## what is Idempotence operation in Http:
+An idempotent operation is defined as one which, if performed more than once, results in the same outcome. In a REST API, an idempotent operation is one that even if it were to be performed several times, the resulting data on the server would be the same as if it had been performed only once.
+
+For each method, the HTTP standard specifies whether it is idempotent or not. GET, PUT, and DELETE are idempotent, whereas POST and PATCH are not.
+~~~
+## post operation expected data 
+return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .header(HttpHeaders.LOCATION, uriOfCashCard.toASCIIString())
+        .build();
+
+~~~
 ## what is the valid status codes of the Http calls ?
 Values outside the range 100..599 are invalid. Implementations often use three-digit integer values outside of that range (i.e., 600..999) for internal communication of non-HTTP status (e.g., library errors). A client that receives a response with an invalid status code SHOULD process the response as if it had a 5xx (Server Error) status code.
 
@@ -2551,6 +2563,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
