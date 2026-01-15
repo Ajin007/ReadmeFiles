@@ -1,5 +1,19 @@
 # Spring understanding
 
+## Why no such Bean exception came in the project ?
+org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'example.cashcard.CashCardRepository' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Clues such as NoSuchBeanDefinitionException, No qualifying bean, and expected at least 1 bean which qualifies as autowire candidate tell us that Spring is trying to find a properly configured class to provide during the dependency injection phase of Auto Configuration, but none qualify.
+
+We can satisfy this DI requirement by extending the CrudRepository.
+## What is the refractor model in the Springboot:
+Refactoring is the act of altering the implementation of a software system without altering its inputs, outputs, or behavior.
+
+Our tests will allow us to change the implementation of our Cash Card API's data management from hard-coded data inside our Controller, to utilizing a Repository and database.
+
+This lab is a continuous example of the Red, Green, Refactor development loop that we learned about in a previous lesson.
+
+As we refactor, our tests will periodically fail when we run them. We'll know we've successfully removed all hard-coded data from our Controller and "migrated" that data (and data management) to a database-backed Repository when our tests pass again.
+## 
 ## How to test the Spring boot based project and what is the annotation for the same?
 1. Annotation used ----> @SpringbootTest
 2. Template used to get all the datas from the end point is ----> TestRestTemplate
@@ -2533,6 +2547,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
