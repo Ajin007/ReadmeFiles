@@ -1,4 +1,7 @@
 # Spring understanding
+## what is the valid status codes of the Http calls ?
+Values outside the range 100..599 are invalid. Implementations often use three-digit integer values outside of that range (i.e., 600..999) for internal communication of non-HTTP status (e.g., library errors). A client that receives a response with an invalid status code SHOULD process the response as if it had a 5xx (Server Error) status code.
+
 ## How to use the best way in the post method ?
 https://www.rfc-editor.org/rfc/rfc9110#name-post
 ## Why no such Bean exception came in the project ?
@@ -2548,6 +2551,7 @@ while using the @value anotation:
 		Goal			Ensure recent changes didn't break existing features.		Verify the system is stable for further testing.
 	5. Which annotation is used for testing with out starting the server.
     		
+
 
 
 
